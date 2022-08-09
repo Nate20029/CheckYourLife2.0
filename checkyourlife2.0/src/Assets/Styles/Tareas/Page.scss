@@ -1,0 +1,63 @@
+@import './TaskItem.scss';
+@import './DateItem.scss';
+
+.task_page_general_container {
+  width: 100%;
+  height: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tasks_container {
+  width: 50vw;
+  height: 60vh;
+  padding: 1vh;
+  border-radius: 1vh;
+  background-color: antiquewhite;
+}
+
+.task_header {
+  width: 100%;
+  height: 15%;
+  border-radius: 1vh;
+  padding: 1vh;
+  background-color: aliceblue;
+}
+
+.dates_carousel {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin-bottom: -26px;
+}
+
+.dates_inner_carousel {
+  width: 100%;
+  height: 100%;
+  white-space: nowrap;
+  transition: transform 0.3s;
+}
+
+.arrows_container {
+  width: 100%;
+  display: flex;
+}
+
+.left_arrow_container {
+  width: 50%;
+}
+
+.right_arrow_container {
+  width: 50%;
+  display: flex;
+  justify-content: end;
+}
+
+.left_arrow {
+  margin-left: -5px;
+}
+
+.right_arrow {
+  margin-right: -5px;
+}
