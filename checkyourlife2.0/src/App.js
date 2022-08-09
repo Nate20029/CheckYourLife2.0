@@ -3,9 +3,9 @@ import {
   ChakraProvider,
   theme,
 } from '@chakra-ui/react';
+import { Route, Routes } from 'react-router-dom';
 import Login from './Pages/Login';
 import Home from './Pages/Home';
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
 function App() {
   return (
