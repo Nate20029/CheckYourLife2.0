@@ -1,18 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { Button, ButtonGroup } from '@chakra-ui/react'
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import React from 'react';
 
-function TaskItem({data}) {
-    const navigate = useNavigate();
-
-
-
+function TaskItem({ data }) {
   return (
-    <>
-        <div className="task_item_container">
-            {data}
-        </div>
-    </>
+    <div className="task_item_container">
+      {data}
+    </div>
   );
 }
 
