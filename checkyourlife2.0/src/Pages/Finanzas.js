@@ -23,10 +23,27 @@ function Finanzas() {
         templateColumns="repeat(5, 1fr)"
         gap={4}
       >
-        <GridItem rowSpan={2} colSpan={1} bg="tomato" />
-        <GridItem colSpan={2} bg="papayawhip" />
-        <GridItem colSpan={2} bg="papayawhip" />
-        <GridItem colSpan={4} bg="tomato" />
+        <GridItem className="padding" rowSpan={2} colSpan={1} bg="#f47140">
+          <div>
+            <h1 className="titulo">Titulo de finanzas</h1>
+            <p>Botones bonitos para agregar y eliminar gastos e ingresos</p>
+          </div>
+        </GridItem>
+        <GridItem className="padding" colSpan={2} bg="#36a7d9">
+          <div>
+            Grafica de barras
+          </div>
+        </GridItem>
+        <GridItem className="padding" colSpan={2} bg="#36a7d9">
+          <div>
+            Grafica de pie
+          </div>
+        </GridItem>
+        <GridItem className="padding" colSpan={4} bg="rgb(0,0,0,0.2)">
+          <div>
+            Tabla scrolleable
+          </div>
+        </GridItem>
       </Grid>
     </div>
   );
