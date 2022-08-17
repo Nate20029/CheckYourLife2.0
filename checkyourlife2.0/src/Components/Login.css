@@ -98,7 +98,7 @@ a {
 
 .user-box input {
     width: 100%;
-    padding: 15px 0;
+    padding: 10px 0;
     font-size: 16px;
     color: black;
     margin-bottom: 30px;
@@ -234,4 +234,37 @@ a span:nth-child(4) {
     100% {
         bottom: 100%;
     }
+}
+
+.direction {
+    flex-direction: row;
+    margin-top: 20;
+}
+
+.face {
+    height: 40;
+    width: 40;
+    border-radius: 40/2;
+    background-color: '#14279B';
+    align-items: center;
+    justify-content: center;
+}
+
+.google {
+    height: 40;
+    width: 40;
+    border-radius: 40/2;
+    background-color: '#f44336';
+    align-items: center;
+    justify-content: center;
+}
+
+.git {
+    height: 40;
+    width: 40;
+    border-radius: 40/2;
+    background-color: '#1565c0';
+    align-items: center;
+    justify-content: center;
+
 }

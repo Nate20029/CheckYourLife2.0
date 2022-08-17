@@ -19,6 +19,8 @@ module.exports = {
     'react',
   ],
   rules: {
+    "jsx-a11y/click-events-have-key-events":0,
+    "jsx-a11y/no-noninteractive-element-interaction":"off",
     "no-console": "off",
     "no-alert": "off",
     'Block must not be padded by blank lines':0,

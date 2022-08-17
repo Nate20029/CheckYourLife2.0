@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged,
-  sendPasswordResetEmail,
+  sendPasswordResetEmail, signInWithPopup, GoogleAuthProvider, GithubAuthProvider,
+  FacebookAuthProvider,
 } from 'firebase/auth';
 import { auth } from '../Services/firebase.js';
 import '../Components/Login.css';
@@ -49,6 +50,33 @@ function Login() {
       alert(`Se ha enviado un correo a ${email} para reestablecer la contraseña`);
       sendPasswordResetEmail(auth, email);
     }
+  };
+
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, new GoogleAuthProvider())
+      .then((userCredentials) => {
+        const { user } = userCredentials;
+        console.log('Logged in with:', user.email);
+      })
+      .catch((error) => alert(error.message));
+  };
+
+  const signInWithGithub = () => {
+    signInWithPopup(auth, new GithubAuthProvider())
+      .then((userCredentials) => {
+        const { user } = userCredentials;
+        console.log('Logged in with:', user.email);
+      })
+      .catch((error) => alert(error.message));
+  };
+
+  const signInWithFacebook = () => {
+    signInWithPopup(auth, new FacebookAuthProvider())
+      .then((userCredentials) => {
+        const { user } = userCredentials;
+        console.log('Logged in with:', user.email);
+      })
+      .catch((error) => alert(error.message));
   };
 
   return (
@@ -99,7 +127,7 @@ function Login() {
               {' '}
               <a href="#" onClick={handleSignUp}>Sign Up</a>
             </p>
-
+           
           </div>
         </div>
 
