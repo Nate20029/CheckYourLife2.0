@@ -175,9 +175,8 @@ function Finanzas() {
   const data = [
     {
       name: 'dinero',
-      gastos: 4000,
-      ingresos: 2400,
-      amt: 2400,
+      gastos: sumGasto,
+      ingresos: sumIngreso,
     },
   ];
 

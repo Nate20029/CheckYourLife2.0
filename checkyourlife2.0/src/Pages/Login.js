@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -127,7 +128,6 @@ function Login() {
               {' '}
               <a href="#" onClick={handleSignUp}>Sign Up</a>
             </p>
-           
           </div>
         </div>
 
