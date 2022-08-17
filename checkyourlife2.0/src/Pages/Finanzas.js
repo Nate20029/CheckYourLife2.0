@@ -1,5 +1,6 @@
+/* eslint-disable react/button-has-type */
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, PureComponent } from 'react';
 import {
   Button, ButtonGroup, Grid, GridItem, IconButton,
 } from '@chakra-ui/react';
@@ -11,48 +12,185 @@ import {
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 // eslint-disable-next-line import/no-unresolved
 import '../Assets/Styles/Finanzas/Page.scss';
-import {
-  Chart as ChartJS, ArcElement, Tooltip, Legend,
-} from 'chart.js';
-import { Pie } from 'react-chartjs-2';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+// CHARTS
+import {
+  BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
+  PieChart, Pie, Sector,
+} from 'recharts';
+// FIREBASE
+import { onAuthStateChanged } from 'firebase/auth';
+import {
+  doc,
+  getDoc,
+  collection,
+  setDoc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+} from 'firebase/firestore';
+// eslint-disable-next-line import/no-unresolved, import/extensions
+import { auth, db } from '../firebase';
 
 function Finanzas() {
   const navigate = useNavigate();
 
-  ChartJS.register(ArcElement, Tooltip, Legend);
+  const [gastos, setGastos] = useState([
+    { date: '2022-05-20', gasto: 210.00 },
+    { date: '2022-05-20', gasto: 200.00 },
+    { date: '2022-05-20', gasto: 5.00 },
+    { date: '2022-05-20', gasto: 40.00 },
+    { date: '2022-05-20', gasto: 300.00 },
+    { date: '2022-05-20', gasto: 20.00 },
+    { date: '2022-05-20', gasto: 400.00 },
+  ]);
 
-  const options = {
-    responsive: true,
-    maintainAspectRatio: true,
-  };
-  const data = {
-    labels: ['Red', 'Grey', 'Yellow', 'Green', 'Purple', 'Orange'],
-    datasets: [
-      {
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(0, 0, 0, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
+  const [ingresos, setIngresos] = useState([
+    { date: '2022-04-21', ingreso: 100.00 },
+    { date: '2022-04-21', ingreso: 210.00 },
+    { date: '2022-04-21', ingreso: 3.00 },
+    { date: '2022-04-21', ingreso: 54.25 },
+    { date: '2022-04-21', ingreso: 250.00 },
+    { date: '2022-04-21', ingreso: 60.00 },
+    { date: '2022-04-21', ingreso: 150.00 },
+  ]);
+
+  const [ingresosData, setIngresosData] = useState(ingresos.map((ingreso) => ingreso.ingreso));
+  const [gastosData, setGastosData] = useState(gastos.map((gasto) => gasto.gasto));
+
+  const [sumIngreso, setSumIngreso] = useState(ingresos.map((ingreso) => ingreso.ingreso)
+    .reduce((previous, current) => previous + current, 0));
+
+  const [sumGasto, setSumGasto] = useState(gastos.map((gasto) => gasto.gasto)
+    .reduce((previous, current) => previous + current, 0));
+
+  const [uid, setUid] = useState();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUid(user.uid);
+        // eslint-disable-next-line no-use-before-define
+        verifyDoc(user.uid);
+        // eslint-disable-next-line no-use-before-define
+        getData(user.uid);
+      } else {
+        // eslint-disable-next-line no-console
+        console.log('ERROR');
+      }
+    });
+  }, []);
+
+  const verifyDoc = async (id) => {
+    const docRef = doc(db, 'users', id);
+    const docSnap = await getDoc(docRef);
+    if (!docSnap.exists()) {
+      const docData = {
+        tasks: [
+          {
+            title: 'ejemplo',
+            description: 'descripcion',
+            expiration: [],
+            important: true,
+            completed: false,
+          },
         ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(0, 0, 0, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
+        ingresos: [
+
         ],
-        borderWidth: 1,
-      },
-    ],
+        gastos: [
+
+        ],
+      };
+      await setDoc(doc(db, 'users', id), docData);
+    }
   };
+
+  const getData = async (id) => {
+    const docRef = doc(db, 'users', id);
+    const docSnap = await getDoc(docRef);
+    setIngresos((docSnap.data()).ingresos);
+    setGastos((docSnap.data()).gastos);
+  };
+
+  const [numberI, setNumberI] = useState(0);
+  const [numberG, setNumberG] = useState(0);
+
+  const guardarGasto = (number) => {
+    if (number && number > 0) {
+      const today = new Date();
+      const date = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
+      // eslint-disable-next-line no-param-reassign
+      number = parseFloat(number);
+
+      const gasto = { date, gasto: number };
+      // eslint-disable-next-line no-console
+      console.log(gasto);
+
+      gastos.push(gasto);
+      // eslint-disable-next-line no-shadow
+      setGastosData(gastos.map((gasto) => gasto.gasto));
+      // eslint-disable-next-line no-shadow
+      setSumGasto(gastosData.map((gasto) => gasto)
+        .reduce((previous, current) => previous + current, 0));
+      setNumberG(0);
+
+      onAuthStateChanged(auth, (user) => {
+        const docRef = doc(db, 'users', user.uid);
+        updateDoc(docRef, {
+          gastos: arrayUnion(gasto),
+        });
+      });
+    }
+  };
+
+  const guardarIngreso = (number) => {
+    if (number && number > 0) {
+      const today = new Date();
+      const date = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
+      // eslint-disable-next-line no-param-reassign
+      number = parseFloat(number);
+
+      const ingreso = { date, ingreso: number };
+      // eslint-disable-next-line no-console
+      console.log(ingreso);
+
+      ingresos.push(ingreso);
+      // eslint-disable-next-line no-shadow
+      setIngresosData(ingresos.map((ingreso) => ingreso.ingreso));
+      // eslint-disable-next-line no-shadow
+      setSumIngreso(ingresosData.map((ingreso) => ingreso)
+        .reduce((previous, current) => previous + current, 0));
+      setNumberI(0);
+
+      onAuthStateChanged(auth, (user) => {
+        const docRef = doc(db, 'users', user.uid);
+        updateDoc(docRef, {
+          ingresos: arrayUnion(ingreso),
+        });
+      });
+    }
+  };
+
+  const data = [
+    {
+      name: 'dinero',
+      gastos: 4000,
+      ingresos: 2400,
+      amt: 2400,
+    },
+  ];
+
+  const data2 = [
+    { name: 'Group A', value: 400 },
+    { name: 'Group B', value: 300 },
+    { name: 'Group C', value: 300 },
+    { name: 'Group D', value: 200 },
+    { name: 'Group E', value: 278 },
+    { name: 'Group F', value: 189 },
+  ];
+
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
   return (
     <div className="container">
@@ -64,20 +202,70 @@ function Finanzas() {
       >
         <GridItem className="padding" rowSpan={2} colSpan={1} bg="#f47140">
           <div>
-            <h1 className="titulo">Titulo de finanzas</h1>
-            <p>Botones bonitos para agregar y eliminar gastos e ingresos</p>
+            <h1 className="titulo">Finanzas</h1>
+            <input
+              onChange={(newnumber) => setNumberG(newnumber)}
+              placeholder="Ingrese un dato"
+              pattern="[0-9]*"
+              value={numberG}
+            />
+            <button onClick={() => guardarGasto(numberG)} className="boton">Agregar Gastos</button>
+            <input
+              onChange={(newnumber) => setNumberI(newnumber)}
+              placeholder="Ingrese un dato"
+              pattern="[0-9]*"
+              value={numberI}
+            />
+            <button onClick={() => guardarIngreso(numberI)} className="boton">Agregar Ingreos</button>
           </div>
         </GridItem>
         <GridItem className="padding" colSpan={2} bg="#36a7d9">
-          <div>
-            Grafica de barras
+          <div className="auto-height">
+            <h1>Grafica de Barras</h1>
+            <div className="chart_container">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  width={500}
+                  height={300}
+                  data={data}
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="gastos" fill="#8884d8" />
+                  <Bar dataKey="ingresos" fill="#82ca9d" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
           </div>
         </GridItem>
         <GridItem className="padding" colSpan={2} bg="#36a7d9">
           <div>
             <h1>Grafica de pie</h1>
             <div className="chart_container">
-              <Pie data={data} options={options} />
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart width={400} height={400}>
+                  <Pie
+                    dataKey="value"
+                    startAngle={180}
+                    endAngle={0}
+                    data={data2}
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={80}
+                    fill="#8884d8"
+                    label
+                  />
+                </PieChart>
+              </ResponsiveContainer>
             </div>
           </div>
         </GridItem>
