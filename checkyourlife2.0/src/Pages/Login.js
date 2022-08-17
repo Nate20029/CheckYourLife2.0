@@ -83,23 +83,20 @@ function Login() {
                   />
                   <label>Password</label>
                 </div>
-                <a href="#">
+                <a href="#" onClick={handleLogin}>
                   <span />
                   <span />
                   <span />
                   <span />
-                  Submit
+                  Login
                 </a>
               </form>
             </div>
-            <div className="login-button">
-              <button type="button" onClick={handleLogin}>Login</button>
-            </div>
-
             <p className="link">
-              <a href="#" onClick={handleForgot}>Forgot password ?</a>
+              <a href="#" onClick={handleForgot}>Forgot password?</a>
               {' '}
               Or
+              {' '}
               <a href="#" onClick={handleSignUp}>Sign Up</a>
             </p>
 

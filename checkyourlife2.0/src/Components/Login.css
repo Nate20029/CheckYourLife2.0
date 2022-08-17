@@ -80,12 +80,15 @@ button {
 }
 
 .link {
-    font-size: 25px;
+    font-size: 15px;
     font-weight: 400;
+    margin-top: 5%;
 }
 
 a {
     color: blue;
+    position: relative;
+    top: 10%;
 }
 
 .user-box {
@@ -95,7 +98,7 @@ a {
 
 .user-box input {
     width: 100%;
-    padding: 10px 0;
+    padding: 15px 0;
     font-size: 16px;
     color: black;
     margin-bottom: 30px;
@@ -120,7 +123,7 @@ a {
     top: -20px;
     left: 0;
     color: blue;
-    font-size: 12px;
+    font-size: 15px;
 }
 
 form a {
@@ -133,7 +136,7 @@ form a {
     text-transform: uppercase;
     overflow: hidden;
     transition: .5s;
-    margin-top: 40px;
+    margin-top: 100px;
     letter-spacing: 4px
 }
 
@@ -148,7 +151,6 @@ a:hover {
 
 a span {
     position: absolute;
-    display: block;
 }
 
 a span:nth-child(1) {
