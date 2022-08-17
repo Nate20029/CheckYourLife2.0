@@ -6,9 +6,7 @@ import {
 } from 'firebase/auth';
 import { auth } from '../Services/firebase.js';
 import '../Components/Login.css';
-import profile from '../Assets/Media/a.png';
-import mail from '../Assets/Media/email.jpg';
-import pass from '../Assets/Media/pass.png';
+import Check from '../Assets/Media/CheckL2.png';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -59,37 +57,39 @@ function Login() {
         <div>
           <div className="imgs">
             <div className="container-image">
-              <img src={profile} alt="profile" className="profile" />
-
+              <img src={Check} alt="profile" className="profile" />
             </div>
-
           </div>
           <div>
-            <h1>Login Page</h1>
             <div>
-              <img src={mail} alt="email" className="email" />
               <form>
-                <label>
-                  username:
+                <div className="user-box">
                   <input
                     type="text"
+                    name=""
+                    required=""
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
-                </label>
-              </form>
-            </div>
-            <div className="second-input">
-              <img src={pass} alt="pass" className="email" />
-              <form>
-                <label>
-                  password:
+                  <label>Username</label>
+                </div>
+                <div className="user-box">
                   <input
-                    type="text"
+                    type="password"
+                    name=""
+                    required=""
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                </label>
+                  <label>Password</label>
+                </div>
+                <a href="#">
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                  Submit
+                </a>
               </form>
             </div>
             <div className="login-button">
