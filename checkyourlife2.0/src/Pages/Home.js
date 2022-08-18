@@ -8,6 +8,7 @@ import Tareas from './Tareas';
 import Finanzas from './Finanzas';
 import Cronometro from './Cronometro';
 import Perfil from './Perfil';
+import Temporizador from './Temporizador';
 
 function Home() {
   return (
@@ -31,6 +32,12 @@ function Home() {
         </TabPanel>
         <TabPanel>
           <Cronometro />
+          <TabList mb="1em">
+            <Tab>Temporizador</Tab>
+          </TabList>
+          <TabPanel>
+            <Temporizador />
+          </TabPanel>
         </TabPanel>
         <TabPanel>
           <Perfil />

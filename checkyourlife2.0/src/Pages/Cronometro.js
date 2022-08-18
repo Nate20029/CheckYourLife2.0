@@ -1,10 +1,13 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import { Button, ButtonGroup } from '@chakra-ui/react';
+import {
+  Button, ButtonGroup, Tabs, TabList, TabPanels, Tab, TabPanel,
+} from '@chakra-ui/react';
 import {
   Route, Routes, useLocation, useNavigate,
 } from 'react-router-dom';
 import '../Components/Cronometro.css';
+import './Temporizador';
 
 function Cronometro() {
   const [time, setTime] = React.useState(0);
