@@ -5,7 +5,6 @@ import {
   Route, Routes, useLocation, useNavigate,
 } from 'react-router-dom';
 import '../Components/Cronometro.css';
-import BtnComponent from './BtnComponent';
 
 function Cronometro() {
   const [time, setTime] = React.useState(0);
