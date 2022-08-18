@@ -1,9 +1,18 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable react/no-children-prop */
 /* eslint-disable react/button-has-type */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, PureComponent } from 'react';
 import {
-  Button, ButtonGroup, Grid, GridItem, IconButton, Input, InputGroup, InputLeftAddon,
+  Button, ButtonGroup, Grid, GridItem, IconButton, Input, InputGroup, InputLeftAddon, Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
 } from '@chakra-ui/react';
 import {
   Route, Routes, useLocation, useNavigate,
@@ -170,14 +179,10 @@ function Finanzas() {
       ingresos: sumIngreso,
     },
   ];
-
+  const COLORS = ['#f47140'];
   const data2 = [
-    { name: 'Group A', value: 400 },
-    { name: 'Group B', value: 300 },
-    { name: 'Group C', value: 300 },
-    { name: 'Group D', value: 200 },
-    { name: 'Group E', value: 278 },
-    { name: 'Group F', value: 189 },
+    { name: 'Gastos', value: sumGasto },
+    { name: 'Ingresos', value: sumIngreso },
   ];
 
   return (
@@ -195,17 +200,16 @@ function Finanzas() {
               <InputLeftAddon children="Q" />
               <Input _placeholder={{ opacity: 1, color: 'black' }} placeholder="Ingrese un gasto" type="number" onChange={(newnumber) => setNumberG(newnumber)} />
             </InputGroup>
-            <Button onClick={() => guardarGasto(130)} className="boton">Agregar Gastos</Button>
+            <Button onClick={() => guardarGasto(50)} className="botonorange">Agregar Gastos</Button>
             <InputGroup size="md">
               <InputLeftAddon children="Q" />
               <Input _placeholder={{ opacity: 1, color: 'black' }} placeholder="Ingrese un ingreso" type="number" onChange={(newnumber) => setNumberI(newnumber)} />
             </InputGroup>
-            <Button onClick={() => guardarIngreso(90)} className="boton">Agregar Ingreos</Button>
+            <Button onClick={() => guardarIngreso(20)} className="botonblue">Agregar Ingresos</Button>
           </div>
         </GridItem>
         <GridItem className="padding" colSpan={2} bg="rgb(0,0,0,0.2)">
           <div className="auto-height">
-            <h1>Grafica de Barras</h1>
             <div className="chart_container">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -232,31 +236,80 @@ function Finanzas() {
           </div>
         </GridItem>
         <GridItem className="padding" colSpan={2} bg="rgb(0,0,0,0.2)">
-          <div>
-            <h1>Grafica de pie</h1>
+          <div className="auto-height">
             <div className="chart_container">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart width={400} height={400}>
                   <Pie
                     dataKey="value"
-                    startAngle={180}
-                    endAngle={0}
+                    isAnimationActive={false}
                     data={data2}
                     cx="50%"
                     cy="50%"
                     outerRadius={80}
-                    fill="#8884d8"
+                    fill="#36a7d9"
                     label
-                  />
+                  >
+                    {
+                      data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]} />)
+                    }
+                  </Pie>
+                  <Tooltip />
                 </PieChart>
               </ResponsiveContainer>
             </div>
           </div>
         </GridItem>
         <GridItem className="padding" colSpan={4} bg="rgb(0,0,0,0.2)">
-          <div>
-            Tabla scrolleable
-          </div>
+          <Grid
+            h="100%"
+            templateRows="repeat(1, 1fr)"
+            templateColumns="repeat(2, 1fr)"
+            gap={4}
+          >
+            <GridItem className="padding" rowSpan={1} colSpan={1} bg="rgb(0,0,0,0.2)">
+              <TableContainer>
+                <Table variant="striped">
+                  <Thead>
+                    <Tr>
+                      <Th>Gastos</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {gastos.map((gasto) => <Tr><Th>Q {gasto.gasto}</Th></Tr>)}
+                    <Tr>
+                      <Th>
+                        <Tr>Total de Ingresos: Q{(gastos.map((gasto) => gasto.gasto)
+                          .reduce((previous, current) => previous + current, 0))}
+                        </Tr>
+                      </Th>
+                    </Tr>
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            </GridItem>
+            <GridItem className="padding" rowSpan={1} colSpan={1} bg="rgb(0,0,0,0.2)">
+              <TableContainer>
+                <Table variant="striped">
+                  <Thead>
+                    <Tr>
+                      <Th>Ingreso</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {ingresos.map((ingreso) => <Tr><Th>Q {ingreso.ingreso}</Th></Tr>)}
+                    <Tr>
+                      <Th>
+                        <Tr>Total de Ingresos: Q{(ingresos.map((ingreso) => ingreso.ingreso)
+                          .reduce((previous, current) => previous + current, 0))}
+                        </Tr>
+                      </Th>
+                    </Tr>
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            </GridItem>
+          </Grid>
         </GridItem>
       </Grid>
     </div>

@@ -26,5 +26,41 @@
     border-radius: 4px;
     margin: 10px;
     color: black;
-    background-color: #36a7d9;
+}
+
+.scroll{
+    height: 50px;
+    overflow-y: scroll;
+}
+
+.botonblue{
+    align-items: center;
+    justify-content: center;
+    padding: 12px 32px;
+    border-radius: 4px;
+    margin: 10px;
+    color: black;
+    background-color: #36a7d9!important;
+}
+
+.botonblue:hover{
+    background-color: rgb(54, 167, 217);
+    opacity: 0.9;
+    color: white;
+}
+
+.botonorange{
+    align-items: center;
+    justify-content: center;
+    padding: 12px 32px;
+    border-radius: 4px;
+    margin: 10px;
+    color: black;
+    background-color: #f47140!important;
+}
+
+.botonorange:hover{
+    background-color: rgb(244, 113, 64);
+    opacity: 0.9;
+    color: white;
 }
