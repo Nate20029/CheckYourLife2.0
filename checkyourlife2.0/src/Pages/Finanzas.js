@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable react/no-children-prop */
 /* eslint-disable react/button-has-type */
@@ -46,15 +47,12 @@ function Finanzas() {
   const navigate = useNavigate();
 
   const [gastos, setGastos] = useState([
-    { date: '2022-05-20', gasto: 210.00 },
+    {},
   ]);
 
   const [ingresos, setIngresos] = useState([
-    { date: '2022-04-21', ingreso: 100.00 },
+    {},
   ]);
-
-  const [ingresosData, setIngresosData] = useState(ingresos.map((ingreso) => ingreso.ingreso));
-  const [gastosData, setGastosData] = useState(gastos.map((gasto) => gasto.gasto));
 
   const [sumIngreso, setSumIngreso] = useState(ingresos.map((ingreso) => ingreso.ingreso)
     .reduce((previous, current) => previous + current, 0));
@@ -112,6 +110,16 @@ function Finanzas() {
     const docSnap = await getDoc(docRef);
     setIngresos((docSnap.data()).ingresos);
     setGastos((docSnap.data()).gastos);
+    if (gastos.length == 0) {
+      setSumGasto(0);
+    }
+    if (ingresos.length == 0) {
+      setSumIngreso(0);
+    }
+    setSumGasto(gastos.map((gasto) => gasto.gasto)
+      .reduce((previous, current) => previous + current, 0));
+    setSumIngreso(ingresos.map((ingreso) => ingreso.ingreso)
+      .reduce((previous, current) => previous + current, 0));
   };
 
   const guardarGasto = (number) => {
@@ -127,9 +135,7 @@ function Finanzas() {
 
       gastos.push(gasto);
       // eslint-disable-next-line no-shadow
-      setGastosData(gastos.map((gasto) => gasto.gasto));
-      // eslint-disable-next-line no-shadow
-      setSumGasto(gastosData.map((gasto) => gasto)
+      setSumGasto(gastos.map((gasto) => gasto.gasto)
         .reduce((previous, current) => previous + current, 0));
       setNumberG(0);
 
@@ -157,9 +163,7 @@ function Finanzas() {
 
       ingresos.push(ingreso);
       // eslint-disable-next-line no-shadow
-      setIngresosData(ingresos.map((ingreso) => ingreso.ingreso));
-      // eslint-disable-next-line no-shadow
-      setSumIngreso(ingresosData.map((ingreso) => ingreso)
+      setSumIngreso(ingresos.map((ingreso) => ingreso.ingreso)
         .reduce((previous, current) => previous + current, 0));
       setNumberI(0);
 
@@ -185,6 +189,14 @@ function Finanzas() {
     { name: 'Ingresos', value: sumIngreso },
   ];
 
+  const handleChangeG = (event) => {
+    setNumberG(event.target.value);
+  };
+
+  const handleChangeI = (event) => {
+    setNumberI(event.target.value);
+  };
+
   return (
     <div className="container">
       <Grid
@@ -198,17 +210,17 @@ function Finanzas() {
             <h1 className="titulo">Finanzas</h1>
             <InputGroup size="md">
               <InputLeftAddon children="Q" />
-              <Input _placeholder={{ opacity: 1, color: 'black' }} placeholder="Ingrese un gasto" type="number" onChange={(newnumber) => setNumberG(newnumber)} />
+              <Input _placeholder={{ opacity: 1, color: 'black' }} placeholder="Ingrese un gasto" type="number" onChange={handleChangeG} value={numberG} />
             </InputGroup>
-            <Button onClick={() => guardarGasto(50)} className="botonorange">Agregar Gastos</Button>
+            <Button onClick={() => guardarGasto(numberG)} className="botonorange">Agregar Gastos</Button>
             <InputGroup size="md">
               <InputLeftAddon children="Q" />
-              <Input _placeholder={{ opacity: 1, color: 'black' }} placeholder="Ingrese un ingreso" type="number" onChange={(newnumber) => setNumberI(newnumber)} />
+              <Input _placeholder={{ opacity: 1, color: 'black' }} placeholder="Ingrese un ingreso" type="number" onChange={handleChangeI} value={numberI} />
             </InputGroup>
-            <Button onClick={() => guardarIngreso(20)} className="botonblue">Agregar Ingresos</Button>
+            <Button onClick={() => guardarIngreso(numberI)} className="botonblue">Agregar Ingresos</Button>
           </div>
         </GridItem>
-        <GridItem className="padding" colSpan={2} bg="rgb(0,0,0,0.2)">
+        <GridItem className="padding h-350" colSpan={2} bg="rgb(0,0,0,0.2)">
           <div className="auto-height">
             <div className="chart_container">
               <ResponsiveContainer width="100%" height="100%">
@@ -235,7 +247,7 @@ function Finanzas() {
             </div>
           </div>
         </GridItem>
-        <GridItem className="padding" colSpan={2} bg="rgb(0,0,0,0.2)">
+        <GridItem className="padding h-350" colSpan={2} bg="rgb(0,0,0,0.2)">
           <div className="auto-height">
             <div className="chart_container">
               <ResponsiveContainer width="100%" height="100%">
@@ -260,14 +272,14 @@ function Finanzas() {
             </div>
           </div>
         </GridItem>
-        <GridItem className="padding" colSpan={4} bg="rgb(0,0,0,0.2)">
+        <GridItem className="padding " colSpan={4} bg="rgb(0,0,0,0.2)">
           <Grid
             h="100%"
             templateRows="repeat(1, 1fr)"
             templateColumns="repeat(2, 1fr)"
             gap={4}
           >
-            <GridItem className="padding" rowSpan={1} colSpan={1} bg="rgb(0,0,0,0.2)">
+            <GridItem className="padding h-scroll" rowSpan={1} colSpan={1} bg="rgb(0,0,0,0.2)">
               <TableContainer>
                 <Table variant="striped">
                   <Thead>
@@ -288,7 +300,7 @@ function Finanzas() {
                 </Table>
               </TableContainer>
             </GridItem>
-            <GridItem className="padding" rowSpan={1} colSpan={1} bg="rgb(0,0,0,0.2)">
+            <GridItem className="padding h-scroll" rowSpan={1} colSpan={1} bg="rgb(0,0,0,0.2)">
               <TableContainer>
                 <Table variant="striped">
                   <Thead>
