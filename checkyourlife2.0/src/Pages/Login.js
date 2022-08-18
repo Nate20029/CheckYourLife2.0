@@ -127,7 +127,27 @@ function Login() {
               {' '}
               <a href="#" onClick={handleSignUp}>Sign Up</a>
             </p>
-           
+            <div style={{ flexDirection: 'column', marginTop: 20 }}>
+              <div style={{
+                height: 40, width: 40, borderRadius: 40 / 2, backgroundColor: '#14279B', alignItems: 'center', justifyContent: 'center',
+              }}
+              >
+                <p type="button" style={{ fontSize: 25, fontWeight: 'bold', color: 'white' }} onClick={signInWithFacebook}>f</p>
+              </div>
+              <div style={{
+                height: 40, width: 40, borderRadius: 40 / 2, backgroundColor: '#f44336', alignItems: 'center', justifyContent: 'center',
+              }}
+              >
+                <p type="button" style={{ fontSize: 25, fontWeight: 'bold', color: 'white' }} onClick={signInWithGoogle}>G</p>
+              </div>
+              <div style={{
+                height: 40, width: 40, borderRadius: 40 / 2, backgroundColor: '#1565c0', alignItems: 'center', justifyContent: 'center',
+              }}
+              >
+                <p type="button" style={{ fontSize: 25, fontWeight: 'bold', color: 'white' }} onClick={signInWithGithub}>Git</p>
+              </div>
+            </div>
+
           </div>
         </div>
 
