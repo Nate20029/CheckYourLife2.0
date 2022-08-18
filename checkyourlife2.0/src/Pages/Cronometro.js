@@ -5,72 +5,51 @@ import {
   Route, Routes, useLocation, useNavigate,
 } from 'react-router-dom';
 import '../Components/Cronometro.css';
-import DisplayComponent from '../Components/DisplayComponent';
-import BtnComponent from '../Components/BtnComponent';
+import BtnComponent from './BtnComponent';
 
 function Cronometro() {
-  const navigate = useNavigate();
+  const [time, setTime] = React.useState(0);
+  const [timerOn, setTimerOn] = React.useState(false);
 
-  const [time, setTime] = useState({
-    ms: 0, s: 0, m: 0, h: 0,
-  });
-  const [interv, setInterv] = useState();
-  const [status, setStatus] = useState(0);
-  // Not started = 0
-  // started = 1
-  // stopped = 2
+  React.useEffect(() => {
+    let interval = null;
 
-  let updatedMs = time.ms;
-  let updatedS = time.s;
-  let updatedM = time.m;
-  let updatedH = time.h;
-
-  const run = () => {
-    if (updatedM === 60) {
-      updatedH += 1;
-      updatedM = 0;
+    if (timerOn) {
+      interval = setInterval(() => {
+        setTime((prevTime) => prevTime + 10);
+      }, 10);
+    } else if (!timerOn) {
+      clearInterval(interval);
     }
-    if (updatedS === 60) {
-      updatedM += 1;
-      updatedS = 0;
-    }
-    if (updatedMs === 100) {
-      updatedS += 1;
-      updatedMs = 0;
-    }
-    updatedMs += 1;
-    return setTime({
-      ms: updatedMs, s: updatedS, m: updatedM, h: updatedH,
-    });
-  };
 
-  const start = () => {
-    run();
-    setStatus(1);
-    setInterv(setInterval(run, 10));
-  };
-
-  const stop = () => {
-    clearInterval(interv);
-    setStatus(2);
-  };
-
-  const reset = () => {
-    clearInterval(interv);
-    setStatus(0);
-    setTime({
-      ms: 0, s: 0, m: 0, h: 0,
-    });
-  };
-
-  const resume = () => start();
+    return () => clearInterval(interval);
+  }, [timerOn]);
 
   return (
     <div className="main-section">
-      <div className="clock-holder">
+      <h2>Cronometro</h2>
+      <div id="clock-holder">
         <div className="stopwatch">
-          <DisplayComponent time={time} />
-          <BtnComponent status={status} resume={resume} reset={reset} stop={stop} start={start} />
+          <span>
+            {(`0${Math.floor((time / 60000) % 60)}`).slice(-2)}
+          </span>
+          <span>
+            {(`0${Math.floor((time / 1000) % 60)}`).slice(-2)}
+          </span>
+          <span>{(`0${(time / 10) % 100}`).slice(-2)}</span>
+
+          <div>
+            {!timerOn && time === 0 && (
+              <button type="button" className="stopwatch-btn stopwatch-btn-gre" onClick={() => setTimerOn(true)}>Start</button>
+            )}
+            {timerOn && <button className="stopwatch-btn stopwatch-btn-red" type="button" onClick={() => setTimerOn(false)}>Stop</button>}
+            {!timerOn && time > 0 && (
+              <button type="submit" className="stopwatch-btn stopwatch-btn-yel" onClick={() => setTime(0)}>Reset</button>
+            )}
+            {!timerOn && time > 0 && (
+              <button type="button" className="stopwatch-btn stopwatch-btn-gre" onClick={() => setTimerOn(true)}>Resume</button>
+            )}
+          </div>
         </div>
       </div>
     </div>
