@@ -1,8 +1,9 @@
+/* eslint-disable react/no-children-prop */
 /* eslint-disable react/button-has-type */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, PureComponent } from 'react';
 import {
-  Button, ButtonGroup, Grid, GridItem, IconButton,
+  Button, ButtonGroup, Grid, GridItem, IconButton, Input, InputGroup, InputLeftAddon,
 } from '@chakra-ui/react';
 import {
   Route, Routes, useLocation, useNavigate,
@@ -37,22 +38,10 @@ function Finanzas() {
 
   const [gastos, setGastos] = useState([
     { date: '2022-05-20', gasto: 210.00 },
-    { date: '2022-05-20', gasto: 200.00 },
-    { date: '2022-05-20', gasto: 5.00 },
-    { date: '2022-05-20', gasto: 40.00 },
-    { date: '2022-05-20', gasto: 300.00 },
-    { date: '2022-05-20', gasto: 20.00 },
-    { date: '2022-05-20', gasto: 400.00 },
   ]);
 
   const [ingresos, setIngresos] = useState([
     { date: '2022-04-21', ingreso: 100.00 },
-    { date: '2022-04-21', ingreso: 210.00 },
-    { date: '2022-04-21', ingreso: 3.00 },
-    { date: '2022-04-21', ingreso: 54.25 },
-    { date: '2022-04-21', ingreso: 250.00 },
-    { date: '2022-04-21', ingreso: 60.00 },
-    { date: '2022-04-21', ingreso: 150.00 },
   ]);
 
   const [ingresosData, setIngresosData] = useState(ingresos.map((ingreso) => ingreso.ingreso));
@@ -65,6 +54,9 @@ function Finanzas() {
     .reduce((previous, current) => previous + current, 0));
 
   const [uid, setUid] = useState();
+
+  const [numberI, setNumberI] = useState(0);
+  const [numberG, setNumberG] = useState(0);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -79,7 +71,7 @@ function Finanzas() {
         console.log('ERROR');
       }
     });
-  }, []);
+  }, ['']);
 
   const verifyDoc = async (id) => {
     const docRef = doc(db, 'users', id);
@@ -113,9 +105,6 @@ function Finanzas() {
     setGastos((docSnap.data()).gastos);
   };
 
-  const [numberI, setNumberI] = useState(0);
-  const [numberG, setNumberG] = useState(0);
-
   const guardarGasto = (number) => {
     if (number && number > 0) {
       const today = new Date();
@@ -134,6 +123,8 @@ function Finanzas() {
       setSumGasto(gastosData.map((gasto) => gasto)
         .reduce((previous, current) => previous + current, 0));
       setNumberG(0);
+
+      console.log(gastos);
 
       onAuthStateChanged(auth, (user) => {
         const docRef = doc(db, 'users', user.uid);
@@ -189,8 +180,6 @@ function Finanzas() {
     { name: 'Group F', value: 189 },
   ];
 
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-
   return (
     <div className="container">
       <Grid
@@ -199,26 +188,22 @@ function Finanzas() {
         templateColumns="repeat(5, 1fr)"
         gap={4}
       >
-        <GridItem className="padding" rowSpan={2} colSpan={1} bg="#f47140">
+        <GridItem className="padding" rowSpan={2} colSpan={1} bg="rgb(0,0,0,0.2)">
           <div>
             <h1 className="titulo">Finanzas</h1>
-            <input
-              onChange={(newnumber) => setNumberG(newnumber)}
-              placeholder="Ingrese un dato"
-              pattern="[0-9]*"
-              value={numberG}
-            />
-            <button onClick={() => guardarGasto(numberG)} className="boton">Agregar Gastos</button>
-            <input
-              onChange={(newnumber) => setNumberI(newnumber)}
-              placeholder="Ingrese un dato"
-              pattern="[0-9]*"
-              value={numberI}
-            />
-            <button onClick={() => guardarIngreso(numberI)} className="boton">Agregar Ingreos</button>
+            <InputGroup size="md">
+              <InputLeftAddon children="Q" />
+              <Input _placeholder={{ opacity: 1, color: 'black' }} placeholder="Ingrese un gasto" type="number" onChange={(newnumber) => setNumberG(newnumber)} />
+            </InputGroup>
+            <Button onClick={() => guardarGasto(130)} className="boton">Agregar Gastos</Button>
+            <InputGroup size="md">
+              <InputLeftAddon children="Q" />
+              <Input _placeholder={{ opacity: 1, color: 'black' }} placeholder="Ingrese un ingreso" type="number" onChange={(newnumber) => setNumberI(newnumber)} />
+            </InputGroup>
+            <Button onClick={() => guardarIngreso(90)} className="boton">Agregar Ingreos</Button>
           </div>
         </GridItem>
-        <GridItem className="padding" colSpan={2} bg="#36a7d9">
+        <GridItem className="padding" colSpan={2} bg="rgb(0,0,0,0.2)">
           <div className="auto-height">
             <h1>Grafica de Barras</h1>
             <div className="chart_container">
@@ -239,14 +224,14 @@ function Finanzas() {
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="gastos" fill="#8884d8" />
-                  <Bar dataKey="ingresos" fill="#82ca9d" />
+                  <Bar dataKey="gastos" fill="#f47140" />
+                  <Bar dataKey="ingresos" fill="#36a7d9" />
                 </BarChart>
               </ResponsiveContainer>
             </div>
           </div>
         </GridItem>
-        <GridItem className="padding" colSpan={2} bg="#36a7d9">
+        <GridItem className="padding" colSpan={2} bg="rgb(0,0,0,0.2)">
           <div>
             <h1>Grafica de pie</h1>
             <div className="chart_container">
