@@ -9,6 +9,7 @@ import {
 import '../Components/Cronometro.css';
 import SplitPane from 'react-split-pane';
 import '../Components/Split.css';
+import Temporizador from './Temporizador';
 
 function Cronometro() {
   const [time, setTime] = React.useState(0);
@@ -34,9 +35,11 @@ function Cronometro() {
         split="vertical"
         defaultSize="50%"
       >
-        <h2>Temporizador</h2>
+        <Temporizador />
         <div id="clock-holder">
-          <h2>Cronometro</h2>
+          <div className="nombre">
+            <h2>Cronometro</h2>
+          </div>
           <div className="stopwatch">
             <span>
               {(`0${Math.floor((time / 60000) % 60)}`).slice(-2)}
