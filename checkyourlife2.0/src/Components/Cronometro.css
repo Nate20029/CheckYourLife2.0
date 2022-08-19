@@ -10,7 +10,7 @@ body {
   
   .main-section {
     background: transparent;
-    max-width: 600px;
+    max-width: 100%;
     width: 90%;
     height: 500px;
     margin: 30px auto;

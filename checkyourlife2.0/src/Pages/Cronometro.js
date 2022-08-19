@@ -7,7 +7,8 @@ import {
   Route, Routes, useLocation, useNavigate,
 } from 'react-router-dom';
 import '../Components/Cronometro.css';
-import './Temporizador';
+import SplitPane from 'react-split-pane';
+import '../Components/Split.css';
 
 function Cronometro() {
   const [time, setTime] = React.useState(0);
@@ -29,31 +30,37 @@ function Cronometro() {
 
   return (
     <div className="main-section">
-      <h2>Cronometro</h2>
-      <div id="clock-holder">
-        <div className="stopwatch">
-          <span>
-            {(`0${Math.floor((time / 60000) % 60)}`).slice(-2)}
-          </span>
-          <span>
-            {(`0${Math.floor((time / 1000) % 60)}`).slice(-2)}
-          </span>
-          <span>{(`0${(time / 10) % 100}`).slice(-2)}</span>
+      <SplitPane
+        split="vertical"
+        defaultSize="50%"
+      >
+        <h2>Temporizador</h2>
+        <div id="clock-holder">
+          <h2>Cronometro</h2>
+          <div className="stopwatch">
+            <span>
+              {(`0${Math.floor((time / 60000) % 60)}`).slice(-2)}
+            </span>
+            <span>
+              {(`0${Math.floor((time / 1000) % 60)}`).slice(-2)}
+            </span>
+            <span>{(`0${(time / 10) % 100}`).slice(-2)}</span>
 
-          <div>
-            {!timerOn && time === 0 && (
-              <button type="button" className="stopwatch-btn stopwatch-btn-gre" onClick={() => setTimerOn(true)}>Start</button>
-            )}
-            {timerOn && <button className="stopwatch-btn stopwatch-btn-red" type="button" onClick={() => setTimerOn(false)}>Stop</button>}
-            {!timerOn && time > 0 && (
-              <button type="submit" className="stopwatch-btn stopwatch-btn-yel" onClick={() => setTime(0)}>Reset</button>
-            )}
-            {!timerOn && time > 0 && (
-              <button type="button" className="stopwatch-btn stopwatch-btn-gre" onClick={() => setTimerOn(true)}>Resume</button>
-            )}
+            <div>
+              {!timerOn && time === 0 && (
+                <button type="button" className="stopwatch-btn stopwatch-btn-gre" onClick={() => setTimerOn(true)}>Start</button>
+              )}
+              {timerOn && <button className="stopwatch-btn stopwatch-btn-red" type="button" onClick={() => setTimerOn(false)}>Stop</button>}
+              {!timerOn && time > 0 && (
+                <button type="submit" className="stopwatch-btn stopwatch-btn-yel" onClick={() => setTime(0)}>Reset</button>
+              )}
+              {!timerOn && time > 0 && (
+                <button type="button" className="stopwatch-btn stopwatch-btn-gre" onClick={() => setTimerOn(true)}>Resume</button>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      </SplitPane>
     </div>
   );
 }
