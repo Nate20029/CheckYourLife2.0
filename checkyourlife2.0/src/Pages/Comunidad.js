@@ -6,9 +6,33 @@ import {
 } from 'react-router-dom';
 import { ChatEngine } from 'react-chat-engine';
 import '../Components/comunidad.css';
+import { auth } from '../Services/firebase.js';
 
 function Comunidad() {
   const navigate = useNavigate();
+  const  user  = auth.onAuthStateChanged;
+  const [loading, setLoading] = useState(true);
+  
+  console.log(user.email)
+
+  useEffect(() => {
+    axios.get('https://api.chatengine.io/users/me', {
+      headers: {
+        'project-id': 'e36c972f-3bfd-4279-a705-944d4faf3557',
+        'user-name': user.email,
+        'user-secret': user.uid,
+      },
+    })
+      .then(() => {
+        setLoading(false);
+      })
+      .catch(() => {
+        let formdata = new FormData();
+        formdata.append('email', user.email);
+        formdata.append('username', user.displayName);
+        formdata.append('secret', user.uid);
+      });
+  }, [user]);
 
   return (
     <div className="chats-page">
@@ -19,9 +43,9 @@ function Comunidad() {
       </div>
       <ChatEngine
         height="calc(100vh - 66px)"
-        userName="Nate"
-        userSecret="barcaroly"
-        projectID="9b86604a-2321-4d5f-a287-f1275a2bbd0e"
+        userName={user.email}
+        userSecret={user.uid}
+        projectID="e36c972f-3bfd-4279-a705-944d4faf3557"
       />
     </div>
   );
