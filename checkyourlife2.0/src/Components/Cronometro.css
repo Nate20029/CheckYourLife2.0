@@ -12,8 +12,9 @@ body {
     background: transparent;
     max-width: 100%;
     width: 90%;
-    height: 500px;
+    height: 100%;
     margin: 30px auto;
+    background: radial-gradient(circle, #8bc4e2 0%, #73becf 65%); 
   }
   
   .clock-holder {
@@ -29,7 +30,7 @@ body {
   
   
   .stopwatch {
-    padding: 60px 0px;
+    padding: 210px 0px;
     text-align: center;
   }
   .stopwatch span{
@@ -37,10 +38,11 @@ body {
     color: #fff;
     display: inline-block;
     font-family: monospace;
-    font-size: 22px;
+    font-size: 50px;
     padding: 20px;
     border-radius: 5px;
-    width: 70px;
+    width: 150px;
+    height: 150px;
   }
   
   .stopwatch .stopwatch-btn {
