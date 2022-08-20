@@ -4,7 +4,6 @@ import {
 } from '@chakra-ui/react';
 
 function TaskItem({ data }) {
-  console.log(data);
   return (
     <div className="task_item_container">
       <Grid templateColumns="repeat(6, 1fr)" templateRows="repeat(4, 1fr)" gap={0}>
@@ -22,10 +21,10 @@ function TaskItem({ data }) {
           <div className="sides_item_container_right">
             <Grid templateRows="repeat(2, 1fr)" gap={0}>
               <GridItem w="100%" h="5vh" display="flex" alignItems="end">
-                {data.expiration.length > 1 ? <Badge colorScheme="green">{ data.expiration[0].toDateString().substring(3, 10)}</Badge> : null}
+                {data.expiration[0] ? <Badge colorScheme="green">{new Date(data.expiration[0].seconds * 1000).toDateString().substring(3, 10)}</Badge> : null}
               </GridItem>
               <GridItem w="100%" h="5vh">
-                {data.expiration.length > 1 ? <Badge colorScheme="red">{data.expiration[1].toDateString().substring(3, 10)}</Badge> : null}
+                {data.expiration[1] ? <Badge colorScheme="red">{new Date(data.expiration[1].seconds * 1000).toDateString().substring(3, 10)}</Badge> : null}
               </GridItem>
             </Grid>
           </div>

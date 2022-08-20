@@ -1,14 +1,20 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-children-prop */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Grid, GridItem, IconButton, Input, Button, InputGroup, Text, Textarea,
 } from '@chakra-ui/react';
 // import { useNavigate } from 'react-router-dom';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import '../Assets/Styles/Tareas/Page.scss';
+import { onAuthStateChanged } from 'firebase/auth';
+import {
+  doc, getDoc, updateDoc, arrayUnion, arrayRemove,
+} from 'firebase/firestore';
 import TaskItem from '../Components/Tareas/TaskItem';
 import DateItem from '../Components/Tareas/DateItem';
 import { convertDate, dayToDate, getCurrentDates } from '../Services/Tareas';
+import { db, auth } from '../Services/firebase';
 
 function Tareas() {
   const dates = getCurrentDates();
@@ -18,44 +24,43 @@ function Tareas() {
   const [search, setSearch] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [beginDate, setBeginDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [beginDate, setBeginDate] = useState();
+  const [beginDateLabel, setBeginDateLabel] = useState();
+  const [endDateLabel, setEndDateLabel] = useState();
+  const [endDate, setEndDate] = useState();
+  const [user, setUser] = useState();
 
-  // const navigate = useNavigate();
+  const getData = async (u) => {
+    const docRef = doc(db, 'users', u.uid);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      setData(docSnap.data().tasks);
+    } else {
+      console.log('No such document!');
+    }
+  };
 
   useEffect(() => {
-    // Update the document title using the browser API
-    setData([
-      {
-        completed: false,
-        description: '',
-        expiration: [new Date('2022', '7', '1'), new Date('2022', '7', '15')],
-        important: true,
-        title: 'ASD1',
-      },
-      {
-        completed: false,
-        description: '',
-        expiration: [new Date('2022', '7', '1'), new Date('2022', '7', '15')],
-        important: true,
-        title: 'ASD2',
-      },
-      {
-        completed: false,
-        description: '',
-        expiration: [new Date('2022', '7', '1'), new Date('2022', '7', '15')],
-        important: true,
-        title: 'BNM1',
-      },
-      {
-        completed: false,
-        description: '',
-        expiration: [new Date('2022', '7', '1'), new Date('2022', '7', '15')],
-        important: true,
-        title: 'BNM2',
-      },
-    ]);
-  }, ['']);
+    onAuthStateChanged(auth, (u) => {
+      setUser(u);
+      getData(u);
+    });
+  }, []);
+
+  const addTask = async () => {
+    if (name.length > 2) {
+      const washingtonRef = doc(db, 'users', user.uid);
+      await updateDoc(washingtonRef, {
+        tasks: arrayUnion({
+          completed: false,
+          description,
+          expiration: (beginDate && endDate) ? [new Date(beginDate), new Date(endDate)] : [],
+          important: true,
+          title: name,
+        }),
+      });
+    }
+  };
 
   const selectDate = (date) => {
     setSelectedDate(date);
@@ -76,8 +81,14 @@ function Tareas() {
   const changeDescription = (event) => {
     if (event.target.value.length < 120) setDescription(event.target.value);
   };
-  const changeBegintDate = (event) => setBeginDate(event.target.value);
-  const changeEndDate = (event) => setEndDate(event.target.value);
+  const changeBegintDate = (event) => {
+    setBeginDate(new Date(event.target.value));
+    setBeginDateLabel(event.target.value);
+  };
+  const changeEndDate = (event) => {
+    setEndDate(new Date(event.target.value));
+    setEndDateLabel(event.target.value);
+  };
 
   const scrollRight = () => {
     if (dates.length > 28 && scroll === 400) {
@@ -87,7 +98,7 @@ function Tareas() {
     } else if (dates.length <= 28 && scroll === 300) {
       setScroll(scroll);
     } else {
-      etScroll(scroll + 100);
+      setScroll(scroll + 100);
     }
   };
 
@@ -111,11 +122,13 @@ function Tareas() {
           <div className="search_tasks_container">
             <div className="search_task_inner_container">
               {
-                data.map((task) => {
-                  if (search.length && ((task.title).toLowerCase()).includes(search)) {
-                    return <TaskItem key={task.title} data={task} />;
-                  } return null;
-                })
+                data
+                  ? data.map((task) => {
+                    if (search.length && ((task.title).toLowerCase()).includes(search)) {
+                      return <TaskItem key={task.title} data={task} />;
+                    } return null;
+                  })
+                  : null
               }
             </div>
           </div>
@@ -132,8 +145,9 @@ function Tareas() {
                       <DateItem
                         key={day}
                         data={convertDate(day.getDay(), day.getDate())}
-                        selected={selectedDate.toString() === day.getDate().toString()}
+                        selected={selectedDate ? (selectedDate.getDay() === day.getDay()) : false}
                         onClickFunction={selectDate}
+                        date={day}
                       />
                     ))
                       }
@@ -165,11 +179,16 @@ function Tareas() {
             <div className="daily_tasks_container">
               {
                   data.map((task) => {
-                    const date = dayToDate(selectedDate);
+                    const date = selectedDate;
                     if (selectedDate
-                      && task.expiration
-                      && date >= task.expiration[0]
-                      && date <= task.expiration[1]) {
+                      && task.expiration.length > 0
+                      && task.expiration[0]
+                      && task.expiration[1]
+                      && date >= new Date(task.expiration[0].seconds * 1000)
+                      && date <= new Date(task.expiration[1].seconds * 1000)) {
+                      return <TaskItem key={task.title} data={task} />;
+                    }
+                    if (selectedDate && task.expiration.length === 0) {
                       return <TaskItem key={task.title} data={task} />;
                     }
                     return null;
@@ -196,7 +215,7 @@ function Tareas() {
               <div className="search_inner_container">
                 <InputGroup>
                   <Text fontWeight="700">Inicio: </Text>
-                  <Input variant="unstyled" placeholder="Date..." type="datetime-local" value={beginDate} onChange={changeBegintDate} />
+                  <Input variant="unstyled" placeholder="Date..." type="datetime-local" value={beginDateLabel} onChange={changeBegintDate} />
                 </InputGroup>
               </div>
             </GridItem>
@@ -204,7 +223,7 @@ function Tareas() {
               <div className="search_inner_container">
                 <InputGroup>
                   <Text fontWeight="700">Final: </Text>
-                  <Input variant="unstyled" placeholder="Date..." type="datetime-local" value={endDate} onChange={changeEndDate} />
+                  <Input variant="unstyled" placeholder="Date..." type="datetime-local" value={endDateLabel} onChange={changeEndDate} />
                 </InputGroup>
               </div>
             </GridItem>
@@ -222,7 +241,7 @@ function Tareas() {
               </div>
             </GridItem>
             <GridItem colSpan={1} height="9vh">
-              <Button size="lg" width="100%" height="7vh" borderRadius="2vh" colorScheme="facebook">Agregar Tarea</Button>
+              <Button size="lg" width="100%" height="7vh" borderRadius="2vh" colorScheme="facebook" onClick={() => { addTask(); }}>Agregar Tarea</Button>
             </GridItem>
           </Grid>
         </div>

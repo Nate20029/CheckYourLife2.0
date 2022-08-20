@@ -1,12 +1,14 @@
 import React from 'react';
 
-function DateItem({ data, selected, onClickFunction }) {
+function DateItem({
+  data, selected, onClickFunction, date,
+}) {
   const dataSplit = data.split(' ');
 
   return (
     <div
       className={`date_item_container${selected ? ' selected_date' : ''}`}
-      onClick={() => { onClickFunction(dataSplit[1]); }}
+      onClick={() => { onClickFunction(date); }}
       aria-hidden="true"
     >
       {dataSplit[0]}
