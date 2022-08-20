@@ -4,7 +4,11 @@ function DateItem({ data, selected, onClickFunction }) {
   const dataSplit = data.split(' ');
 
   return (
-    <div className={`date_item_container${selected ? ' selected_date' : ''}`} onClick={() => { onClickFunction(dataSplit[1]); }} aria-hidden="true">
+    <div
+      className={`date_item_container${selected ? ' selected_date' : ''}`}
+      onClick={() => { onClickFunction(dataSplit[1]); }}
+      aria-hidden="true"
+    >
       {dataSplit[0]}
       {' '}
       <br />

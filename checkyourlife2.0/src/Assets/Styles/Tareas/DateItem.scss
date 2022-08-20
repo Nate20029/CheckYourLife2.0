@@ -8,15 +8,14 @@
   justify-content: center;
   text-align: center;
   font-size: small;
-  background-color: rgb(48, 48, 48);
-  color: white;
+  background-color: white;
 }
 
 .date_item_container:hover {
-  background-color: rgb(27, 27, 27);
+  background-color: rgb(129, 198, 255);
   cursor: pointer;
 }
 
 .selected_date {
-  background-color: rgb(27, 27, 27);
+  background-color: rgb(0, 140, 255);
 }

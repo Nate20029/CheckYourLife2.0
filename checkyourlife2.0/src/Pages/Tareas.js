@@ -1,18 +1,61 @@
-import React, { useState } from 'react';
-import { Grid, GridItem, IconButton } from '@chakra-ui/react';
+/* eslint-disable react/no-children-prop */
+import React, { useState, useEffect } from 'react';
+import {
+  Grid, GridItem, IconButton, Input, Button, InputGroup, Text, Textarea,
+} from '@chakra-ui/react';
 // import { useNavigate } from 'react-router-dom';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import '../Assets/Styles/Tareas/Page.scss';
 import TaskItem from '../Components/Tareas/TaskItem';
 import DateItem from '../Components/Tareas/DateItem';
-import { convertDate, getCurrentDates } from '../Services/Tareas';
+import { convertDate, dayToDate, getCurrentDates } from '../Services/Tareas';
 
 function Tareas() {
   const dates = getCurrentDates();
   const [selectedDate, setSelectedDate] = useState(0);
-  const [data, setData] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
+  const [data, setData] = useState([]);
   const [scroll, setScroll] = useState(0);
+  const [search, setSearch] = useState('');
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [beginDate, setBeginDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+
   // const navigate = useNavigate();
+
+  useEffect(() => {
+    // Update the document title using the browser API
+    setData([
+      {
+        completed: false,
+        description: '',
+        expiration: [new Date('2022', '7', '1'), new Date('2022', '7', '15')],
+        important: true,
+        title: 'ASD1',
+      },
+      {
+        completed: false,
+        description: '',
+        expiration: [new Date('2022', '7', '1'), new Date('2022', '7', '15')],
+        important: true,
+        title: 'ASD2',
+      },
+      {
+        completed: false,
+        description: '',
+        expiration: [new Date('2022', '7', '1'), new Date('2022', '7', '15')],
+        important: true,
+        title: 'BNM1',
+      },
+      {
+        completed: false,
+        description: '',
+        expiration: [new Date('2022', '7', '1'), new Date('2022', '7', '15')],
+        important: true,
+        title: 'BNM2',
+      },
+    ]);
+  }, ['']);
 
   const selectDate = (date) => {
     setSelectedDate(date);
@@ -25,6 +68,16 @@ function Tareas() {
       setScroll(scroll - 100);
     }
   };
+
+  const handleSearch = (event) => setSearch(event.target.value);
+  const changeName = (event) => {
+    if (event.target.value.length < 30) setName(event.target.value);
+  };
+  const changeDescription = (event) => {
+    if (event.target.value.length < 120) setDescription(event.target.value);
+  };
+  const changeBegintDate = (event) => setBeginDate(event.target.value);
+  const changeEndDate = (event) => setEndDate(event.target.value);
 
   const scrollRight = () => {
     if (dates.length > 28 && scroll === 400) {
@@ -40,13 +93,33 @@ function Tareas() {
 
   return (
     <Grid
-      h="100%"
-      templateRows="repeat(2, 1fr)"
-      templateColumns="repeat(2, 1fr)"
+      h="88vh"
+      templateRows="repeat(1, 1fr)"
+      templateColumns="repeat(3, 1fr)"
       gap={10}
     >
       <GridItem rowSpan={1}>
-        <div className="search_task_panel" />
+        <div className="search_task_panel">
+          <div className="search_inner_container">
+            <Input
+              variant="unstyled"
+              placeholder="Search Task"
+              value={search}
+              onChange={handleSearch}
+            />
+          </div>
+          <div className="search_tasks_container">
+            <div className="search_task_inner_container">
+              {
+                data.map((task) => {
+                  if (search.length && ((task.title).toLowerCase()).includes(search)) {
+                    return <TaskItem key={task.title} data={task} />;
+                  } return null;
+                })
+              }
+            </div>
+          </div>
+        </div>
       </GridItem>
       <GridItem rowSpan={2} colSpan={1}>
         <div className="task_page_general_container">
@@ -59,7 +132,7 @@ function Tareas() {
                       <DateItem
                         key={day}
                         data={convertDate(day.getDay(), day.getDate())}
-                        selected={selectedDate === day.getDate()}
+                        selected={selectedDate.toString() === day.getDate().toString()}
                         onClickFunction={selectDate}
                       />
                     ))
@@ -91,16 +164,68 @@ function Tareas() {
             </div>
             <div className="daily_tasks_container">
               {
-                  data.map((task) => (
-                    <TaskItem key={task} data={task} />
-                  ))
+                  data.map((task) => {
+                    const date = dayToDate(selectedDate);
+                    if (selectedDate
+                      && task.expiration
+                      && date >= task.expiration[0]
+                      && date <= task.expiration[1]) {
+                      return <TaskItem key={task.title} data={task} />;
+                    }
+                    return null;
+                  })
                   }
             </div>
           </div>
         </div>
       </GridItem>
       <GridItem rowSpan={1}>
-        <div className="add_task_panel" />
+        <div className="add_task_panel">
+          <Grid
+            h="37vh"
+            templateRows="repeat(5, 1fr)"
+            templateColumns="repeat(1, 1fr)"
+            gap={5}
+          >
+            <GridItem colSpan={1} height="5vh">
+              <div className="search_inner_container">
+                <Input variant="unstyled" placeholder="Nombre de la Tarea" value={name} onChange={changeName} />
+              </div>
+            </GridItem>
+            <GridItem colSpan={1} height="5vh">
+              <div className="search_inner_container">
+                <InputGroup>
+                  <Text fontWeight="700">Inicio: </Text>
+                  <Input variant="unstyled" placeholder="Date..." type="datetime-local" value={beginDate} onChange={changeBegintDate} />
+                </InputGroup>
+              </div>
+            </GridItem>
+            <GridItem colSpan={1} height="5vh">
+              <div className="search_inner_container">
+                <InputGroup>
+                  <Text fontWeight="700">Final: </Text>
+                  <Input variant="unstyled" placeholder="Date..." type="datetime-local" value={endDate} onChange={changeEndDate} />
+                </InputGroup>
+              </div>
+            </GridItem>
+            <GridItem colSpan={1} height="20vh">
+              <div className="search_inner_container_description">
+                <Textarea
+                  value={description}
+                  onChange={changeDescription}
+                  placeholder="Descripción"
+                  size="sm"
+                  height="18vh"
+                  border="0"
+                />
+
+              </div>
+            </GridItem>
+            <GridItem colSpan={1} height="9vh">
+              <Button size="lg" width="100%" height="7vh" borderRadius="2vh" colorScheme="facebook">Agregar Tarea</Button>
+            </GridItem>
+          </Grid>
+        </div>
       </GridItem>
     </Grid>
   );
