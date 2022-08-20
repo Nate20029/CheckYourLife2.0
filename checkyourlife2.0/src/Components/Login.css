@@ -1,0 +1,270 @@
+.main {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    padding-top: 90px;
+    padding-bottom: 90px;
+    background-color: #e1e3eb;
+}
+
+.sub-main {
+    display: flex;
+    justify-content: center;
+    height: 550px;
+    width: 35%;
+    box-shadow: 11px 12px 13px 12px rgb(207, 207, 207);
+    padding-top: 30px;
+    border-radius: 60px;
+    background-color: white;
+}
+
+.imgs {
+    padding-top: 20px;
+    justify-content: center;
+    display: flex;
+}
+
+.container-image {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    width: 500px;
+}
+
+input {
+    background: transparent;
+    width: 200px;
+    padding: 1em;
+    margin-bottom: 2em;
+    border: none;
+    border-left: 1px solid white;
+    border-top: 1px solid white;
+    border-radius: 5000px;
+    backdrop-filter: blur(5px);
+    box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+}
+
+.email {
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    padding: 14px 0 0 25px;
+}
+
+.name {
+    padding-left: 70px;
+    font-size: 20px;
+}
+
+.second-input {
+    padding-top: 20px;
+}
+
+button {
+    width: 380px;
+    height: 50px;
+    border-radius: 60px;
+    background-color: #b103fc;
+    color: white;
+    font-size: 25px;
+    border: none;
+}
+
+.login-button {
+    padding-top: 50px;
+}
+
+.link {
+    font-size: 15px;
+    font-weight: 400;
+    margin-top: 5%;
+}
+
+a {
+    color: blue;
+    position: relative;
+    top: 10%;
+}
+
+.user-box {
+    position: relative;
+    top: 100px;
+}
+
+.user-box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: black;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+}
+
+.user-box label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.user-box input:focus~label,
+.user-box input:valid~label {
+    top: -20px;
+    left: 0;
+    color: blue;
+    font-size: 15px;
+}
+
+form a {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    color: blue;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    margin-top: 100px;
+    letter-spacing: 4px
+}
+
+a:hover {
+    background: rgb(21, 21, 100);
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px blue 0 0 25px blue,
+        0 0 50px blue,
+        0 0 100px blue;
+}
+
+a span {
+    position: absolute;
+}
+
+a span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, blue);
+    animation: btn-anim1 1s linear infinite;
+}
+
+@keyframes btn-anim1 {
+    0% {
+        left: -100%;
+    }
+
+    50%,
+    100% {
+        left: 100%;
+    }
+}
+
+a span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, blue);
+    animation: btn-anim2 1s linear infinite;
+    animation-delay: .25s
+}
+
+@keyframes btn-anim2 {
+    0% {
+        top: -100%;
+    }
+
+    50%,
+    100% {
+        top: 100%;
+    }
+}
+
+a span:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, blue);
+    animation: btn-anim3 1s linear infinite;
+    animation-delay: .5s
+}
+
+@keyframes btn-anim3 {
+    0% {
+        right: -100%;
+    }
+
+    50%,
+    100% {
+        right: 100%;
+    }
+}
+
+a span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, blue);
+    animation: btn-anim4 1s linear infinite;
+    animation-delay: .75s
+}
+
+@keyframes btn-anim4 {
+    0% {
+        bottom: -100%;
+    }
+
+    50%,
+    100% {
+        bottom: 100%;
+    }
+}
+
+.direction {
+    flex-direction: row;
+    margin-top: 20;
+}
+
+.face {
+    height: 40;
+    width: 40;
+    border-radius: 40/2;
+    background-color: '#14279B';
+    align-items: center;
+    justify-content: center;
+}
+
+.google {
+    height: 40;
+    width: 40;
+    border-radius: 40/2;
+    background-color: '#f44336';
+    align-items: center;
+    justify-content: center;
+}
+
+.git {
+    height: 40;
+    width: 40;
+    border-radius: 40/2;
+    background-color: '#1565c0';
+    align-items: center;
+    justify-content: center;
+
+}

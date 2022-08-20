@@ -4,14 +4,21 @@ import { Button, ButtonGroup } from '@chakra-ui/react';
 import {
   Route, Routes, useLocation, useNavigate,
 } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
+import { auth } from '../Services/firebase.js';
 
 function Perfil() {
   const navigate = useNavigate();
 
+  // Salir de cuenta
+  async function handleSignOut() {
+    signOut(auth);
+    navigate('/');
+  }
   return (
-    <>
-      Perfil
-    </>
+    <div className="Sign-Out">
+      <button type="button" onClick={handleSignOut}>SignOut</button>
+    </div>
   );
 }
 
