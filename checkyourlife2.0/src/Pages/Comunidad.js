@@ -1,3 +1,5 @@
+/* eslint-disable prefer-const */
+/* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Button, ButtonGroup } from '@chakra-ui/react';
@@ -6,32 +8,50 @@ import {
 } from 'react-router-dom';
 import { ChatEngine } from 'react-chat-engine';
 import '../Components/comunidad.css';
-import { auth } from '../Services/firebase.js';
+import axios from 'axios';
 
-function Comunidad() {
+function Comunidad({ user }) {
   const navigate = useNavigate();
-  const  user  = auth.onAuthStateChanged;
   const [loading, setLoading] = useState(true);
-  
-  console.log(user.email)
 
+  const getFile = async (url) => {
+    const response = await fetch(url);
+    const data = await response.blob();
+
+    return new File([data], 'userPhoto.jpg', { type: 'image/jpeg' });
+  };
   useEffect(() => {
-    axios.get('https://api.chatengine.io/users/me', {
-      headers: {
-        'project-id': 'e36c972f-3bfd-4279-a705-944d4faf3557',
-        'user-name': user.email,
-        'user-secret': user.uid,
-      },
-    })
-      .then(() => {
-        setLoading(false);
+    if (user) {
+      axios.get('https://api.chatengine.io/users/me', {
+        headers: {
+          'project-id': '85051fa2-8830-452c-b1fa-72f7525c28db',
+          'user-name': user.displayName,
+          'user-secret': user.uid,
+        },
       })
-      .catch(() => {
-        let formdata = new FormData();
-        formdata.append('email', user.email);
-        formdata.append('username', user.displayName);
-        formdata.append('secret', user.uid);
-      });
+        .then(() => {
+          setLoading(false);
+        })
+        .catch(() => {
+          let formdata = new FormData();
+          formdata.append('email', user.email);
+          formdata.append('username', user.displayName);
+          formdata.append('secret', user.uid);
+
+          getFile(user.phothoURL)
+            .then((avatar) => {
+              formdata.append('avatar', avatar, avatar.name);
+
+              axios.post(
+                'https://api.chatengine.io/users/',
+                formdata,
+                { headers: { 'Private-Key': '1a44365f-8303-43a1-ae2d-9beea9c1103a' } },
+              )
+                .then(() => setLoading(false))
+                .catch((error) => console.log(error));
+            });
+        });
+    }
   }, [user]);
 
   return (
@@ -45,7 +65,7 @@ function Comunidad() {
         height="calc(100vh - 66px)"
         userName={user.email}
         userSecret={user.uid}
-        projectID="e36c972f-3bfd-4279-a705-944d4faf3557"
+        projectID="85051fa2-8830-452c-b1fa-72f7525c28db"
       />
     </div>
   );

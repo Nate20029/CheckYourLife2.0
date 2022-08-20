@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -9,7 +10,7 @@ import { auth } from '../Services/firebase.js';
 import '../Components/Login.css';
 import Check from '../Assets/Media/CheckL2.png';
 
-function Login() {
+function Login({ setUserfunction }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ function Login() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         /* navigation.replace("Home") */
+        setUserfunction(user);
         navigate('/Home');
       } else {
         navigate('/');
@@ -29,6 +31,7 @@ function Login() {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredentials) => {
         const { user } = userCredentials;
+        setUserfunction(userCredentials);
         console.log('Registered with:', user.email);
       })
       .catch((error) => alert(error.message));
@@ -127,7 +130,6 @@ function Login() {
               {' '}
               <a href="#" onClick={handleSignUp}>Sign Up</a>
             </p>
-           
           </div>
         </div>
 
