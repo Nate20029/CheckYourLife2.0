@@ -127,27 +127,18 @@ function Login() {
               {' '}
               <a href="#" onClick={handleSignUp}>Sign Up</a>
             </p>
-            <div style={{ flexDirection: 'column', marginTop: 20 }}>
-              <div style={{
-                height: 40, width: 40, borderRadius: 40 / 2, backgroundColor: '#14279B', alignItems: 'center', justifyContent: 'center',
-              }}
-              >
-                <p type="button" style={{ fontSize: 25, fontWeight: 'bold', color: 'white' }} onClick={signInWithFacebook}>f</p>
+            <p>Or log in with</p>
+            <div className="columna">
+              <div style={{ position: 'absolute', top: '78%', left: '45%', height: 40, width: 40, borderRadius: 40 / 2, backgroundColor: '#14279B', alignItems: 'center', justifyContent: 'center' }}>
+                <button type="button" style={{ width: '10%', position: 'absolute', left: '35%', top: '-20%', fontSize: 25, fontWeight: 'bold', color: 'white' }} onClick={signInWithFacebook}> f </button>
               </div>
-              <div style={{
-                height: 40, width: 40, borderRadius: 40 / 2, backgroundColor: '#f44336', alignItems: 'center', justifyContent: 'center',
-              }}
-              >
-                <p type="button" style={{ fontSize: 25, fontWeight: 'bold', color: 'white' }} onClick={signInWithGoogle}>G</p>
+              <div style={{ position: 'absolute', top: '78%', left: '49%', height: 40, width: 40, borderRadius: 40 / 2, backgroundColor: '#f44336', alignItems: 'center', justifyContent: 'center' }}>
+                <button type="button" style={{ width: '10%', position: 'absolute', left: '29%', top: '-20%', fontSize: 25, fontWeight: 'bold', color: 'white' }} onClick={signInWithGoogle}> G </button>
               </div>
-              <div style={{
-                height: 40, width: 40, borderRadius: 40 / 2, backgroundColor: '#1565c0', alignItems: 'center', justifyContent: 'center',
-              }}
-              >
-                <p type="button" style={{ fontSize: 25, fontWeight: 'bold', color: 'white' }} onClick={signInWithGithub}>Git</p>
+              <div style={{ position: 'absolute', top: '78%', left: '53%', height: 40, width: 40, borderRadius: 40 / 2, backgroundColor: '#1565c0', alignItems: 'center', justifyContent: 'center' }}>
+                <button type="button" style={{ width: '100%', position: 'absolute', left: '0%', top: '-20%', fontSize: 20, fontWeight: 'bold', color: 'white' }} onClick={signInWithGithub}> Git </button>
               </div>
             </div>
-
           </div>
         </div>
 
