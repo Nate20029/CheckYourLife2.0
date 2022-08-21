@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   Tabs, TabList, TabPanels, Tab, TabPanel,
 } from '@chakra-ui/react';
-import Comunidad from './Comunidad';
+import Comunidad from './[id]';
 import Tareas from './Tareas';
 import Finanzas from './Finanzas';
 import Cronometro from './Cronometro';
