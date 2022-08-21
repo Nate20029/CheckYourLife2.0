@@ -21,6 +21,7 @@
     "react-scripts": "5.0.1",
     "react-settings-context": "^0.0.5",
     "react-split-pane": "^2.0.3",
+    "react-transition-group": "^4.4.5",
     "use-context": "^0.0.1",
     "web-vitals": "^0.2.4"
   },

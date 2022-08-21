@@ -3,13 +3,13 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { SettingsContext } from './SettingsContext';
 
 function CountdownAnimation({
-  key, timer, animate, children,
+  myKey, timer, animate, children,
 }) {
   const { stopAimate } = useContext(SettingsContext);
 
   return (
     <CountdownCircleTimer
-      key={key}
+      key={myKey}
       isPlaying={animate}
       duration={timer * 60}
       colors={[

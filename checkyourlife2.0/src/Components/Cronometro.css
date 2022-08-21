@@ -14,7 +14,7 @@ body {
     width: 90%;
     height: 100%;
     margin: 30px auto;
-    background: radial-gradient(circle, #8bc4e2 0%, #73becf 65%); 
+    background: radial-gradient(circle, #8bc4e2 0%, #65a3b0 65%); 
   }
   
   .clock-holder {
@@ -43,6 +43,7 @@ body {
     border-radius: 5px;
     width: 150px;
     height: 150px;
+    box-shadow: 1rem 1.5rem 2rem rgba(0,0,0,0.6)
   }
   
   .stopwatch .stopwatch-btn {
