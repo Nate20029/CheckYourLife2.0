@@ -6,7 +6,7 @@ import './Sidebar.css';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { addDoc, collection } from '@firebase/firestore';
-import { useRouter } from 'next/router';
+import { withRouter } from 'next/router';
 import { auth, db } from '../Services/firebase';
 import getOtherEmail from './getOtherEmail';
 
@@ -14,11 +14,12 @@ export default function Sidebar() {
   const [user] = useAuthState(auth);
   const [snapshot] = useCollection(collection(db, 'chats'));
   const chat = snapshot?.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  const router = useRouter();
+  const router = withRouter();
 
   const redirect = (id) => {
     console.log(`esta es una prueba${id}`);
-    router.push(`/chats/${id}`);
+    const prueba = router.push(`Home/chats/${id}`);
+    console.log(prueba);
   };
 
   const chatExist = (email) => chat?.find((chats) => (
