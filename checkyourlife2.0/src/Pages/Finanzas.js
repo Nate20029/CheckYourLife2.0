@@ -1,8 +1,19 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable react/jsx-one-expression-per-line */
+/* eslint-disable react/no-children-prop */
 /* eslint-disable react/button-has-type */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, PureComponent } from 'react';
 import {
-  Button, ButtonGroup, Grid, GridItem, IconButton,
+  Button, ButtonGroup, Grid, GridItem, IconButton, Input, InputGroup, InputLeftAddon, Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
 } from '@chakra-ui/react';
 import {
   Route, Routes, useLocation, useNavigate,
@@ -36,27 +47,12 @@ function Finanzas() {
   const navigate = useNavigate();
 
   const [gastos, setGastos] = useState([
-    { date: '2022-05-20', gasto: 210.00 },
-    { date: '2022-05-20', gasto: 200.00 },
-    { date: '2022-05-20', gasto: 5.00 },
-    { date: '2022-05-20', gasto: 40.00 },
-    { date: '2022-05-20', gasto: 300.00 },
-    { date: '2022-05-20', gasto: 20.00 },
-    { date: '2022-05-20', gasto: 400.00 },
+    {},
   ]);
 
   const [ingresos, setIngresos] = useState([
-    { date: '2022-04-21', ingreso: 100.00 },
-    { date: '2022-04-21', ingreso: 210.00 },
-    { date: '2022-04-21', ingreso: 3.00 },
-    { date: '2022-04-21', ingreso: 54.25 },
-    { date: '2022-04-21', ingreso: 250.00 },
-    { date: '2022-04-21', ingreso: 60.00 },
-    { date: '2022-04-21', ingreso: 150.00 },
+    {},
   ]);
-
-  const [ingresosData, setIngresosData] = useState(ingresos.map((ingreso) => ingreso.ingreso));
-  const [gastosData, setGastosData] = useState(gastos.map((gasto) => gasto.gasto));
 
   const [sumIngreso, setSumIngreso] = useState(ingresos.map((ingreso) => ingreso.ingreso)
     .reduce((previous, current) => previous + current, 0));
@@ -65,6 +61,9 @@ function Finanzas() {
     .reduce((previous, current) => previous + current, 0));
 
   const [uid, setUid] = useState();
+
+  const [numberI, setNumberI] = useState(0);
+  const [numberG, setNumberG] = useState(0);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -79,7 +78,7 @@ function Finanzas() {
         console.log('ERROR');
       }
     });
-  }, []);
+  }, ['']);
 
   const verifyDoc = async (id) => {
     const docRef = doc(db, 'users', id);
@@ -111,10 +110,17 @@ function Finanzas() {
     const docSnap = await getDoc(docRef);
     setIngresos((docSnap.data()).ingresos);
     setGastos((docSnap.data()).gastos);
+    if (gastos.length == 0) {
+      setSumGasto(0);
+    }
+    if (ingresos.length == 0) {
+      setSumIngreso(0);
+    }
+    setSumGasto(gastos.map((gasto) => gasto.gasto)
+      .reduce((previous, current) => previous + current, 0));
+    setSumIngreso(ingresos.map((ingreso) => ingreso.ingreso)
+      .reduce((previous, current) => previous + current, 0));
   };
-
-  const [numberI, setNumberI] = useState(0);
-  const [numberG, setNumberG] = useState(0);
 
   const guardarGasto = (number) => {
     if (number && number > 0) {
@@ -129,11 +135,11 @@ function Finanzas() {
 
       gastos.push(gasto);
       // eslint-disable-next-line no-shadow
-      setGastosData(gastos.map((gasto) => gasto.gasto));
-      // eslint-disable-next-line no-shadow
-      setSumGasto(gastosData.map((gasto) => gasto)
+      setSumGasto(gastos.map((gasto) => gasto.gasto)
         .reduce((previous, current) => previous + current, 0));
       setNumberG(0);
+
+      console.log(gastos);
 
       onAuthStateChanged(auth, (user) => {
         const docRef = doc(db, 'users', user.uid);
@@ -157,9 +163,7 @@ function Finanzas() {
 
       ingresos.push(ingreso);
       // eslint-disable-next-line no-shadow
-      setIngresosData(ingresos.map((ingreso) => ingreso.ingreso));
-      // eslint-disable-next-line no-shadow
-      setSumIngreso(ingresosData.map((ingreso) => ingreso)
+      setSumIngreso(ingresos.map((ingreso) => ingreso.ingreso)
         .reduce((previous, current) => previous + current, 0));
       setNumberI(0);
 
@@ -175,22 +179,23 @@ function Finanzas() {
   const data = [
     {
       name: 'dinero',
-      gastos: 4000,
-      ingresos: 2400,
-      amt: 2400,
+      gastos: sumGasto,
+      ingresos: sumIngreso,
     },
   ];
-
+  const COLORS = ['#f47140'];
   const data2 = [
-    { name: 'Group A', value: 400 },
-    { name: 'Group B', value: 300 },
-    { name: 'Group C', value: 300 },
-    { name: 'Group D', value: 200 },
-    { name: 'Group E', value: 278 },
-    { name: 'Group F', value: 189 },
+    { name: 'Gastos', value: sumGasto },
+    { name: 'Ingresos', value: sumIngreso },
   ];
 
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+  const handleChangeG = (event) => {
+    setNumberG(event.target.value);
+  };
+
+  const handleChangeI = (event) => {
+    setNumberI(event.target.value);
+  };
 
   return (
     <div className="container">
@@ -200,28 +205,23 @@ function Finanzas() {
         templateColumns="repeat(5, 1fr)"
         gap={4}
       >
-        <GridItem className="padding" rowSpan={2} colSpan={1} bg="#f47140">
+        <GridItem className="padding" rowSpan={2} colSpan={1} bg="rgb(0,0,0,0.2)">
           <div>
             <h1 className="titulo">Finanzas</h1>
-            <input
-              onChange={(newnumber) => setNumberG(newnumber)}
-              placeholder="Ingrese un dato"
-              pattern="[0-9]*"
-              value={numberG}
-            />
-            <button onClick={() => guardarGasto(numberG)} className="boton">Agregar Gastos</button>
-            <input
-              onChange={(newnumber) => setNumberI(newnumber)}
-              placeholder="Ingrese un dato"
-              pattern="[0-9]*"
-              value={numberI}
-            />
-            <button onClick={() => guardarIngreso(numberI)} className="boton">Agregar Ingreos</button>
+            <InputGroup size="md">
+              <InputLeftAddon children="Q" />
+              <Input _placeholder={{ opacity: 1, color: 'black' }} placeholder="Ingrese un gasto" type="number" onChange={handleChangeG} value={numberG} />
+            </InputGroup>
+            <Button onClick={() => guardarGasto(numberG)} className="botonorange">Agregar Gastos</Button>
+            <InputGroup size="md">
+              <InputLeftAddon children="Q" />
+              <Input _placeholder={{ opacity: 1, color: 'black' }} placeholder="Ingrese un ingreso" type="number" onChange={handleChangeI} value={numberI} />
+            </InputGroup>
+            <Button onClick={() => guardarIngreso(numberI)} className="botonblue">Agregar Ingresos</Button>
           </div>
         </GridItem>
-        <GridItem className="padding" colSpan={2} bg="#36a7d9">
+        <GridItem className="padding h-350" colSpan={2} bg="rgb(0,0,0,0.2)">
           <div className="auto-height">
-            <h1>Grafica de Barras</h1>
             <div className="chart_container">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
@@ -240,39 +240,88 @@ function Finanzas() {
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="gastos" fill="#8884d8" />
-                  <Bar dataKey="ingresos" fill="#82ca9d" />
+                  <Bar dataKey="gastos" fill="#f47140" />
+                  <Bar dataKey="ingresos" fill="#36a7d9" />
                 </BarChart>
               </ResponsiveContainer>
             </div>
           </div>
         </GridItem>
-        <GridItem className="padding" colSpan={2} bg="#36a7d9">
-          <div>
-            <h1>Grafica de pie</h1>
+        <GridItem className="padding h-350" colSpan={2} bg="rgb(0,0,0,0.2)">
+          <div className="auto-height">
             <div className="chart_container">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart width={400} height={400}>
                   <Pie
                     dataKey="value"
-                    startAngle={180}
-                    endAngle={0}
+                    isAnimationActive={false}
                     data={data2}
                     cx="50%"
                     cy="50%"
                     outerRadius={80}
-                    fill="#8884d8"
+                    fill="#36a7d9"
                     label
-                  />
+                  >
+                    {
+                      data.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]} />)
+                    }
+                  </Pie>
+                  <Tooltip />
                 </PieChart>
               </ResponsiveContainer>
             </div>
           </div>
         </GridItem>
-        <GridItem className="padding" colSpan={4} bg="rgb(0,0,0,0.2)">
-          <div>
-            Tabla scrolleable
-          </div>
+        <GridItem className="padding " colSpan={4} bg="rgb(0,0,0,0.2)">
+          <Grid
+            h="100%"
+            templateRows="repeat(1, 1fr)"
+            templateColumns="repeat(2, 1fr)"
+            gap={4}
+          >
+            <GridItem className="padding h-scroll" rowSpan={1} colSpan={1} bg="rgb(0,0,0,0.2)">
+              <TableContainer>
+                <Table variant="striped">
+                  <Thead>
+                    <Tr>
+                      <Th>Gastos</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {gastos.map((gasto) => <Tr><Th>Q {gasto.gasto}</Th></Tr>)}
+                    <Tr>
+                      <Th>
+                        <Tr>Total de Ingresos: Q{(gastos.map((gasto) => gasto.gasto)
+                          .reduce((previous, current) => previous + current, 0))}
+                        </Tr>
+                      </Th>
+                    </Tr>
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            </GridItem>
+            <GridItem className="padding h-scroll" rowSpan={1} colSpan={1} bg="rgb(0,0,0,0.2)">
+              <TableContainer>
+                <Table variant="striped">
+                  <Thead>
+                    <Tr>
+                      <Th>Ingreso</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {ingresos.map((ingreso) => <Tr><Th>Q {ingreso.ingreso}</Th></Tr>)}
+                    <Tr>
+                      <Th>
+                        <Tr>Total de Ingresos: Q{(ingresos.map((ingreso) => ingreso.ingreso)
+                          .reduce((previous, current) => previous + current, 0))}
+                        </Tr>
+                      </Th>
+                    </Tr>
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            </GridItem>
+          </Grid>
         </GridItem>
       </Grid>
     </div>

@@ -25,6 +25,51 @@
     padding: 12px 32px;
     border-radius: 4px;
     margin: 10px;
+    color: black;
+}
+
+.scroll{
+    height: 50px;
+    overflow-y: scroll;
+}
+
+.botonblue{
+    align-items: center;
+    justify-content: center;
+    padding: 12px 32px;
+    border-radius: 4px;
+    margin: 20px 0;
+    color: black;
+    background-color: #36a7d9!important;
+}
+
+.botonblue:hover{
+    background-color: rgb(54, 167, 217);
+    opacity: 0.9;
     color: white;
-    background-color: #36a7d9;
+}
+
+.botonorange{
+    align-items: center;
+    justify-content: center;
+    padding: 12px 32px;
+    border-radius: 4px;
+    margin: 20px 0;
+    color: black;
+    background-color: #f47140!important;
+}
+
+.botonorange:hover{
+    background-color: rgb(244, 113, 64);
+    opacity: 0.9;
+    color: white;
+}
+
+.h-350{
+    height: 350px!important;
+}
+
+.h-scroll{
+    overflow-y: auto;
+    height: 200px;
 }
