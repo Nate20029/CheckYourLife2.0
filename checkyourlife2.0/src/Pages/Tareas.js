@@ -30,6 +30,31 @@ function Tareas() {
   const [endDate, setEndDate] = useState();
   const [user, setUser] = useState();
 
+  const verifyDoc = async (id) => {
+    const docRef = doc(db, 'users', id);
+    const docSnap = await getDoc(docRef);
+    if (!docSnap.exists()) {
+      const docData = {
+        tasks: [
+          {
+            title: 'ejemplo',
+            description: 'descripcion',
+            expiration: [],
+            important: true,
+            completed: false,
+          },
+        ],
+        ingresos: [
+
+        ],
+        gastos: [
+
+        ],
+      };
+      await setDoc(doc(db, 'users', id), docData);
+    }
+  };
+
   const getData = async (u) => {
     const docRef = doc(db, 'users', u.uid);
     const docSnap = await getDoc(docRef);
@@ -44,13 +69,25 @@ function Tareas() {
     onAuthStateChanged(auth, (u) => {
       setUser(u);
       getData(u);
+      verifyDoc(u.uid);
     });
   }, []);
 
+  const checkContains = (title) => {
+    let found = false;
+    // eslint-disable-next-line array-callback-return
+    data.map((element) => {
+      if (element.title === title) {
+        found = true;
+      }
+    });
+    return found;
+  };
+
   const addTask = async () => {
-    if (name.length > 2) {
-      const washingtonRef = doc(db, 'users', user.uid);
-      await updateDoc(washingtonRef, {
+    const docRef = doc(db, 'users', user.uid);
+    if (name.length > 2 && !checkContains(name)) {
+      await updateDoc(docRef, {
         tasks: arrayUnion({
           completed: false,
           description,
@@ -59,6 +96,7 @@ function Tareas() {
           title: name,
         }),
       });
+      getData(user);
     }
   };
 
@@ -88,6 +126,24 @@ function Tareas() {
   const changeEndDate = (event) => {
     setEndDate(new Date(event.target.value));
     setEndDateLabel(event.target.value);
+  };
+
+  const handleData = async (newTask) => {
+    if (user) {
+      const docRef = doc(db, 'users', user.uid);
+      // eslint-disable-next-line array-callback-return
+      data.map((task) => {
+        if (task.title === newTask.title) {
+          updateDoc(docRef, {
+            tasks: arrayRemove(task),
+          });
+          updateDoc(docRef, {
+            tasks: arrayUnion(newTask),
+          });
+        }
+      });
+      await getData(user);
+    }
   };
 
   const scrollRight = () => {
@@ -125,7 +181,13 @@ function Tareas() {
                 data
                   ? data.map((task) => {
                     if (search.length && ((task.title).toLowerCase()).includes(search)) {
-                      return <TaskItem key={task.title} data={task} />;
+                      return (
+                        <TaskItem
+                          key={task.title + Math.random().toString()}
+                          data={task}
+                          handleDataFunction={handleData}
+                        />
+                      );
                     } return null;
                   })
                   : null
@@ -186,10 +248,22 @@ function Tareas() {
                       && task.expiration[1]
                       && date >= new Date(task.expiration[0].seconds * 1000)
                       && date <= new Date(task.expiration[1].seconds * 1000)) {
-                      return <TaskItem key={task.title} data={task} />;
+                      return (
+                        <TaskItem
+                          key={task.title}
+                          data={task}
+                          handleDataFunction={handleData}
+                        />
+                      );
                     }
                     if (selectedDate && task.expiration.length === 0) {
-                      return <TaskItem key={task.title} data={task} />;
+                      return (
+                        <TaskItem
+                          key={task.title}
+                          data={task}
+                          handleDataFunction={handleData}
+                        />
+                      );
                     }
                     return null;
                   })

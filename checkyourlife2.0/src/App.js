@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ChakraProvider,
   theme,
@@ -9,17 +8,19 @@ import Login from './Pages/Login';
 import Home from './Pages/Home';
 
 function App() {
+  const [user, setUser] = useState();
+  const userloginaccess = (u) => { setUser(u); };
   return (
     <ChakraProvider theme={theme}>
       <div className="App">
         <Routes>
           <Route
             path="/"
-            element={<Login />}
+            element={<Login setUserfunction={userloginaccess} />}
           />
           <Route
             path="/Home"
-            element={<Home />}
+            element={<Home user={user} />}
           />
         </Routes>
       </div>
