@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   ChakraProvider,
   theme,
@@ -8,19 +8,17 @@ import Login from './Pages/Login';
 import Home from './Pages/Home';
 
 function App() {
-  const [user, setUser] = useState();
-  const userloginaccess = (u) => { setUser(u); };
   return (
     <ChakraProvider theme={theme}>
       <div className="App">
         <Routes>
           <Route
             path="/"
-            element={<Login setUserfunction={userloginaccess} />}
+            element={<Login />}
           />
           <Route
             path="/Home"
-            element={<Home user={user} />}
+            element={<Home />}
           />
         </Routes>
       </div>

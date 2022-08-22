@@ -1,22 +1,15 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
   Tabs, TabList, TabPanels, Tab, TabPanel,
 } from '@chakra-ui/react';
-import Comunidad from './[id]';
+import Comunidad from './Comunidad';
 import Tareas from './Tareas';
 import Finanzas from './Finanzas';
 import Cronometro from './Cronometro';
 import Perfil from './Perfil';
 
-function Home({ user }) {
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!user) {
-      navigate('/');
-    }
-  }, []);
+function Home() {
   return (
     <Tabs isFitted variant="enclosed">
       <TabList mb="1em">
@@ -28,7 +21,7 @@ function Home({ user }) {
       </TabList>
       <TabPanels>
         <TabPanel>
-          <Comunidad user={user} />
+          <Comunidad />
         </TabPanel>
         <TabPanel>
           <Tareas />

@@ -5,14 +5,14 @@ import {
   Route, Routes, useLocation, useNavigate,
 } from 'react-router-dom';
 
-function Tareas() {
+function Comunidad() {
   const navigate = useNavigate();
 
   return (
     <>
-      Tareas
+      Comunidad
     </>
   );
 }
 
-export default Tareas;
+export default Comunidad;
