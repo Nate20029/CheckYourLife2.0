@@ -1,0 +1,46 @@
+.daily_tasks_container {
+  width: 100%;
+  height: 72vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: 0;
+}
+
+.task_item_container {
+  width: 100%;
+  height: 10vh;
+  border-radius: 2vh;
+  background-color: white;
+  margin-bottom: 2vh;
+}
+.daily_tasks_container {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.daily_tasks_container::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+.sides_item_container {
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.central_item_container_top {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+.central_item_container_bottom {
+  height: 100%;
+}
+
+.sides_item_container_right {
+  width: 100%;
+  height: 10vh;
+}
