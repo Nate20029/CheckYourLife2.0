@@ -6,7 +6,7 @@
     flex-direction: column;
 }
 .topbar{
-    background-color: gray;
+    background-color: rgba(52, 168, 230, 0.87);
     height: 81px;
     width: 100%;
     align-items: center;
@@ -16,6 +16,7 @@
     margin: 3%;
 }
 .chatarea{
+    background-color: rgba(0, 221, 255, 0.139);
     flex: 1;
     flex-direction: column;
     padding: 6px;

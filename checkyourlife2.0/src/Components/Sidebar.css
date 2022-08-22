@@ -1,4 +1,5 @@
 .todo {
+    background-color: rgb(9, 63, 137);
     width: 300px;
     border-style: solid;
     border-width: 1px;
@@ -36,7 +37,10 @@
 }
 .usuarios:hover{
     cursor: pointer;
-    background-color: rgb(247, 247, 247);
+    background-color: rgb(53, 87, 102);
+}
+.textusuarios{
+    color: white;
 }
 .avatarchat{
     margin: 3px;

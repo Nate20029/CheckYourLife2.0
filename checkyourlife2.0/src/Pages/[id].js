@@ -24,33 +24,12 @@ function Topbar() {
   return (
     <Flex className="topbar">
       <Avatar className="avatarchatcom" src="" />
-      <Heading size="lg">user1@gmail.com</Heading>
+      <Heading size="lg">gal20079@uvg.edu.gt</Heading>
     </Flex>
   );
 }
 
 function Comunidad() {
-  const router = useRouter();
-  const { id } = router.query.id;
-
-  const [user] = useAuthState(auth);
-
-  const q = query(collection(db, `chats/${id}/messages`), orderBy('timestamp'));
-  const [messages] = useCollectionData(q);
-
-  const [chat] = useDocumentData(doc(db, 'chats', id));
-  console.log(chat);
-
-  const getMessages = () => messages?.map((msg) => {
-    const sender = msg.sender === user.email;
-
-    return (
-      <Flex className="messagesr" alignSelf={sender ? 'flex-start' : 'flex-end'} backgroundColor={sender ? 'rgb(115, 186, 248)' : 'rgb(105, 227, 203)'}>
-        <Text>{msg.text}</Text>
-      </Flex>
-    );
-  });
-
   return (
     <Flex className="general">
 
@@ -62,7 +41,25 @@ function Comunidad() {
         <Flex className="chatarea">
 
           <Flex className="messagess">
-            <Text>This is a dummy message</Text>
+            <Text>Que onda Kenny</Text>
+          </Flex>
+          <Flex className="messagess">
+            <Text>Prueba :p</Text>
+          </Flex>
+          <Flex className="messagesr">
+            <Text>Ola ola</Text>
+          </Flex>
+          <Flex className="messagesr">
+            <Text>Probando</Text>
+          </Flex>
+          <Flex className="messagesr">
+            <Text>Hola</Text>
+          </Flex>
+          <Flex className="messagess">
+            <Text>Buenas Tardes</Text>
+          </Flex>
+          <Flex className="messagess">
+            <Text>Alguien aqui?</Text>
           </Flex>
 
         </Flex>

@@ -6,7 +6,6 @@ import './Sidebar.css';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { addDoc, collection } from '@firebase/firestore';
-import { withRouter } from 'next/router';
 import { auth, db } from '../Services/firebase';
 import getOtherEmail from './getOtherEmail';
 
@@ -14,7 +13,6 @@ export default function Sidebar() {
   const [user] = useAuthState(auth);
   const [snapshot] = useCollection(collection(db, 'chats'));
   const chat = snapshot?.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  const router = withRouter();
 
   const redirect = (id) => {
     console.log(`esta es una prueba${id}`);
@@ -22,14 +20,10 @@ export default function Sidebar() {
     console.log(prueba);
   };
 
-  const chatExist = (email) => chat?.find((chats) => (
-    chats.users.includes(user.email) && chat.users.includes(email)));
-
   const newChat = async () => {
     const input = prompt('Enter email of chat recipient');
-    if (!chatExist(input) && (input !== user.email)) {
-      await addDoc(collection(db, 'chats'), { users: [user.email, input] });
-    }
+    await addDoc(collection(db, 'chats'), { users: [user.email, input] });
+    console.log(user.email);
   };
 
   const chatList = () => (
@@ -38,7 +32,7 @@ export default function Sidebar() {
         (chats) => (
           <Flex className="usuarios" onClick={() => redirect(chats.id)}>
             <Avatar className="avatarchat" src="" />
-            <Text>{getOtherEmail(chats.users, user)}</Text>
+            <Text className="textusuarios">{getOtherEmail(chats.users, user)}</Text>
           </Flex>
         ),
       )
@@ -49,7 +43,7 @@ export default function Sidebar() {
       <Flex className="arriba2">
         <Flex className="avatarflex">
           <Avatar className="avatar" src={user.photoURL} />
-          <Text>{user.displayName || user.email}</Text>
+          <Text className="textusuarios">{user.displayName || user.email}</Text>
         </Flex>
       </Flex>
 
