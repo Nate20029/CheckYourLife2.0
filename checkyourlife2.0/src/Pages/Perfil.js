@@ -24,9 +24,9 @@ function Perfil() {
             <img className="profile-bgHome" src="https://37.media.tumblr.com/88cbce9265c55a70a753beb0d6ecc2cd/tumblr_n8gxzn78qH1st5lhmo1_1280.jpg" alt="profile-bgHome" />
             <img className="avatar" src="http://gravatar.com/avatar/288ce55a011c709f4e17aef7e3c86c64?s=200" alt="jofpin" />
           </div>
-          <button type="button">Follow</button>
+          <button type="button"> Añadir + </button>
           <div className="user-profile-data">
-            <h1>Jose Pino</h1>
+            <h1>Esteban Aldana</h1>
             <p>github.com/jofpin</p>
           </div>
           <div className="description-profile">
@@ -39,19 +39,13 @@ function Perfil() {
             <li>
               <a>
                 <strong>3390</strong>
-                <p1>Posts</p1>
+                <p1>Amigos</p1>
               </a>
             </li>
             <li>
               <a>
                 <strong>718</strong>
-                <p2>Followers</p2>
-              </a>
-            </li>
-            <li>
-              <a>
-                <strong>239</strong>
-                <p3>Following</p3>
+                <p2>Grupos</p2>
               </a>
             </li>
           </ul>
