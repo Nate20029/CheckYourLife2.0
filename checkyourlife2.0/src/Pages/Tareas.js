@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-children-prop */
 import React, { useEffect, useState } from 'react';
@@ -86,6 +85,7 @@ function Tareas() {
   };
 
   const addTask = async () => {
+    const docRef = doc(db, 'users', user.uid);
     if (name.length > 2 && !checkContains(name)) {
       await updateDoc(docRef, {
         tasks: arrayUnion({
