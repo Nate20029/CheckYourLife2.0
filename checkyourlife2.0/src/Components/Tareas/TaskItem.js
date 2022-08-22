@@ -3,13 +3,26 @@ import {
   Grid, GridItem, Checkbox, Badge,
 } from '@chakra-ui/react';
 
-function TaskItem({ data }) {
+function TaskItem({ data, handleDataFunction }) {
   return (
     <div className="task_item_container">
       <Grid templateColumns="repeat(6, 1fr)" templateRows="repeat(4, 1fr)" gap={0}>
         <GridItem rowSpan={4} colSpan={1} w="100%" h="100%">
           <div className="sides_item_container">
-            <Checkbox size="lg" colorScheme="green" />
+            <Checkbox
+              size="lg"
+              colorScheme="green"
+              isChecked={data.completed}
+              onChange={() => {
+                handleDataFunction({
+                  completed: !data.completed,
+                  description: data.description,
+                  expiration: data.expiration,
+                  important: data.important,
+                  title: data.title,
+                });
+              }}
+            />
           </div>
         </GridItem>
         <GridItem rowSpan={2} colSpan={4} w="100%" h="100%">
