@@ -27,7 +27,7 @@ function Temporizador() {
   useEffect(() => { updateExecute(executing); }, [executing, startAnimate]);
 
   return (
-    <div className="container">
+    <div className="containe">
       <h1>Temporizador</h1>
       {pomodoro !== 0
         ? (
