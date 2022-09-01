@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-// import { getStorage } from 'firebase/storage';
+import { getStorage } from 'firebase/storage';
 import { getFirestore } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 
@@ -28,7 +28,7 @@ onAuthStateChanged(auth, (user) => {
 });
 // const storage = getStorage();
 const db = getFirestore();
-
+export const storage = getStorage(app);
 export { auth };
 export { db };
 

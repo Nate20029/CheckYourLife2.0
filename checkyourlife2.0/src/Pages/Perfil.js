@@ -5,6 +5,8 @@ import {
   Route, Routes, useLocation, useNavigate,
 } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
+import Avatar from '@mui/material/Avatar';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { auth } from '../Services/firebase.js';
 import '../Components/Perfil.css';
 
@@ -16,6 +18,34 @@ function Perfil() {
     signOut(auth);
     navigate('/');
   }
+
+  const [image, setImage] = useState(null);
+  const [url, setUrl] = useState(null);
+
+  const handleImageChange = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+  };
+
+  const handleSubmit = () => {
+    const imageRef = ref(storage, 'image');
+    uploadBytes(imageRef, image)
+      .then(() => {
+        getDownloadURL(imageRef)
+          .then((url) => {
+            setUrl(url);
+          })
+          .catch((error) => {
+            console.log(error.message, 'error getting the image url');
+          });
+        setImage(null);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
   return (
     <>
       <div className="content-profile-page">
@@ -23,8 +53,10 @@ function Perfil() {
           <div className="img-user-profile">
             <img className="profile-bgHome" src="https://37.media.tumblr.com/88cbce9265c55a70a753beb0d6ecc2cd/tumblr_n8gxzn78qH1st5lhmo1_1280.jpg" alt="profile-bgHome" />
             <img className="avatar" src="http://gravatar.com/avatar/288ce55a011c709f4e17aef7e3c86c64?s=200" alt="jofpin" />
+            <Avatar src={url} sx={{ width: 150, height: 150 }} />
+            <input type="file" onChange={handleImageChange} />
+            <button type="button" onClick={handleSubmit}>Submit</button>
           </div>
-          <button type="button"> Añadir + </button>
           <div className="user-profile-data">
             <h1>Esteban Aldana</h1>
             <p>github.com/jofpin</p>
