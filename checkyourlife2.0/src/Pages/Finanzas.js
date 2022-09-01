@@ -76,7 +76,7 @@ function Finanzas() {
         console.log('ERROR');
       }
     });
-  }, ['']);
+  }, [ingresos, gastos]);
 
   const verifyDoc = async (id) => {
     const docRef = doc(db, 'users', id);
@@ -106,8 +106,18 @@ function Finanzas() {
   const getData = async (id) => {
     const docRef = doc(db, 'users', id);
     const docSnap = await getDoc(docRef);
-    setIngresos((docSnap.data()).ingresos);
-    setGastos((docSnap.data()).gastos);
+    try {
+      setIngresos((docSnap.data()).ingresos);
+      console.log('ingresos son: ', ingresos);
+    } catch (error) {
+      console.log(error);
+    }
+    try {
+      setGastos((docSnap.data()).gastos);
+      console.log('gastos son: ', gastos);
+    } catch (error) {
+      console.log(error);
+    }
     if (gastos.length == 0) {
       setSumGasto(0);
     }
@@ -282,14 +292,14 @@ function Finanzas() {
                 <Table variant="striped">
                   <Thead>
                     <Tr>
-                      <Th>Gastos</Th>
+                      <Th className="white">Gastos</Th>
                     </Tr>
                   </Thead>
                   <Tbody>
-                    {gastos.map((gasto) => <Tr><Th>Q {gasto.gasto}</Th></Tr>)}
+                    {gastos.map((gasto) => <Tr><Th className="white">Q {gasto.gasto}</Th></Tr>)}
                     <Tr>
                       <Th>
-                        <Tr>Total de Ingresos: Q{(gastos.map((gasto) => gasto.gasto)
+                        <Tr className="white">Total de Ingresos: Q{(gastos.map((gasto) => gasto.gasto)
                           .reduce((previous, current) => previous + current, 0))}
                         </Tr>
                       </Th>
@@ -303,14 +313,14 @@ function Finanzas() {
                 <Table variant="striped">
                   <Thead>
                     <Tr>
-                      <Th>Ingreso</Th>
+                      <Th className="white">Ingreso</Th>
                     </Tr>
                   </Thead>
                   <Tbody>
-                    {ingresos.map((ingreso) => <Tr><Th>Q {ingreso.ingreso}</Th></Tr>)}
+                    {ingresos.map((ingreso) => <Tr><Th className="white">Q {ingreso.ingreso}</Th></Tr>)}
                     <Tr>
                       <Th>
-                        <Tr>Total de Ingresos: Q{(ingresos.map((ingreso) => ingreso.ingreso)
+                        <Tr className="white">Total de Ingresos: Q{(ingresos.map((ingreso) => ingreso.ingreso)
                           .reduce((previous, current) => previous + current, 0))}
                         </Tr>
                       </Th>
