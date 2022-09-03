@@ -28,7 +28,7 @@ function Topbar() {
   );
 }
 
-function Comunidad() {
+function Chat() {
   return (
     <Flex className="general">
 
@@ -69,4 +69,4 @@ function Comunidad() {
   );
 }
 
-export default Comunidad;
+export default Chat;
