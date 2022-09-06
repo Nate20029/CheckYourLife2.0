@@ -41,6 +41,10 @@ import {
 // eslint-disable-next-line import/no-unresolved, import/extensions
 import { auth, db } from '../firebase';
 
+// IMPORTS DE COMPONENTES
+const HandleChangeG = require('../Components/Finanzas/HandleChangeG');
+const HandleChangeI = require('../Components/Finanzas/HandleChangeI');
+
 function Finanzas() {
   const navigate = useNavigate();
 
@@ -196,7 +200,6 @@ function Finanzas() {
     { name: 'Gastos', value: sumGasto },
     { name: 'Ingresos', value: sumIngreso },
   ];
-
   const handleChangeG = (event) => {
     setNumberG(event.target.value);
   };
@@ -204,7 +207,6 @@ function Finanzas() {
   const handleChangeI = (event) => {
     setNumberI(event.target.value);
   };
-
   return (
     <div className="container">
       <Grid
