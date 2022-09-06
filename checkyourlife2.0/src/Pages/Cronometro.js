@@ -34,9 +34,8 @@ function Cronometro() {
     <div className="main-section">
       <SplitPane
         split="vertical"
-        defaultSize="100%"
-        minSize="500px"
-        maxSize="1000px"
+        defaultSize="55%"
+        maxSize={1100}
       >
         <Temporizador />
         <div id="clock-holder">
