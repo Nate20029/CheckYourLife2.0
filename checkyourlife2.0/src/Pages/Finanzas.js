@@ -42,8 +42,8 @@ import {
 import { auth, db } from '../firebase';
 
 // IMPORTS DE COMPONENTES
-const HandleChangeG = require('../Components/Finanzas/HandleChangeG');
-const HandleChangeI = require('../Components/Finanzas/HandleChangeI');
+// const HandleChangeG = require('../Components/Finanzas/HandleChangeG');
+// const HandleChangeI = require('../Components/Finanzas/HandleChangeI');
 
 function Finanzas() {
   const navigate = useNavigate();
