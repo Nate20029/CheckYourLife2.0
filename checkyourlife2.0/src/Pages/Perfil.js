@@ -5,7 +5,6 @@ import {
   Route, Routes, useLocation, useNavigate,
 } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
-import Avatar from '@mui/material/Avatar';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { auth } from '../Services/firebase.js';
 import '../Components/Perfil.css';
@@ -53,7 +52,6 @@ function Perfil() {
           <div className="img-user-profile">
             <img className="profile-bgHome" src="https://37.media.tumblr.com/88cbce9265c55a70a753beb0d6ecc2cd/tumblr_n8gxzn78qH1st5lhmo1_1280.jpg" alt="profile-bgHome" />
             <img className="avatar" src="http://gravatar.com/avatar/288ce55a011c709f4e17aef7e3c86c64?s=200" alt="jofpin" />
-            <Avatar src={url} sx={{ width: 150, height: 150 }} />
             <input type="file" onChange={handleImageChange} />
             <button type="button" onClick={handleSubmit}>Submit</button>
           </div>
