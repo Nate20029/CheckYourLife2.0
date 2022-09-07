@@ -87,7 +87,7 @@ a {
     font-family: "Lato", sans-serif;
     color: #8899a6;
     font-size: 1.1em;
-    margin-top: 0;
+    margin-top: 20%;
     margin-bottom: 0.5em;
 }
 
@@ -183,4 +183,43 @@ footer h4 {
 footer h4 a {
     text-decoration: none;
     color: #3498db;
+}
+
+input {
+    font-size: 50px;
+    position: relative;
+    top: 120px;
+    right: 10%;
+}
+
+button {
+    font-size: 50px;
+    margin: 0px 20px 0px 0px;
+
+}
+
+.but {
+    font-size: 10px;
+    margin: 0px 20px 0px 0px;
+    position: relative;
+    top: 37%;
+    left: 53%;
+
+}
+
+.fields {
+    margin: 50px 0px;
+}
+
+.avatar {
+    vertical-align: middle;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border-width: 5px;
+    border-color: gray;
+    border-style: outset;
+    position: relative;
+    top: 100px;
+
 }

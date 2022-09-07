@@ -1,8 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, updateProfile } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -29,6 +30,7 @@ onAuthStateChanged(auth, (user) => {
 const db = getFirestore();
 export { auth };
 export { db };
+const storage = getStorage();
 
 // Custom Hook
 export function useAuth() {
@@ -40,4 +42,20 @@ export function useAuth() {
   }, []);
 
   return currentUser;
+}
+
+// Storage
+// Storage
+export async function upload(file, currentUser, setLoading) {
+  const fileRef = ref(storage, `${currentUser.uid}.png`);
+
+  setLoading(true);
+
+  const snapshot = await uploadBytes(fileRef, file);
+  const photoURL = await getDownloadURL(fileRef);
+
+  updateProfile(currentUser, { photoURL });
+
+  setLoading(false);
+  alert('Uploaded file!');
 }
