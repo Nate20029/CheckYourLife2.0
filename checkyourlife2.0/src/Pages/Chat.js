@@ -4,15 +4,17 @@ import {
   Avatar, Button, Text, Flex, Heading, Input, FormControl,
 } from '@chakra-ui/react';
 import '../Assets/Styles/Chat/comunidad.css';
-import { collection, query, where, onSnapshot, addDoc, Timestamp } from 'firebase/firestore';
+import { collection, query, where, onSnapshot, addDoc, Timestamp, orderBy } from 'firebase/firestore';
 import { db, auth } from '../firebase';
 import User from '../Components/Chat/User';
 import MessageForm from '../Components/Chat/MessageForm';
+import Message from '../Components/Chat/Message';
 
 function Chat() {
   const [users, setUsers] = useState([]);
   const [chat, setChat] = useState('');
   const [text, setText] = useState('');
+  const [msgs, setMsgs] = useState([]);
   const user1 = auth.currentUser.uid;
 
   useEffect(() => {
@@ -31,7 +33,23 @@ function Chat() {
   const selecUser = (user) => {
     setChat(user);
     console.log(user);
+
+    const user2 = user.uid;
+    const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
+
+    const msgsRef = collection(db, 'messages', id, 'chat');
+    const q = query(msgsRef, orderBy('createdAt', 'asc'));
+
+    onSnapshot(q, (querySnapshot) => {
+      const msgss = [];
+      querySnapshot.forEach((doc) => {
+        msgss.push(doc.data());
+      });
+      setMsgs(msgss);
+    });
   };
+
+  console.log(msgs);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,6 +77,14 @@ function Chat() {
           <>
             <Flex className="messages_user">
               <h3>{chat.name}</h3>
+            </Flex>
+            <Flex className="messages">
+              {msgs.length
+                ? msgs.map((msg, i) => (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <Message key={i} msg={msg} />
+                ))
+                : null}
             </Flex>
             <MessageForm
               handleSubmit={handleSubmit}
