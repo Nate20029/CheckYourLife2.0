@@ -36,6 +36,7 @@ function Cronometro() {
         split="vertical"
         defaultSize="55%"
         maxSize={1100}
+        minSize={500}
       >
         <Temporizador />
         <div id="clock-holder">
