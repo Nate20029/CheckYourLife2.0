@@ -31,7 +31,7 @@ function Perfil() {
   function handleClick() {
     upload(photo, currentUser, setLoading);
   }
-
+  
   useEffect(() => {
     if (currentUser?.photoURL) {
       setPhotoURL(currentUser.photoURL);
@@ -43,8 +43,9 @@ function Perfil() {
       <div className="content-profile-page">
         <div className="profile-user-page card">
           <div className="img-user-profile">
+            <img className="profile-bgHome" src="https://37.media.tumblr.com/88cbce9265c55a70a753beb0d6ecc2cd/tumblr_n8gxzn78qH1st5lhmo1_1280.jpg" alt="profile-bgHome" />
             <div className="fields">
-              <input type="file" onChange={handleChange} />
+              <input className="inputb" type="file" onChange={handleChange} />
               <button className="but" type="button" disabled={loading || !photo} onClick={handleClick}>Upload</button>
               <img src={photoURL} alt="Avatar" className="avatar" />
             </div>

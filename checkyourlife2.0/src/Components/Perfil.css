@@ -187,9 +187,7 @@ footer h4 a {
 
 input {
     font-size: 50px;
-    position: relative;
-    top: 120px;
-    right: 10%;
+
 }
 
 button {
@@ -207,6 +205,18 @@ button {
 
 }
 
+.inputb {
+    font-size: 12px;
+    position: relative;
+    bottom: 100px;
+    right: 5%;
+}
+
+h1 {
+    position: relative;
+    top: 100px;
+}
+
 .fields {
     margin: 50px 0px;
 }
@@ -220,6 +230,7 @@ button {
     border-color: gray;
     border-style: outset;
     position: relative;
-    top: 100px;
+    bottom: 100px;
+
 
 }
