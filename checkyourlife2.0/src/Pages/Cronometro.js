@@ -34,35 +34,35 @@ function Cronometro() {
     <div className="main-section">
       <SplitPane
         split="vertical"
-        defaultSize="55%"
-        maxSize={1100}
-        minSize={500}
+        allowResize={false}
       >
         <Temporizador />
         <div id="clock-holder">
-          <div className="contenedor">
-            <h1>Cronometro</h1>
+          <div>
+            <h1 className="cronometro">Cronometro</h1>
           </div>
-          <div className="stopwatch">
-            <span>
-              {(`0${Math.floor((time / 60000) % 60)}`).slice(-2)}
-            </span>
-            <span>
-              {(`0${Math.floor((time / 1000) % 60)}`).slice(-2)}
-            </span>
-            <span>{(`0${(time / 10) % 100}`).slice(-2)}</span>
+          <div>
+            <div className="stopwatch">
+              <span>
+                {(`0${Math.floor((time / 60000) % 60)}`).slice(-2)}
+              </span>
+              <span>
+                {(`0${Math.floor((time / 1000) % 60)}`).slice(-2)}
+              </span>
+              <span>{(`0${(time / 10) % 100}`).slice(-2)}</span>
 
-            <div>
-              {!timerOn && time === 0 && (
+              <div>
+                {!timerOn && time === 0 && (
                 <button type="button" className="stopwatch-btn stopwatch-btn-gre" onClick={() => setTimerOn(true)}>Start</button>
-              )}
-              {timerOn && <button className="stopwatch-btn stopwatch-btn-red" type="button" onClick={() => setTimerOn(false)}>Stop</button>}
-              {!timerOn && time > 0 && (
+                )}
+                {timerOn && <button className="stopwatch-btn stopwatch-btn-red" type="button" onClick={() => setTimerOn(false)}>Stop</button>}
+                {!timerOn && time > 0 && (
                 <button type="submit" className="stopwatch-btn stopwatch-btn-yel" onClick={() => setTime(0)}>Reset</button>
-              )}
-              {!timerOn && time > 0 && (
+                )}
+                {!timerOn && time > 0 && (
                 <button type="button" className="stopwatch-btn stopwatch-btn-gre" onClick={() => setTimerOn(true)}>Resume</button>
-              )}
+                )}
+              </div>
             </div>
           </div>
         </div>

@@ -9,11 +9,9 @@ body {
   }
   
   .main-section {
-    background: transparent;
     max-width: 100%;
-    width: 90%;
-    height: 100%;
-    margin: 30px auto;
+    height: 85%;
+    margin: 10px auto;
     background: radial-gradient(circle, #8bc4e2 0%, #65a3b0 65%); 
   }
   
@@ -23,14 +21,17 @@ body {
     margin: 30px auto;
     position: relative;
   }
-
+  .cronometro {
+    color:#4d4e5c;
+    font-size:2.8rem;
+    text-align: center;
+  }
   .nombre{
     margin-left: 60px;
   }
   
-  
   .stopwatch {
-    padding: 210px 0px;
+    padding-top: 20vmax;
     text-align: center;
   }
   .stopwatch span{
@@ -86,3 +87,4 @@ body {
     border: 2px solid #00ABA9;
     color: #fff;
   }
+ 
