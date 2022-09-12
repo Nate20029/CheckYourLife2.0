@@ -8,6 +8,7 @@ import { signOut } from 'firebase/auth';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { auth, upload, useAuth } from '../Services/firebase.js';
 import '../Components/Perfil.css';
+import fondo from '../Assets/Media/fondoa.jpg';
 
 function Perfil() {
   const navigate = useNavigate();
@@ -31,7 +32,6 @@ function Perfil() {
   function handleClick() {
     upload(photo, currentUser, setLoading);
   }
-  
   useEffect(() => {
     if (currentUser?.photoURL) {
       setPhotoURL(currentUser.photoURL);
@@ -43,7 +43,7 @@ function Perfil() {
       <div className="content-profile-page">
         <div className="profile-user-page card">
           <div className="img-user-profile">
-            <img className="profile-bgHome" src="https://37.media.tumblr.com/88cbce9265c55a70a753beb0d6ecc2cd/tumblr_n8gxzn78qH1st5lhmo1_1280.jpg" alt="profile-bgHome" />
+            <img className="profile-bgHome" src={fondo} alt="profile-bgHome" />
             <div className="fields">
               <input className="inputb" type="file" onChange={handleChange} />
               <button className="but" type="button" disabled={loading || !photo} onClick={handleClick}>Upload</button>
@@ -77,7 +77,7 @@ function Perfil() {
             </li>
           </ul>
           <div className="Sign-Out">
-            <button type="button" onClick={handleSignOut}>SignOut</button>
+            <button className="out" type="button" onClick={handleSignOut}>SignOut</button>
           </div>
         </div>
       </div>

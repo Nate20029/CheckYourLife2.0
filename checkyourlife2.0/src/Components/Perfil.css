@@ -7,6 +7,7 @@
 body {
     background: #f8f5f0;
     font-family: "Open sans", sans-serif;
+    height: auto;
 }
 
 a {
@@ -35,18 +36,7 @@ a {
 .profile-user-page .img-user-profile .profile-bgHome {
     border-bottom: .2em solid #f5f5f5;
     width: 44.23em;
-    height: 16em;
-}
-
-.profile-user-page .img-user-profile .avatar {
-    margin: 0 auto;
-    background: #fff;
-    width: 7em;
-    height: 7em;
-    padding: 0.25em;
-    border-radius: .4em;
-    margin-top: -10em;
-    box-shadow: 0 0 .1em rgba(0, 0, 0, 0.35);
+    height: 17em;
 }
 
 .profile-user-page button {
@@ -73,37 +63,45 @@ a {
 .profile-user-page .description-profile {
     text-align: center;
     padding: 0 1.5em;
+    margin-bottom: 0.2em;
 }
 
 .profile-user-page .user-profile-data h1 {
     font-family: "Lato", sans-serif;
     margin-top: 3em;
     color: #292f33;
-    margin-bottom: 0;
     font-size: x-large;
+    position: relative;
+    top: -210px;
 }
 
 .profile-user-page .user-profile-data p {
     font-family: "Lato", sans-serif;
     color: #8899a6;
     font-size: 1.1em;
-    margin-top: 20%;
-    margin-bottom: 0.5em;
+    margin-top: -200px;
+    margin-bottom: 0.2em;
 }
 
 .profile-user-page .description-profile {
     color: #75787b;
     font-size: 0.98em;
+    position: relative;
+    top: -100px;
 }
 
 .profile-user-page .data-user {
     font-family: "Quicksand", sans-serif;
-    margin-bottom: 0;
+    margin-bottom: -60px;
     cursor: pointer;
     padding: 0;
     list-style: none;
     display: table;
     width: 100.15%;
+    position: relative;
+    top: -60px;
+
+
 }
 
 .profile-user-page .data-user li {
@@ -190,26 +188,22 @@ input {
 
 }
 
-button {
-    font-size: 50px;
-    margin: 0px 20px 0px 0px;
-
-}
 
 .but {
     font-size: 10px;
     margin: 0px 20px 0px 0px;
-    position: relative;
-    top: 37%;
-    left: 53%;
+    position: absolute;
+    top: 31%;
+    left: 54%;
+    font-size: 10px;
 
 }
 
 .inputb {
     font-size: 12px;
     position: relative;
-    bottom: 100px;
-    right: 5%;
+    bottom: 150px;
+    right: 6%;
 }
 
 h1 {
@@ -222,15 +216,10 @@ h1 {
 }
 
 .avatar {
-    vertical-align: middle;
-    width: 80px;
-    height: 80px;
     border-radius: 50%;
-    border-width: 5px;
-    border-color: gray;
-    border-style: outset;
+    width: 100px;
+    height: 100px;
     position: relative;
-    bottom: 100px;
-
-
+    top: -300px;
+    left: 40%;
 }
