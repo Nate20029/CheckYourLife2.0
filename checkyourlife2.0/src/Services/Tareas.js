@@ -2,7 +2,7 @@ import {
   doc, getDoc, updateDoc, arrayUnion, arrayRemove,
 } from 'firebase/firestore';
 
-import { db, auth } from './firebase';
+import { db } from './firebase';
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-plusplus */
 const days = {

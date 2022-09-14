@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import { sum, getData } from '../Services/Tareas';
 
 const user = {
