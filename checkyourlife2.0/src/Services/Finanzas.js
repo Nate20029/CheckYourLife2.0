@@ -2,8 +2,11 @@ import {
   doc,
   getDoc,
   setDoc,
+  updateDoc,
+  arrayUnion,
 } from 'firebase/firestore';
-import { db } from '../firebase';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth, db } from '../firebase';
 
 export const verifyDoc = async (user) => {
   // HQJuMK9irvNDhbM4GKdSL0IcNw72
@@ -49,4 +52,22 @@ export const getDataGastos = async (user) => {
   } catch (error) {
     return error;
   }
+};
+
+export const guardarDBGasto = (user, gasto) => {
+  onAuthStateChanged(auth, () => {
+    const docRef = doc(db, 'users', user.uid);
+    updateDoc(docRef, {
+      gastos: arrayUnion(gasto),
+    });
+  });
+};
+
+export const guardarDBIngreso = (user, ingreso) => {
+  onAuthStateChanged(auth, () => {
+    const docRef = doc(db, 'users', user.uid);
+    updateDoc(docRef, {
+      ingresos: arrayUnion(ingreso),
+    });
+  });
 };

@@ -41,7 +41,7 @@ import {
 } from 'firebase/firestore';
 // eslint-disable-next-line import/no-unresolved, import/extensions
 import { auth, db } from '../firebase';
-import { getDataGastos, getDataIngresos, verifyDoc } from '../Services/Finanzas';
+import { getDataGastos, getDataIngresos, guardarDBGasto, guardarDBIngreso, verifyDoc } from '../Services/Finanzas';
 
 // IMPORTS DE COMPONENTES
 // const HandleChangeG = require('../Components/Finanzas/HandleChangeG');
@@ -120,10 +120,7 @@ function Finanzas() {
       setNumberG(0);
 
       onAuthStateChanged(auth, (user) => {
-        const docRef = doc(db, 'users', user.uid);
-        updateDoc(docRef, {
-          gastos: arrayUnion(gasto),
-        });
+        guardarDBGasto(user, gasto);
       });
     }
   };
@@ -144,10 +141,7 @@ function Finanzas() {
       setNumberI(0);
 
       onAuthStateChanged(auth, (user) => {
-        const docRef = doc(db, 'users', user.uid);
-        updateDoc(docRef, {
-          ingresos: arrayUnion(ingreso),
-        });
+        guardarDBIngreso(user, ingreso);
       });
     }
   };
