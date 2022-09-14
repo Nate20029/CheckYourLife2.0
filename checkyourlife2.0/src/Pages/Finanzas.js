@@ -73,9 +73,9 @@ function Finanzas() {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         setUid(user.uid);
-        verifyDoc(user.uid); // solo para ver si hay un doc existente, si no lo crea
-        const ingresosdata = await getDataIngresos(user.uid);
-        const gastosdata = await getDataGastos(user.uid);
+        verifyDoc(user); // solo para ver si hay un doc existente, si no lo crea
+        const ingresosdata = await getDataIngresos(user);
+        const gastosdata = await getDataGastos(user);
         setIngresosData(ingresosdata);
         setGastosData(gastosdata);
       } else {
@@ -112,15 +112,12 @@ function Finanzas() {
 
       const gasto = { date, gasto: number };
       // eslint-disable-next-line no-console
-      console.log(gasto);
 
       gastos.push(gasto);
       // eslint-disable-next-line no-shadow
       setSumGasto(gastos.map((gasto) => gasto.gasto)
         .reduce((previous, current) => previous + current, 0));
       setNumberG(0);
-
-      console.log(gastos);
 
       onAuthStateChanged(auth, (user) => {
         const docRef = doc(db, 'users', user.uid);
@@ -140,8 +137,6 @@ function Finanzas() {
 
       const ingreso = { date, ingreso: number };
       // eslint-disable-next-line no-console
-      console.log(ingreso);
-
       ingresos.push(ingreso);
       // eslint-disable-next-line no-shadow
       setSumIngreso(ingresos.map((ingreso) => ingreso.ingreso)

@@ -7,5 +7,5 @@ const user = {
 
 test('adds 1 + 2 to equal 3', async () => {
   const response = await getData(user);
-  expect(response.length).toBe(2);
+  expect(response.length).toBe(3);
 });

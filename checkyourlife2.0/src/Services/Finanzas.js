@@ -5,9 +5,9 @@ import {
 } from 'firebase/firestore';
 import { db } from '../firebase';
 
-export const verifyDoc = async (id) => {
+export const verifyDoc = async (user) => {
   // HQJuMK9irvNDhbM4GKdSL0IcNw72
-  const docRef = doc(db, 'users', id);
+  const docRef = doc(db, 'users', user.uid);
   const docSnap = await getDoc(docRef);
   if (!docSnap.exists()) {
     const docData = {
@@ -31,8 +31,8 @@ export const verifyDoc = async (id) => {
   }
 };
 
-export const getDataIngresos = async (id) => {
-  const docRef = doc(db, 'users', id);
+export const getDataIngresos = async (user) => {
+  const docRef = doc(db, 'users', user.uid);
   const docSnap = await getDoc(docRef);
   try {
     return (docSnap.data()).ingresos;
@@ -41,8 +41,8 @@ export const getDataIngresos = async (id) => {
   }
 };
 
-export const getDataGastos = async (id) => {
-  const docRef = doc(db, 'users', id);
+export const getDataGastos = async (user) => {
+  const docRef = doc(db, 'users', user.uid);
   const docSnap = await getDoc(docRef);
   try {
     return (docSnap.data()).gastos;
