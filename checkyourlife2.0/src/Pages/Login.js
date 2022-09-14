@@ -9,14 +9,11 @@ import {
 import { auth } from '../Services/firebase.js';
 import '../Components/Login.css';
 import Check from '../Assets/Media/CheckL2.png';
-import {Route, Link, Routes, useLocation} from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  
-
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
