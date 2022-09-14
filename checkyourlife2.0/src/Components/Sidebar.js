@@ -22,12 +22,12 @@ export default function Sidebar() {
 
   const newChat = async () => {
     const input = prompt('Enter email of chat recipient');
-    await addDoc(collection(db, 'chats'), { users: [user.email, input] });
-    console.log(user.email);
+    await addDoc(collection(db, 'chats'), { users: [user?.email, input] });
+    console.log(user?.email);
   };
 
   const chatList = () => (
-    chat?.filter((chats) => chats.users.includes(user.email))
+    chat?.filter((chats) => chats.users.includes(user?.email))
       .map(
         (chats) => (
           <Flex className="usuarios" onClick={() => redirect(chats.id)}>
@@ -42,13 +42,10 @@ export default function Sidebar() {
     <Flex className="todo">
       <Flex className="arriba2">
         <Flex className="avatarflex">
-          <Avatar className="avatar" src={user.photoURL} />
-          <Text className="textusuarios">{user.displayName || user.email}</Text>
+          <Text className="textusuarios">{user?.displayName || user?.email}</Text>
         </Flex>
       </Flex>
-
       <Button className="button" onClick={() => newChat()}>New Chat</Button>
-
       <Flex className="chatflex">
         {chatList()}
       </Flex>
