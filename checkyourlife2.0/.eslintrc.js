@@ -19,6 +19,7 @@ module.exports = {
     'react',
   ],
   rules: {
+    'no-unused-vars': 0,
     'object-curly-newline': 0,
     'jsx-a11y/click-events-have-key-events': 0,
     'jsx-a11y/no-noninteractive-element-interaction': 'off',

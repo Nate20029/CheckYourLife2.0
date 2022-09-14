@@ -2,7 +2,6 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable react/no-children-prop */
 /* eslint-disable react/button-has-type */
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, PureComponent } from 'react';
 import {
   Button, ButtonGroup, Grid, GridItem, IconButton, Input, InputGroup, InputLeftAddon, Table,
@@ -70,6 +69,7 @@ function Finanzas() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
+        console.log(user);
         setUid(user.uid);
         // eslint-disable-next-line no-use-before-define
         verifyDoc(user.uid);
