@@ -1,5 +1,4 @@
 import { getDataGastos, getDataIngresos } from '../Services/Finanzas';
-import { setIngresosData } from '..Pages/Finanzas'
 
 const user = {
   uid: 'HQJuMK9irvNDhbM4GKdSL0IcNw72',
@@ -14,4 +13,3 @@ test('regresa el numero de gastos existentes: ', async () => {
   const gastos = await getDataGastos(user);
   expect(gastos.length).toBe(2);
 });
-
