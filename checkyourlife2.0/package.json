@@ -33,10 +33,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src/**",
-    "test-jest": "jest"
+    "test-jest": "jest",
+    "test": "jest"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -54,7 +54,7 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^8.21.0",
+    "eslint": "^8.23.1",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",

@@ -1,3 +1,8 @@
+import {
+  doc, getDoc, updateDoc, arrayUnion, arrayRemove,
+} from 'firebase/firestore';
+
+import { db } from './firebase';
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-plusplus */
 const days = {
@@ -45,3 +50,52 @@ export const dayToDate = (day) => {
   const currentMonth = currentDate.getMonth();
   return new Date(currentDate.getFullYear(), currentMonth, day);
 };
+
+export const getData = async (u) => {
+  const docRef = doc(db, 'users', u.uid);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    return docSnap.data().tasks;
+  }
+  console.log('No such document!');
+  return [];
+};
+
+export const addTask = async (user, name, description, beginDate, endDate) => {
+  const docRef = doc(db, 'users', user.uid);
+  if (name.length > 2) {
+    await updateDoc(docRef, {
+      tasks: arrayUnion({
+        completed: false,
+        description,
+        expiration: (beginDate && endDate) ? [new Date(beginDate), new Date(endDate)] : [],
+        important: true,
+        title: name,
+      }),
+    });
+  }
+  return getData(user);
+};
+
+export const handleData = async (user, data, newTask) => {
+  if (user) {
+    const docRef = doc(db, 'users', user.uid);
+    // eslint-disable-next-line array-callback-return
+    data.map((task) => {
+      if (task.title === newTask.title) {
+        updateDoc(docRef, {
+          tasks: arrayRemove(task),
+        });
+        updateDoc(docRef, {
+          tasks: arrayUnion(newTask),
+        });
+      }
+    });
+    return getData(user);
+  }
+  return [];
+};
+
+export function sum(a, b) {
+  return a + b;
+}
