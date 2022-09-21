@@ -34,6 +34,7 @@
 .usuarios{
     align-items: center;
     padding: 4px;
+    cursor: pointer;
 }
 .usuarios:hover{
     cursor: pointer;
@@ -53,4 +54,12 @@
 }
 .chatflex::-webkit-scrollbar{
     display: none;
+}
+.messages_user{
+    padding: 10px;
+    text-align: center;
+}
+.no_conv{
+    font-size: 20px;
+    text-align: center;
 }
