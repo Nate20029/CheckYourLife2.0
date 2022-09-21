@@ -31,10 +31,10 @@ function Chat() {
     return () => unsub();
   }, []);
 
-  const newChat = async () => {
+  /*   const newChat = async () => {
     const input = prompt('Enter email of chat recipient');
     await addDoc(collection(db, 'usuarios'), { email: input });
-  };
+  }; */
 
   const selecUser = (user) => {
     setChat(user);
@@ -79,7 +79,7 @@ function Chat() {
           </Flex>
         </Flex>
 
-        <Button className="button" onClick={() => newChat()}>New Chat</Button>
+        <Button className="button" onClick={() => newChat()}>CHATS</Button>
         {users.map((user) => (
           <User key={user.uid} user={user} selectUser={selecUser} />
         ))}
