@@ -9,7 +9,7 @@ function User({ user, selectUser }) {
     <Flex className="usuarios" onClick={() => selectUser(user)}>
       <Flex>
         <Flex>
-          <Avatar src={user.photoURL} className="avatar" />
+          {/* <Avatar src={user.photoURL} className="avatar" /> */}
           <Text className="textusuarios">{user.displayName || user.email}</Text>
         </Flex>
       </Flex>
