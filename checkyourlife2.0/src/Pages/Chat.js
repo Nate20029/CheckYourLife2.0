@@ -16,6 +16,7 @@ function Chat() {
   const [text, setText] = useState('');
   const [msgs, setMsgs] = useState([]);
   const user1 = auth.currentUser.uid;
+  const nombreuser = auth.currentUser;
 
   useEffect(() => {
     const usersRef = collection(db, 'usuarios');
@@ -29,6 +30,11 @@ function Chat() {
     });
     return () => unsub();
   }, []);
+
+  const newChat = async () => {
+    const input = prompt('Enter email of chat recipient');
+    await addDoc(collection(db, 'usuarios'), { email: input });
+  };
 
   const selecUser = (user) => {
     setChat(user);
@@ -49,8 +55,6 @@ function Chat() {
     });
   };
 
-  console.log(msgs);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -67,33 +71,45 @@ function Chat() {
   };
   return (
     <Flex className="general">
-      <Flex className="todo">
+      <Flex className="sidebar">
+        <Flex>
+          <Flex className="avatarflex">
+            <Avatar className="avatar" src={nombreuser.photoURL} />
+            <Text className="textusuarios">{nombreuser.displayName || nombreuser.email}</Text>
+          </Flex>
+        </Flex>
+
+        <Button className="button" onClick={() => newChat()}>New Chat</Button>
         {users.map((user) => (
           <User key={user.uid} user={user} selectUser={selecUser} />
         ))}
       </Flex>
-      <Flex>
+      <Flex className="mensajesflex">
         {chat ? (
           <>
-            <Flex className="messages_user">
-              <h3>{chat.name}</h3>
+            <Flex className="topbar">
+              <h3 className="nombreuser">{chat.email}</h3>
             </Flex>
-            <Flex className="messages">
+            <Flex className="messagess">
               {msgs.length
                 ? msgs.map((msg, i) => (
                   // eslint-disable-next-line react/no-array-index-key
-                  <Message key={i} msg={msg} />
+                  <Message key={i} msg={msg} user1={user1} />
                 ))
                 : null}
             </Flex>
-            <MessageForm
-              handleSubmit={handleSubmit}
-              text={text}
-              setText={setText}
-            />
+            <Flex className="abajo">
+              <MessageForm
+                handleSubmit={handleSubmit}
+                text={text}
+                setText={setText}
+              />
+            </Flex>
           </>
         ) : (
-          <h3 className="no_conv"> Select a user to start conversation</h3>
+          <Flex className="topbar">
+            <h3 className="nombreuser"> Select a user to start conversation</h3>
+          </Flex>
         )}
       </Flex>
     </Flex>

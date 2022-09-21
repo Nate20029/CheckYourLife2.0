@@ -4,17 +4,20 @@ import '../../Assets/Styles/Chat/comunidad.css';
 
 function MessageForm({ handleSubmit, text, setText }) {
   return (
-    <form className="bottombar" onSubmit={handleSubmit}>
-      <Flex>
-        <input
-          type="text"
-          placeholder="Enter message"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        />
-      </Flex>
-      <Flex>
-        <button type="submit"> send </button>
+    <form onSubmit={handleSubmit}>
+      <Flex className="bottombar">
+        <Flex>
+          <input
+            className="textomensaje"
+            type="text"
+            placeholder="Enter message"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+          />
+        </Flex>
+        <Flex className="botonenviar">
+          <button type="submit"> send </button>
+        </Flex>
       </Flex>
     </form>
   );

@@ -1,49 +1,79 @@
 .general{
-    height:85vh;
+    height:87.5vh;
+}
+.sidebar {
+    background-color: rgb(9, 63, 137);
+    width: 300px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: gray.200;
+    flex-direction: column;
 }
 .mensajesflex{
     flex: 1;
     flex-direction: column;
 }
+.chatarea{
+    background-color: rgba(255, 106, 0, 0.139);
+    flex: 1;
+    height:86.5vh;
+}
 .topbar{
     background-color: rgba(52, 168, 230, 0.87);
     height: 81px;
     width: 100%;
-    align-items: center;
+    align-self: end;
     padding: 5px;
 }
-.avatarchatcom{
-    margin: 3%;
+.nombreuser{
+    margin: auto;
+    font-size: 40px;
 }
-.chatarea{
-    background-color: rgba(0, 221, 255, 0.139);
-    flex: 1;
+.messagess{
+    height: calc(100vh - 200px);
     flex-direction: column;
-    padding: 6px;
-    margin-left: 5px;
-    margin-right: 5px;
-    overflow-x: scroll;
+    border-bottom: 1px solid var(#333);
+    overflow-y: auto;
 }
-.chatarea::-webkit-scrollbar{
-    display: none;
+.message_wrapper {
+    margin-top: 5px;
+    padding: 0px 5px;
+}
+.message_wrapper p {
+    padding: 10px;
+    display: inline-block;
+    max-width: 50%;
+    text-align: left;
+    border-radius: 5px;
+  }
+.message_wrapper small {
+    display: inline-block;
+    margin-top: 10px;
+    opacity: 0.8;
+}
+.message_wrapper.own {
+    text-align: right;
 }
 .bottombar{
     padding: 3px;
+    align-content: space-around;
 }
-.messagesr{
-    background-color: rgb(115, 186, 248);
-    width: fit-content;
-    min-width: 70px;
-    border-radius: 10px;
-    padding: 5px;
-    margin: 3px;
+
+.me {
+    background: #cffa96d4;
+    color: black;
 }
-.messagess{
-    background-color: rgb(105, 227, 203);
+.friend {
+    background: white;
+    color: black;
+}
+.bottombar{
+    align-items: center;
+}
+.abajo{
+    align-items: center;
+    align-self: center;
+}
+.textomensaje{
     width: fit-content;
-    min-width: 70px;
-    border-radius: 10px;
-    padding: 5px;
-    margin: 3px;
-    align-self: end;
 }
