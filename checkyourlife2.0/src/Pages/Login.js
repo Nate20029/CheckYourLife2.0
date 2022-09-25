@@ -98,6 +98,7 @@ function Login() {
                     required=""
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+
                   />
                   <label>Username</label>
                 </div>

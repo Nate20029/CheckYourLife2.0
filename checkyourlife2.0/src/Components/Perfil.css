@@ -7,7 +7,7 @@
 body {
     background: #f8f5f0;
     font-family: "Open sans", sans-serif;
-    height: auto;
+    height: 100vh;
 }
 
 a {
@@ -194,7 +194,7 @@ input {
     font-size: 10px;
     margin: 0px 20px 0px 0px;
     position: absolute;
-    top: 22%;
+    top: 37%;
     left: 54%;
     font-size: 10px;
 
