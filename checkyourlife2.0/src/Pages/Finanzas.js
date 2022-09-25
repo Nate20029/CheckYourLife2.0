@@ -175,7 +175,6 @@ function Finanzas() {
       >
         <GridItem className="padding" rowSpan={2} colSpan={1} bg="rgb(0,0,0,0.2)">
           <div>
-            <h1 className="titulo">Finanzas</h1>
             <InputGroup size="md">
               <InputLeftAddon children="Q" />
               <Input _placeholder={{ opacity: 1, color: 'black' }} placeholder="Ingrese un gasto" type="number" onChange={handleChangeG} value={numberG} />
