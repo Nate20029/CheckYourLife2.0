@@ -16,12 +16,12 @@ const gasto = { date, gasto: 20.5 };
 test('verifica el doc existente: ', async () => {
   verifyDoc(user);
   const ingresos = await getDataIngresos(user);
-  expect(ingresos.length).toBe(3);
+  expect(ingresos.length).toBe(6);
 });
 
 test('regresa el numero de ingresos existentes: ', async () => {
   const ingresos = await getDataIngresos(user);
-  expect(ingresos.length).toBe(3);
+  expect(ingresos.length).toBe(6);
 });
 
 test('regresa el undefined con un mal user: ', async () => {
@@ -31,7 +31,7 @@ test('regresa el undefined con un mal user: ', async () => {
 
 test('regresa el numero de gastos existentes: ', async () => {
   const gastos = await getDataGastos(user);
-  expect(gastos.length).toBe(3);
+  expect(gastos.length).toBe(6);
 });
 
 test('regresa el undefined con un mal user: ', async () => {
@@ -42,11 +42,11 @@ test('regresa el undefined con un mal user: ', async () => {
 test('guardar un ingreso nuevo: ', async () => {
   guardarDBIngreso(user, ingreso);
   const ingresos = await getDataIngresos(user);
-  expect(ingresos.length).toBe(3);
+  expect(ingresos.length).toBe(6);
 });
 
 test('guardar un gasto nuevo: ', async () => {
   guardarDBGasto(user, gasto);
   const gastos = await getDataGastos(user);
-  expect(gastos.length).toBe(3);
+  expect(gastos.length).toBe(6);
 });
