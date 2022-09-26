@@ -42,5 +42,4 @@ describe('<Perfil />', () => {
     const button = getByText('Upload');
     expect(button).toBeTruthy();
   });
-
 });

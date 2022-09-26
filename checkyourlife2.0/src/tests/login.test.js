@@ -11,7 +11,19 @@ import handleLogin from '../Pages/Login'
 import Login from '../Pages/Login';
  
 describe("<Login />", () => {
- 
+  it('render the page correctly', () => {
+    <Router>
+      <Login />
+    </Router>;
+  });
+
+  const mockedUsedNavigate = jest.fn();
+
+  jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => mockedUsedNavigate,
+  }));
+
   test('render email input', () => {
     const history = createMemoryHistory();
     render(
@@ -59,15 +71,21 @@ describe("<Login />", () => {
     };
   });
   
-  describe('61352544', () => {
-    it('should pass', async () => {
-      const email = 'example@gmail.com';
-      const password = '123';
-      await Login.authenticate(email, password);
-      expect(firebase.auth().signInWithEmailAndPassword).toBeCalledWith(email, password);
-    });
-  });
+  jest.mock('firebase/app', () => (
+    {
+      auth: jest.fn().mockReturnThis(),
+      initializeApp: jest.fn(),
+      createUserWithEmailAndPassword: jest.fn().mockRejectedValueOnce({
+        code: 'auth/invalid-email'
+      }),
+    }
+  ));
 
-
+  jest.mock('firebase/auth', () => {
+    return {
+        getAuth: () => mockGetAuth,
+        sendPasswordResetEmail: () => mockSendPassword
+    }
+});
 
 });
