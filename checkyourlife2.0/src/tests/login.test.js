@@ -1,13 +1,12 @@
 import { render, screen } from '@testing-library/react';
-import { Router } from 'react-router-dom';
+import { Router, BrowserRouter } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { waitFor, fireEvent } from '@testing-library/dom';
+import { act } from 'react-dom/test-utils'
 import Login from '../Pages/Login';
 
-
-
-
 describe('<Login />', () => {
+
   test('render email input', () => {
     const history = createMemoryHistory();
     render(
@@ -37,5 +36,18 @@ describe('<Login />', () => {
     const passwordEl = screen.getByText('Forgot password?');
     expect(passwordEl).toBeInTheDocument();
   });
+
+  test('render signInWithEmailAndPassword', async () => {
+    const result = await signInWithEmailAndPassword() // (i.e. your method that calls firebase.auth().getRedirectResult)
+    expect(result).toEqual({
+      user: {
+        displayName: 'redirectResultTestDisplayName',
+        email: 'redirectTest@test.com',
+        emailVerified: true
+      }
+    })
+    expect(firebase.auth).toHaveBeenCalled()
+    expect(getRedirectResult).toHaveBeenCalled()
+  })
 
 });
