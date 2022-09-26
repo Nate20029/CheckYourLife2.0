@@ -11,12 +11,6 @@ import handleLogin from '../Pages/Login'
 import Login from '../Pages/Login';
  
 describe("<Login />", () => {
-
-  it('render the page correctly', () => {
-    <Router>
-      <Login />
-    </Router>;
-  });
  
   test('render email input', () => {
     const history = createMemoryHistory();
@@ -73,5 +67,7 @@ describe("<Login />", () => {
       expect(firebase.auth().signInWithEmailAndPassword).toBeCalledWith(email, password);
     });
   });
+
+
 
 });
