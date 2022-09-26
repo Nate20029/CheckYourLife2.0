@@ -13,7 +13,7 @@ import {
 } from 'firebase/firestore';
 import TaskItem from '../Components/Tareas/TaskItem';
 import DateItem from '../Components/Tareas/DateItem';
-import { convertDate, dayToDate, getCurrentDates } from '../Services/Tareas';
+import { addTask, convertDate, dayToDate, getCurrentDates, getData, handleData } from '../Services/Tareas';
 import { db, auth } from '../Services/firebase';
 
 function Tareas() {
@@ -55,20 +55,10 @@ function Tareas() {
     }
   };
 
-  const getData = async (u) => {
-    const docRef = doc(db, 'users', u.uid);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      setData(docSnap.data().tasks);
-    } else {
-      console.log('No such document!');
-    }
-  };
-
   useEffect(() => {
     onAuthStateChanged(auth, (u) => {
       setUser(u);
-      getData(u);
+      setData(getData(u));
       verifyDoc(u.uid);
     });
   }, []);
@@ -82,22 +72,6 @@ function Tareas() {
       }
     });
     return found;
-  };
-
-  const addTask = async () => {
-    const docRef = doc(db, 'users', user.uid);
-    if (name.length > 2 && !checkContains(name)) {
-      await updateDoc(docRef, {
-        tasks: arrayUnion({
-          completed: false,
-          description,
-          expiration: (beginDate && endDate) ? [new Date(beginDate), new Date(endDate)] : [],
-          important: true,
-          title: name,
-        }),
-      });
-      getData(user);
-    }
   };
 
   const selectDate = (date) => {
@@ -128,22 +102,8 @@ function Tareas() {
     setEndDateLabel(event.target.value);
   };
 
-  const handleData = async (newTask) => {
-    if (user) {
-      const docRef = doc(db, 'users', user.uid);
-      // eslint-disable-next-line array-callback-return
-      data.map((task) => {
-        if (task.title === newTask.title) {
-          updateDoc(docRef, {
-            tasks: arrayRemove(task),
-          });
-          updateDoc(docRef, {
-            tasks: arrayUnion(newTask),
-          });
-        }
-      });
-      await getData(user);
-    }
+  const getHandleData = async (newTask) => {
+    setData(await handleData(user, data, newTask));
   };
 
   const scrollRight = () => {
@@ -185,7 +145,7 @@ function Tareas() {
                         <TaskItem
                           key={task.title + Math.random().toString()}
                           data={task}
-                          handleDataFunction={handleData}
+                          handleDataFunction={getHandleData}
                         />
                       );
                     } return null;
@@ -252,7 +212,7 @@ function Tareas() {
                         <TaskItem
                           key={task.title}
                           data={task}
-                          handleDataFunction={handleData}
+                          handleDataFunction={getHandleData}
                         />
                       );
                     }
@@ -261,7 +221,7 @@ function Tareas() {
                         <TaskItem
                           key={task.title}
                           data={task}
-                          handleDataFunction={handleData}
+                          handleDataFunction={getHandleData}
                         />
                       );
                     }
@@ -315,7 +275,7 @@ function Tareas() {
               </div>
             </GridItem>
             <GridItem colSpan={1} height="9vh">
-              <Button size="lg" width="100%" height="7vh" borderRadius="2vh" colorScheme="facebook" onClick={() => { addTask(); }}>Agregar Tarea</Button>
+              <Button size="lg" width="100%" height="7vh" borderRadius="2vh" colorScheme="facebook" onClick={() => { addTask(user, name, description, beginDate, endDate); }}>Agregar Tarea</Button>
             </GridItem>
           </Grid>
         </div>
