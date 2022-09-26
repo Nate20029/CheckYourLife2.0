@@ -12,13 +12,13 @@ import { useEffect, useState } from 'react';
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: 'AIzaSyA8Vc2Cw2TFHfxooq-GlayNk-4kxPE8Qic',
-  authDomain: 'check-your-life-8d160.firebaseapp.com',
-  projectId: 'check-your-life-8d160',
-  storageBucket: 'check-your-life-8d160.appspot.com',
-  messagingSenderId: '829574262711',
-  appId: '1:829574262711:web:3d178b998e283f66f84232',
-  measurementId: 'G-24EYTZK046',
+  apiKey: 'AIzaSyD83wCqPcEqQqCSIWeEpF83Xo_b2I3MYTs',
+  authDomain: 'checkyourlife2.firebaseapp.com',
+  projectId: 'checkyourlife2',
+  storageBucket: 'checkyourlife2.appspot.com',
+  messagingSenderId: '249155319123',
+  appId: '1:249155319123:web:4047cd77b80360d67cdda6',
+  measurementId: 'G-P3R9LMGEH6',
 };
 
 // Initialize Firebase

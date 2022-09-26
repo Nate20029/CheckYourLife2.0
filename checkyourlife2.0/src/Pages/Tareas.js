@@ -9,7 +9,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import '../Assets/Styles/Tareas/Page.scss';
 import { onAuthStateChanged } from 'firebase/auth';
 import {
-  doc, getDoc, updateDoc, arrayUnion, arrayRemove,
+  doc, getDoc, updateDoc, arrayUnion, arrayRemove, setDoc,
 } from 'firebase/firestore';
 import TaskItem from '../Components/Tareas/TaskItem';
 import DateItem from '../Components/Tareas/DateItem';
