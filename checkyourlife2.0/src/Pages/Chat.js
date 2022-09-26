@@ -9,16 +9,19 @@ import { db, auth } from '../firebase';
 import User from '../Components/Chat/User';
 import MessageForm from '../Components/Chat/MessageForm';
 import Message from '../Components/Chat/Message';
+import { getDataMessenger } from '../Services/Chat';
 
 function Chat() {
   const [users, setUsers] = useState([]);
   const [chat, setChat] = useState('');
   const [text, setText] = useState('');
   const [msgs, setMsgs] = useState([]);
+  const [mensajes, setMensajes] = useState([]);
   const user1 = auth.currentUser ? auth.currentUser.uid : null;
   const nombreuser = auth.currentUser;
 
   useEffect(() => {
+    setMensajes(getDataMessenger());
     const usersRef = collection(db, 'usuarios');
     const q = query(usersRef, where('uid', 'not-in', [user1]));
     const unsub = onSnapshot(q, (querySnapshot) => {
