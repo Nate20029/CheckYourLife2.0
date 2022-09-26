@@ -1,19 +1,28 @@
-import { handleChange, handleSubmit } from '../Services/Reloj';
+import { children } from '../Services/Reloj';
 
-const input = { work: 0.2 };
-const timer = ({
-  work: 0.2,
-  short: 0.1,
-  long: 0.5,
-  active: 'work',
+/* const encendido = false;
+const apagado = true;
+const evaluar = '';
+
+test('encendido: ', () => {
+  const cambio = startTimer(encendido);
+  expect(cambio.change).toBe(true);
 });
 
-test('regresa la etiqueta y el valor del timer: ', () => {
-  const cambio = handleChange(input);
-  expect(cambio.lenght).toBe(3);
+test('apagado: ', () => {
+  const cambio = pauseTimer(apagado);
+  expect(cambio.change).toBe(false);
 });
 
-test('verifica si hay un nuevo timer: ', () => {
-  const change = handleSubmit(timer);
-  expect(change.lenght).toBe(4);
+test('verificar el timer: ', () => {
+  const cambio = setTimerTime(evaluate);
+  expect(cambio.change).toBe('work' || 'short' || 'long');
+});
+*/
+
+const tiempo = 1;
+
+test('prueba: ', () => {
+  const cambio = children(tiempo);
+  expect(cambio.length).toBe(7);
 });

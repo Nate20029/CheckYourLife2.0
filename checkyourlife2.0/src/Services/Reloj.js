@@ -1,43 +1,33 @@
-import React, { useContext, useState } from 'react';
-import { SettingsContext } from '../Components/SettingsContext';
+import { useState, createContext } from 'react';
 
-const contenedor = () => {
-  const [newTimer, setNewTimer] = useState({
-    work: 0.2,
-    short: 0.1,
-    long: 0.5,
-    active: 'work',
-  });
+/* export function startTimer() {
+  setStartAnimate(true);
+}
 
-  const { updateExecute } = useContext(SettingsContext);
-};
-export const handleChange = (input) => {
-  const { name, value } = input.target;
-  switch (name) {
+export function pauseTimer() {
+  setStartAnimate(false);
+}
+
+export const setTimerTime = (evaluate) => {
+  switch (evaluate.active) {
     case 'work':
-      setNewTimer({
-        ...newTimer,
-        work: parseInt(value, 10),
-      });
+      setPomodoro(evaluate.work);
       break;
-    case 'shortBreak':
-      setNewTimer({
-        ...newTimer,
-        short: parseInt(value, 10),
-      });
+    case 'short':
+      setPomodoro(evaluate.short);
       break;
-    case 'longBreak':
-      setNewTimer({
-        ...newTimer,
-        long: parseInt(value, 10),
-      });
+    case 'long':
+      setPomodoro(evaluate.long);
       break;
     default:
-        // do nothing
+      setPomodoro(0);
+      break;
   }
 };
+*/
+export const children = ({ remainingTime }) => {
+  const minutes = Math.floor(remainingTime / 60);
+  const seconds = remainingTime % 60;
 
-export const handleSubmit = (e) => {
-  e.preventDefault();
-  updateExecute(newTimer);
+  return `${minutes}:${seconds}`;
 };
