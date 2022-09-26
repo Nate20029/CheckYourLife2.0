@@ -45,19 +45,12 @@ export const getCurrentDates = () => {
 
 export const convertDate = (dayOfWeek, dayOfMonth) => `${days[dayOfWeek]} ${dayOfMonth}`;
 
-export const dayToDate = (day) => {
-  const currentDate = new Date();
-  const currentMonth = currentDate.getMonth();
-  return new Date(currentDate.getFullYear(), currentMonth, day);
-};
-
 export const getData = async (u) => {
   const docRef = doc(db, 'users', u.uid);
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
     return docSnap.data().tasks;
   }
-  console.log('No such document!');
   return [];
 };
 

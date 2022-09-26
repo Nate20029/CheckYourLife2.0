@@ -13,7 +13,7 @@ import {
 } from 'firebase/firestore';
 import TaskItem from '../Components/Tareas/TaskItem';
 import DateItem from '../Components/Tareas/DateItem';
-import { addTask, convertDate, dayToDate, getCurrentDates, getData, handleData } from '../Services/Tareas';
+import { addTask, convertDate, getCurrentDates, getData, handleData } from '../Services/Tareas';
 import { db, auth } from '../Services/firebase';
 
 function Tareas() {

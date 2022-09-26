@@ -50,13 +50,6 @@ import { getDataGastos, getDataIngresos, guardarDBGasto, guardarDBIngreso, verif
 function Finanzas() {
   const navigate = useNavigate();
 
-  onAuthStateChanged(auth, async (user) => {
-    setUid(user.uid);
-    verifyDoc(user); // solo para ver si hay un doc existente, si no lo crea
-    setIngresosData(await getDataIngresos(user));
-    setGastosData(await getDataGastos(user));
-  });
-
   const [gastos, setGastos] = useState([
     {},
   ]);
@@ -78,12 +71,19 @@ function Finanzas() {
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
-      setUid(user.uid);
-      verifyDoc(user); // solo para ver si hay un doc existente, si no lo crea
-      setIngresosData(await getDataIngresos(user));
-      setGastosData(await getDataGastos(user));
+      if (user) {
+        setUid(user.uid);
+        verifyDoc(user); // solo para ver si hay un doc existente, si no lo crea
+        const ingresosdata = await getDataIngresos(user);
+        const gastosdata = await getDataGastos(user);
+        setIngresosData(ingresosdata);
+        setGastosData(gastosdata);
+      } else {
+        // eslint-disable-next-line no-console
+        console.log('ERROR');
+      }
     });
-  }, []);
+  }, [ingresos, gastos]);
 
   const setIngresosData = (ingresosdata) => {
     setIngresos(ingresosdata);
@@ -103,7 +103,7 @@ function Finanzas() {
       .reduce((previous, current) => previous + current, 0));
   };
 
-  const guardarGasto = async (number) => {
+  const guardarGasto = (number) => {
     if (number && number > 0) {
       const today = new Date();
       const date = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
@@ -122,14 +122,10 @@ function Finanzas() {
       onAuthStateChanged(auth, (user) => {
         guardarDBGasto(user, gasto);
       });
-      const ingresosdata = await getDataIngresos(user);
-      const gastosdata = await getDataGastos(user);
-      setIngresosData(ingresosdata);
-      setGastosData(gastosdata);
     }
   };
 
-  const guardarIngreso = async (number) => {
+  const guardarIngreso = (number) => {
     if (number && number > 0) {
       const today = new Date();
       const date = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
@@ -147,10 +143,6 @@ function Finanzas() {
       onAuthStateChanged(auth, (user) => {
         guardarDBIngreso(user, ingreso);
       });
-      const ingresosdata = await getDataIngresos(user);
-      const gastosdata = await getDataGastos(user);
-      setIngresosData(ingresosdata);
-      setGastosData(gastosdata);
     }
   };
 
@@ -183,6 +175,7 @@ function Finanzas() {
       >
         <GridItem className="padding" rowSpan={2} colSpan={1} bg="rgb(0,0,0,0.2)">
           <div>
+            <h1 className="titulo">Finanzas</h1>
             <InputGroup size="md">
               <InputLeftAddon children="Q" />
               <Input _placeholder={{ opacity: 1, color: 'black' }} placeholder="Ingrese un gasto" type="number" onChange={handleChangeG} value={numberG} />
