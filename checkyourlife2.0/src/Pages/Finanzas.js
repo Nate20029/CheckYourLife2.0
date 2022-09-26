@@ -83,7 +83,7 @@ function Finanzas() {
         console.log('ERROR');
       }
     });
-  }, [ingresos, gastos]);
+  }, []);
 
   const setIngresosData = (ingresosdata) => {
     setIngresos(ingresosdata);
@@ -103,7 +103,7 @@ function Finanzas() {
       .reduce((previous, current) => previous + current, 0));
   };
 
-  const guardarGasto = (number) => {
+  const guardarGasto = async (number) => {
     if (number && number > 0) {
       const today = new Date();
       const date = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
@@ -122,10 +122,14 @@ function Finanzas() {
       onAuthStateChanged(auth, (user) => {
         guardarDBGasto(user, gasto);
       });
+      const ingresosdata = await getDataIngresos(user);
+      const gastosdata = await getDataGastos(user);
+      setIngresosData(ingresosdata);
+      setGastosData(gastosdata);
     }
   };
 
-  const guardarIngreso = (number) => {
+  const guardarIngreso = async (number) => {
     if (number && number > 0) {
       const today = new Date();
       const date = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
@@ -143,6 +147,10 @@ function Finanzas() {
       onAuthStateChanged(auth, (user) => {
         guardarDBIngreso(user, ingreso);
       });
+      const ingresosdata = await getDataIngresos(user);
+      const gastosdata = await getDataGastos(user);
+      setIngresosData(ingresosdata);
+      setGastosData(gastosdata);
     }
   };
 
