@@ -37,7 +37,7 @@ describe('<Login />', () => {
     expect(passwordEl).toBeInTheDocument();
   });
 
-  describe('61352544', () => {
+  /*describe('61352544', () => {
     it('should pass', async () => {
       const email = 'example@gmail.com';
       const password = '123';
@@ -56,6 +56,6 @@ describe('<Login />', () => {
     })
     expect(firebase.auth).toHaveBeenCalled()
     expect(getRedirectResult).toHaveBeenCalled()
-  })
+  })*/
 
 });
