@@ -10,15 +10,15 @@ function SettingsContextProvider(props) {
   const [executing, setExecuting] = useState({});
   const [startAnimate, setStartAnimate] = useState(false);
 
-  // start animation fn
+  // empezar animacion
   function startTimer() {
     setStartAnimate(true);
   }
-  // pause animation fn
+  // pausar animacion
   function pauseTimer() {
     setStartAnimate(false);
   }
-  // pass time to counter
+  // pasar el tiempo al contador
   const children = ({ remainingTime }) => {
     const minutes = Math.floor(remainingTime / 60);
     const seconds = remainingTime % 60;
@@ -26,7 +26,7 @@ function SettingsContextProvider(props) {
     return `${minutes}:${seconds}`;
   };
 
-  // clear session storage
+  // limpiar sección
   const SettingsBtn = () => {
     setExecuting({});
     setPomodoro(0);
