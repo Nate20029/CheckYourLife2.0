@@ -50,6 +50,13 @@ import { getDataGastos, getDataIngresos, guardarDBGasto, guardarDBIngreso, verif
 function Finanzas() {
   const navigate = useNavigate();
 
+  onAuthStateChanged(auth, async (user) => {
+    setUid(user.uid);
+    verifyDoc(user); // solo para ver si hay un doc existente, si no lo crea
+    setIngresosData(await getDataIngresos(user));
+    setGastosData(await getDataGastos(user));
+  });
+
   const [gastos, setGastos] = useState([
     {},
   ]);
@@ -71,17 +78,10 @@ function Finanzas() {
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        setUid(user.uid);
-        verifyDoc(user); // solo para ver si hay un doc existente, si no lo crea
-        const ingresosdata = await getDataIngresos(user);
-        const gastosdata = await getDataGastos(user);
-        setIngresosData(ingresosdata);
-        setGastosData(gastosdata);
-      } else {
-        // eslint-disable-next-line no-console
-        console.log('ERROR');
-      }
+      setUid(user.uid);
+      verifyDoc(user); // solo para ver si hay un doc existente, si no lo crea
+      setIngresosData(await getDataIngresos(user));
+      setGastosData(await getDataGastos(user));
     });
   }, []);
 
