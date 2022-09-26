@@ -37,6 +37,14 @@ describe('<Login />', () => {
     expect(passwordEl).toBeInTheDocument();
   });
 
+  describe('61352544', () => {
+    it('should pass', async () => {
+      const email = 'example@gmail.com';
+      const password = '123';
+      expect(firebase.auth().signInWithEmailAndPassword).toBeCalledWith(email, password);
+    });
+  });
+
   test('render signInWithEmailAndPassword', async () => {
     const result = await signInWithEmailAndPassword() // (i.e. your method that calls firebase.auth().getRedirectResult)
     expect(result).toEqual({
