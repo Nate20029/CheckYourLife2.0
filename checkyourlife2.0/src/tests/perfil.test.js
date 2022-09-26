@@ -1,9 +1,15 @@
+/**
+ * @jest-environment jsdom
+ */
 import { fireEvent, render, screen } from '@testing-library/react';
 import { shallow, configure } from 'enzyme';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from '../Pages/Login';
 import Perfil from '../Pages/Perfil';
 import setPhotoURL from '../Pages/Perfil';
+/* eslint-disable no-unused-vars */
+import React from 'react';
+
 
 describe('<Perfil />', () => {
 

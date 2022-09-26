@@ -52,8 +52,6 @@ function Login() {
     }
   };
 
-
-
   const signInWithGoogle = () => {
     signInWithPopup(auth, new GoogleAuthProvider())
       .then((userCredentials) => {
