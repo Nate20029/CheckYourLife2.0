@@ -19,11 +19,13 @@ module.exports = {
     'react',
   ],
   rules: {
+    'no-shadow':0,
     'object-curly-newline': 0,
     'jsx-a11y/click-events-have-key-events': 0,
     'jsx-a11y/no-noninteractive-element-interaction': 'off',
     'no-console': 'off',
     'no-alert': 'off',
+    'no-unused-vars': 0,
     'Block must not be padded by blank lines': 0,
     'jsx-a11y/label-has-associated-control': 0,
     'import/extensions': 0,

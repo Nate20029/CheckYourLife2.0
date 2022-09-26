@@ -33,6 +33,7 @@ const db = getFirestore();
 
 export { auth };
 export { db };
+export { storage };
 
 // Custom Hook
 export function useAuth() {

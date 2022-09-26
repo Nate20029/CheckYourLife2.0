@@ -3,6 +3,7 @@
 /* eslint-disable react/no-children-prop */
 /* eslint-disable react/button-has-type */
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-use-before-define */
 import React, { useState, useEffect, PureComponent } from 'react';
 import {
   Button, ButtonGroup, Grid, GridItem, IconButton, Input, InputGroup, InputLeftAddon, Table,
@@ -40,6 +41,7 @@ import {
 } from 'firebase/firestore';
 // eslint-disable-next-line import/no-unresolved, import/extensions
 import { auth, db } from '../firebase';
+import { getDataGastos, getDataIngresos, guardarDBGasto, guardarDBIngreso, verifyDoc } from '../Services/Finanzas';
 
 // IMPORTS DE COMPONENTES
 // const HandleChangeG = require('../Components/Finanzas/HandleChangeG');
@@ -68,13 +70,14 @@ function Finanzas() {
   const [numberG, setNumberG] = useState(0);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
         setUid(user.uid);
-        // eslint-disable-next-line no-use-before-define
-        verifyDoc(user.uid);
-        // eslint-disable-next-line no-use-before-define
-        getData(user.uid);
+        verifyDoc(user); // solo para ver si hay un doc existente, si no lo crea
+        const ingresosdata = await getDataIngresos(user);
+        const gastosdata = await getDataGastos(user);
+        setIngresosData(ingresosdata);
+        setGastosData(gastosdata);
       } else {
         // eslint-disable-next-line no-console
         console.log('ERROR');
@@ -82,55 +85,21 @@ function Finanzas() {
     });
   }, [ingresos, gastos]);
 
-  const verifyDoc = async (id) => {
-    const docRef = doc(db, 'users', id);
-    const docSnap = await getDoc(docRef);
-    if (!docSnap.exists()) {
-      const docData = {
-        tasks: [
-          {
-            title: 'ejemplo',
-            description: 'descripcion',
-            expiration: [],
-            important: true,
-            completed: false,
-          },
-        ],
-        ingresos: [
-
-        ],
-        gastos: [
-
-        ],
-      };
-      await setDoc(doc(db, 'users', id), docData);
-    }
-  };
-
-  const getData = async (id) => {
-    const docRef = doc(db, 'users', id);
-    const docSnap = await getDoc(docRef);
-    try {
-      setIngresos((docSnap.data()).ingresos);
-      console.log('ingresos son: ', ingresos);
-    } catch (error) {
-      console.log(error);
-    }
-    try {
-      setGastos((docSnap.data()).gastos);
-      console.log('gastos son: ', gastos);
-    } catch (error) {
-      console.log(error);
-    }
-    if (gastos.length == 0) {
-      setSumGasto(0);
-    }
+  const setIngresosData = (ingresosdata) => {
+    setIngresos(ingresosdata);
     if (ingresos.length == 0) {
       setSumIngreso(0);
     }
-    setSumGasto(gastos.map((gasto) => gasto.gasto)
-      .reduce((previous, current) => previous + current, 0));
     setSumIngreso(ingresos.map((ingreso) => ingreso.ingreso)
+      .reduce((previous, current) => previous + current, 0));
+  };
+
+  const setGastosData = (gastosdata) => {
+    setGastos(gastosdata);
+    if (gastos.length == 0) {
+      setSumGasto(0);
+    }
+    setSumGasto(gastos.map((gasto) => gasto.gasto)
       .reduce((previous, current) => previous + current, 0));
   };
 
@@ -143,7 +112,6 @@ function Finanzas() {
 
       const gasto = { date, gasto: number };
       // eslint-disable-next-line no-console
-      console.log(gasto);
 
       gastos.push(gasto);
       // eslint-disable-next-line no-shadow
@@ -151,13 +119,8 @@ function Finanzas() {
         .reduce((previous, current) => previous + current, 0));
       setNumberG(0);
 
-      console.log(gastos);
-
       onAuthStateChanged(auth, (user) => {
-        const docRef = doc(db, 'users', user.uid);
-        updateDoc(docRef, {
-          gastos: arrayUnion(gasto),
-        });
+        guardarDBGasto(user, gasto);
       });
     }
   };
@@ -171,8 +134,6 @@ function Finanzas() {
 
       const ingreso = { date, ingreso: number };
       // eslint-disable-next-line no-console
-      console.log(ingreso);
-
       ingresos.push(ingreso);
       // eslint-disable-next-line no-shadow
       setSumIngreso(ingresos.map((ingreso) => ingreso.ingreso)
@@ -180,10 +141,7 @@ function Finanzas() {
       setNumberI(0);
 
       onAuthStateChanged(auth, (user) => {
-        const docRef = doc(db, 'users', user.uid);
-        updateDoc(docRef, {
-          ingresos: arrayUnion(ingreso),
-        });
+        guardarDBIngreso(user, ingreso);
       });
     }
   };
@@ -217,7 +175,6 @@ function Finanzas() {
       >
         <GridItem className="padding" rowSpan={2} colSpan={1} bg="rgb(0,0,0,0.2)">
           <div>
-            <h1 className="titulo">Finanzas</h1>
             <InputGroup size="md">
               <InputLeftAddon children="Q" />
               <Input _placeholder={{ opacity: 1, color: 'black' }} placeholder="Ingrese un gasto" type="number" onChange={handleChangeG} value={numberG} />

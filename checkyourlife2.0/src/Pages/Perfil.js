@@ -5,28 +5,55 @@ import {
   Route, Routes, useLocation, useNavigate,
 } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
-import { auth } from '../Services/firebase.js';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { auth, upload, useAuth } from '../Services/firebase.js';
 import '../Components/Perfil.css';
+import fondo from '../Assets/Media/fondoa.jpg';
 
 function Perfil() {
   const navigate = useNavigate();
-
+  // Manejar imagen del usuario
+  const currentUser = useAuth();
+  const [photo, setPhoto] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [photoURL, setPhotoURL] = useState('https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png');
   // Salir de cuenta
   async function handleSignOut() {
     signOut(auth);
     navigate('/');
   }
+
+  function handleChange(e) {
+    if (e.target.files[0]) {
+      setPhoto(e.target.files[0]);
+    }
+  }
+
+  function handleClick() {
+    upload(photo, currentUser, setLoading);
+  }
+  useEffect(() => {
+    if (currentUser?.photoURL) {
+      setPhotoURL(currentUser.photoURL);
+    }
+  }, [currentUser]);
+
   return (
     <>
       <div className="content-profile-page">
         <div className="profile-user-page card">
           <div className="img-user-profile">
-            <img className="profile-bgHome" src="https://37.media.tumblr.com/88cbce9265c55a70a753beb0d6ecc2cd/tumblr_n8gxzn78qH1st5lhmo1_1280.jpg" alt="profile-bgHome" />
-            <img className="avatar" src="http://gravatar.com/avatar/288ce55a011c709f4e17aef7e3c86c64?s=200" alt="jofpin" />
+            <img className="profile-bgHome" src={fondo} alt="profile-bgHome" />
+            <div className="fields">
+              <input className="inputb" type="file" onChange={handleChange} />
+              <button className="but" type="button" disabled={loading || !photo} onClick={handleClick}>Upload</button>
+              <img src={photoURL} alt="Avatar" className="avatar" />
+            </div>
           </div>
-          <button type="button"> Añadir + </button>
           <div className="user-profile-data">
-            <h1>Esteban Aldana</h1>
+            <h1>
+              {auth.currentUser?.email}
+            </h1>
             <p>github.com/jofpin</p>
           </div>
           <div className="description-profile">
@@ -50,7 +77,7 @@ function Perfil() {
             </li>
           </ul>
           <div className="Sign-Out">
-            <button type="button" onClick={handleSignOut}>SignOut</button>
+            <button className="out" type="button" onClick={handleSignOut}>SignOut</button>
           </div>
         </div>
       </div>

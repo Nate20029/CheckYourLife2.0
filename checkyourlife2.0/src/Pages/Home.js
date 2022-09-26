@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Tabs, TabList, TabPanels, Tab, TabPanel,
 } from '@chakra-ui/react';
-import Comunidad from './Comunidad';
+import Chat from './Chat';
 import Tareas from './Tareas';
 import Finanzas from './Finanzas';
 import Cronometro from './Cronometro';
@@ -13,7 +13,7 @@ function Home() {
   return (
     <Tabs isFitted variant="enclosed">
       <TabList mb="1em">
-        <Tab>Comunidad</Tab>
+        <Tab>Chat</Tab>
         <Tab>Tareas</Tab>
         <Tab>Finanzas</Tab>
         <Tab>Cronometro</Tab>
@@ -21,7 +21,7 @@ function Home() {
       </TabList>
       <TabPanels>
         <TabPanel>
-          <Comunidad />
+          <Chat />
         </TabPanel>
         <TabPanel>
           <Tareas />
