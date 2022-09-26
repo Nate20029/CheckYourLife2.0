@@ -56,9 +56,9 @@ function Tareas() {
   };
 
   useEffect(() => {
-    onAuthStateChanged(auth, (u) => {
+    onAuthStateChanged(auth, async (u) => {
       setUser(u);
-      setData(getData(u));
+      setData(await getData(u));
       verifyDoc(u.uid);
     });
   }, []);
@@ -102,7 +102,7 @@ function Tareas() {
     setEndDateLabel(event.target.value);
   };
 
-  const getHandleData = async (newTask) => {
+  const handleDataFunc = async (newTask) => {
     setData(await handleData(user, data, newTask));
   };
 
@@ -145,7 +145,7 @@ function Tareas() {
                         <TaskItem
                           key={task.title + Math.random().toString()}
                           data={task}
-                          handleDataFunction={getHandleData}
+                          handleDataFunction={handleDataFunc}
                         />
                       );
                     } return null;
@@ -212,7 +212,7 @@ function Tareas() {
                         <TaskItem
                           key={task.title}
                           data={task}
-                          handleDataFunction={getHandleData}
+                          handleDataFunction={handleDataFunc}
                         />
                       );
                     }
@@ -221,7 +221,7 @@ function Tareas() {
                         <TaskItem
                           key={task.title}
                           data={task}
-                          handleDataFunction={getHandleData}
+                          handleDataFunction={handleDataFunc}
                         />
                       );
                     }
@@ -275,7 +275,7 @@ function Tareas() {
               </div>
             </GridItem>
             <GridItem colSpan={1} height="9vh">
-              <Button size="lg" width="100%" height="7vh" borderRadius="2vh" colorScheme="facebook" onClick={() => { addTask(user, name, description, beginDate, endDate); }}>Agregar Tarea</Button>
+              <Button size="lg" width="100%" height="7vh" borderRadius="2vh" colorScheme="facebook" onClick={async () => { setData(await addTask(user, name, description, beginDate, endDate)); setName(''); setDescription(''); setBeginDate(null); setEndDate(null); setBeginDateLabel(null); setEndDateLabel(null); }}>Agregar Tarea</Button>
             </GridItem>
           </Grid>
         </div>

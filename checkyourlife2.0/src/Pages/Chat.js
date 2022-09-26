@@ -15,7 +15,7 @@ function Chat() {
   const [chat, setChat] = useState('');
   const [text, setText] = useState('');
   const [msgs, setMsgs] = useState([]);
-  const user1 = auth.currentUser.uid;
+  const user1 = auth.currentUser ? auth.currentUser.uid : null;
   const nombreuser = auth.currentUser;
 
   useEffect(() => {
@@ -70,49 +70,53 @@ function Chat() {
     setText('');
   };
   return (
-    <Flex className="general">
-      <Flex className="sidebar">
-        <Flex>
-          <Flex className="avatarflex">
-            <Avatar className="avatar" src={nombreuser.photoURL} />
-            <Text className="textusuarios">{nombreuser.displayName || nombreuser.email}</Text>
+    user1
+      ? (
+        <Flex className="general">
+          <Flex className="sidebar">
+            <Flex>
+              <Flex className="avatarflex">
+                <Avatar className="avatar" src={nombreuser.photoURL} />
+                <Text className="textusuarios">{nombreuser.displayName || nombreuser.email}</Text>
+              </Flex>
+            </Flex>
+
+            <Button className="button" onClick={() => newChat()}>CHATS</Button>
+            {users.map((user) => (
+              <User key={user.uid} user={user} selectUser={selecUser} />
+            ))}
+          </Flex>
+          <Flex className="mensajesflex">
+            {chat ? (
+              <>
+                <Flex className="topbar">
+                  <h3 className="nombreuser">{chat.email}</h3>
+                </Flex>
+                <Flex className="messagess">
+                  {msgs.length
+                    ? msgs.map((msg, i) => (
+                      // eslint-disable-next-line react/no-array-index-key
+                      <Message key={i} msg={msg} user1={user1} />
+                    ))
+                    : null}
+                </Flex>
+                <Flex className="abajo">
+                  <MessageForm
+                    handleSubmit={handleSubmit}
+                    text={text}
+                    setText={setText}
+                  />
+                </Flex>
+              </>
+            ) : (
+              <Flex className="topbar">
+                <h3 className="nombreuser"> Select a user to start conversation</h3>
+              </Flex>
+            )}
           </Flex>
         </Flex>
-
-        <Button className="button" onClick={() => newChat()}>CHATS</Button>
-        {users.map((user) => (
-          <User key={user.uid} user={user} selectUser={selecUser} />
-        ))}
-      </Flex>
-      <Flex className="mensajesflex">
-        {chat ? (
-          <>
-            <Flex className="topbar">
-              <h3 className="nombreuser">{chat.email}</h3>
-            </Flex>
-            <Flex className="messagess">
-              {msgs.length
-                ? msgs.map((msg, i) => (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <Message key={i} msg={msg} user1={user1} />
-                ))
-                : null}
-            </Flex>
-            <Flex className="abajo">
-              <MessageForm
-                handleSubmit={handleSubmit}
-                text={text}
-                setText={setText}
-              />
-            </Flex>
-          </>
-        ) : (
-          <Flex className="topbar">
-            <h3 className="nombreuser"> Select a user to start conversation</h3>
-          </Flex>
-        )}
-      </Flex>
-    </Flex>
+      )
+      : null
   );
 }
 
