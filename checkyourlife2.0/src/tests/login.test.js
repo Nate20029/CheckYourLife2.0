@@ -7,12 +7,15 @@ import { Router } from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import { shallow } from 'enzyme';
 import React from 'react';
-  
-import firebase from 'firebase/app';
-import handleLogin from '../Pages/Login'
- 
 import Login from '../Pages/Login';
- 
+import {
+  signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged,
+  sendPasswordResetEmail, signInWithPopup, GoogleAuthProvider, GithubAuthProvider,
+  FacebookAuthProvider,
+} from 'firebase/auth';
+import { auth } from '../Services/firebase.js';
+import '@testing-library/jest-dom'
+
 describe("<Login />", () => {
   it('render the page correctly', () => {
     <Router>
@@ -33,7 +36,7 @@ describe("<Login />", () => {
       <Router location={history.location} navigator={history}>
         <Login />
       </Router>);
- 
+
     const inputEl = screen.getByText("Username");
     expect(inputEl).toBeInTheDocument();
   });
@@ -43,7 +46,7 @@ describe("<Login />", () => {
     render(<Router location={history.location} navigator={history}>
             <Login />
           </Router>);
- 
+
     const passwordEl = screen.getByText("Password");
     expect(passwordEl).toBeInTheDocument();
   });
@@ -53,7 +56,7 @@ describe("<Login />", () => {
     render(<Router location={history.location} navigator={history}>
             <Login />
           </Router>);
- 
+
     const passwordEl = screen.getByText("Forgot password?");
     expect(passwordEl).toBeInTheDocument();
   });
@@ -89,6 +92,32 @@ describe("<Login />", () => {
         getAuth: () => mockGetAuth,
         sendPasswordResetEmail: () => mockSendPassword
     }
-});
+  });
+
+  test('Test SignInwithUserAndPassword', () => {
+
+    const user = null;
+
+    signInWithEmailAndPassword(auth, 'esteban10052002@gmail.com', '123456#')
+      .then((userCredentials) => {
+        user=userCredentials
+      })
+      .then(() => {
+        expect(user).toBe('hBWpwdLtFmbWRQgqLchFVdspNp43');
+      })
+    })
+
+    test('Test createUserWithEmailAndPassword', () => {
+
+      const user = null;
+  
+      createUserWithEmailAndPassword(auth, 'esteban10052002@gmail.com', '123456#')
+        .then((userCredentials) => {
+          user=userCredentials
+        })
+        .then(() => {
+          expect(user).toBe('hBWpwdLtFmbWRQgqLchFVdspNp43');
+        });
+    })
 
 });
