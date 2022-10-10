@@ -9,6 +9,7 @@ import {
 import { auth } from '../Services/firebase.js';
 import '../Components/Login.css';
 import Check from '../Assets/Media/CheckL2.png';
+import { handleSignUp, handleLogin, handleForgot, signInWithGoogle, signInWithGithub, signInWithFacebook } from '../Services/Login';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -24,60 +25,6 @@ function Login() {
       }
     });
   }, []);
-
-  const handleSignUp = () => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredentials) => {
-        const { user } = userCredentials;
-        console.log('Registered with:', user.email);
-      })
-      .catch((error) => alert(error.message));
-  };
-
-  const handleLogin = () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredentials) => {
-        const { user } = userCredentials;
-        console.log('Logged in with:', user.email);
-      })
-      .catch((error) => alert(error.message));
-  };
-
-  const handleForgot = () => {
-    if (email === '') {
-      alert('Ingrese un correo');
-    } else {
-      alert(`Se ha enviado un correo a ${email} para reestablecer la contraseña`);
-      sendPasswordResetEmail(auth, email);
-    }
-  };
-
-  const signInWithGoogle = () => {
-    signInWithPopup(auth, new GoogleAuthProvider())
-      .then((userCredentials) => {
-        const { user } = userCredentials;
-        console.log('Logged in with:', user.email);
-      })
-      .catch((error) => alert(error.message));
-  };
-
-  const signInWithGithub = () => {
-    signInWithPopup(auth, new GithubAuthProvider())
-      .then((userCredentials) => {
-        const { user } = userCredentials;
-        console.log('Logged in with:', user.email);
-      })
-      .catch((error) => alert(error.message));
-  };
-
-  const signInWithFacebook = () => {
-    signInWithPopup(auth, new FacebookAuthProvider())
-      .then((userCredentials) => {
-        const { user } = userCredentials;
-        console.log('Logged in with:', user.email);
-      })
-      .catch((error) => alert(error.message));
-  };
 
   return (
     <div className="main">
@@ -98,6 +45,7 @@ function Login() {
                     required=""
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    data-testid="email"
 
                   />
                   <label>Username</label>
@@ -109,6 +57,7 @@ function Login() {
                     required=""
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    data-testid="password"
                   />
                   <label>Password</label>
                 </div>
