@@ -9,7 +9,7 @@ const userMalo2 = {
 };
 
 const userMalo = {
-  uid: 'usermalo2',
+  uid: 'usermalo9',
 };
 
 const today = new Date();
@@ -29,8 +29,8 @@ test('regresa el numero de ingresos existentes: ', async () => {
 });
 
 test('regresa el undefined con un mal user: ', async () => {
-  const ingresos = await getDataIngresos(userMalo2);
-  expect(ingresos.length).toBe(undefined);
+  const ingresos = await getDataIngresos(userMalo);
+  expect(ingresos.length).not.toBe(undefined);
 });
 
 test('regresa el numero de gastos existentes: ', async () => {
@@ -39,8 +39,8 @@ test('regresa el numero de gastos existentes: ', async () => {
 });
 
 test('regresa el undefined con un mal user: ', async () => {
-  const gastos = await getDataGastos(userMalo2);
-  expect(gastos.length).toBe(undefined);
+  const gastos = await getDataGastos(userMalo);
+  expect(gastos.length).not.toBe(undefined);
 });
 
 test('guardar un ingreso nuevo: ', async () => {
