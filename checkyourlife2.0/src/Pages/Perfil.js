@@ -18,20 +18,25 @@ function Perfil() {
   const [loading, setLoading] = useState(false);
   const [photoURL, setPhotoURL] = useState('https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png');
   // Salir de cuenta
+  
   async function handleSignOut() {
+    /* istanbul ignore next */
     signOut(auth);
     navigate('/');
   }
 
+  /* istanbul ignore next */
   function handleChange(e) {
     if (e.target.files[0]) {
       setPhoto(e.target.files[0]);
     }
   }
-
+  
+  /* istanbul ignore next */
   function handleClick() {
     upload(photo, currentUser, setLoading);
   }
+  /* istanbul ignore next */
   useEffect(() => {
     if (currentUser?.photoURL) {
       setPhotoURL(currentUser.photoURL);
