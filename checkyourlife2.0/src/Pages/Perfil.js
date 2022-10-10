@@ -19,11 +19,13 @@ function Perfil() {
   const [photoURL, setPhotoURL] = useState('https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png');
   // Salir de cuenta
   
-  async function handleSignOut() {
     /* istanbul ignore next */
-    signOut(auth);
-    navigate('/');
-  }
+    async function handleSignOut() {
+      /* istanbul ignore next */
+      signOut(auth);
+      /* istanbul ignore next */
+      navigate('/');
+    }
 
   /* istanbul ignore next */
   function handleChange(e) {
