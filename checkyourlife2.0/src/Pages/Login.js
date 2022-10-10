@@ -15,6 +15,7 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  /* istanbul ignore next */
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
