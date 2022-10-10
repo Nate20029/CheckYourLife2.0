@@ -50,3 +50,9 @@ test('guardar un gasto nuevo: ', async () => {
   const gastos = await getDataGastos(user);
   expect(gastos.length).toBe(2);
 });
+
+test('verifica el doc existente con un usuario incorrecto: ', async () => {
+  verifyDoc(userMalo2);
+  const ingresos = await getDataIngresos(user);
+  expect(ingresos.length).toBe(4);
+});
