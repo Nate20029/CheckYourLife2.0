@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* istanbul ignore file */
 import {
   signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged,
   sendPasswordResetEmail, signInWithPopup, GoogleAuthProvider, GithubAuthProvider,

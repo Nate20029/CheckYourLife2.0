@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged, updateProfile } from 'firebase/auth';
 import {
