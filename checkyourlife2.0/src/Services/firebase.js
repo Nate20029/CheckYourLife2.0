@@ -1,4 +1,5 @@
 // Import the functions you need from the SDKs you need
+/* istanbul ignore file */
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged, updateProfile } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';

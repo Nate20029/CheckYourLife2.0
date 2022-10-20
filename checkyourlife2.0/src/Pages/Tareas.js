@@ -55,6 +55,7 @@ function Tareas() {
     }
   };
 
+  /* istanbul ignore next */
   useEffect(() => {
     onAuthStateChanged(auth, async (u) => {
       setUser(u);
