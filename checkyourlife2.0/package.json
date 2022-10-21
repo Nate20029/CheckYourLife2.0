@@ -38,7 +38,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint src/**",
     "test-jest": "jest",
-    "test": "jest"
+    "test": "jest",
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -56,6 +57,7 @@
     ]
   },
   "devDependencies": {
+    "cypress": "^10.10.0",
     "eslint": "^8.23.1",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.26.0",

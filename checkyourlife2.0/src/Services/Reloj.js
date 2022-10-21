@@ -4,7 +4,6 @@ import { useState, createContext } from 'react';
   setStartAnimate(true);
 }
 
-
 export function pauseTimer() {
   setStartAnimate(false);
 }
