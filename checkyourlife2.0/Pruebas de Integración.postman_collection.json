@@ -1,0 +1,425 @@
+{
+	"info": {
+		"_postman_id": "40153824-c45a-4af7-be1e-38107d9624c4",
+		"name": "Pruebas de Integración",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19267919"
+	},
+	"item": [
+		{
+			"name": "Test if user contains gastos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Correcto\", function() {\r",
+							"    pm.response.to.be.ok;\r",
+							"});\r",
+							"\r",
+							"//var create =\"1/11/2022\";\r",
+							"//pm.test(\"El campo fecha de creación es \" + create, function() {\r",
+							"//    pm.expect(pm.response.json().createTime).to.equal(\"2022-10-19T23:50:03.877664Z\");\r",
+							"//});\r",
+							"\r",
+							"pm.test(\"Body contains gasto\",() => {\r",
+							"    pm.expect(pm.response.json().fields).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.gastos).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.gastos.arrayValue).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.gastos.arrayValue.values).to.be.an(\"array\");\r",
+							"});\r",
+							"\r",
+							"//var update =\"19/10/2022\";\r",
+							"//pm.test(\"El campo fecha de actualización es \" + update, function() {\r",
+							"//    pm.expect(pm.response.json().updateTime).to.equal(\"2022-10-19T23:50:04.519981Z\");\r",
+							"//});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://firestore.googleapis.com/v1/projects/checkyourlife2/databases/(default)/documents/users/4YCOBF6I5xXeVGZngSozZxYwFl73",
+					"protocol": "https",
+					"host": [
+						"firestore",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"v1",
+						"projects",
+						"checkyourlife2",
+						"databases",
+						"(default)",
+						"documents",
+						"users",
+						"4YCOBF6I5xXeVGZngSozZxYwFl73"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test if user contains ingresos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Correcto\", function() {\r",
+							"    pm.response.to.be.ok;\r",
+							"});\r",
+							"\r",
+							"//var create =\"1/11/2022\";\r",
+							"//pm.test(\"El campo fecha de creación es \" + create, function() {\r",
+							"//    pm.expect(pm.response.json().createTime).to.equal(\"2022-10-19T23:50:03.877664Z\");\r",
+							"//});\r",
+							"\r",
+							"pm.test(\"Body contains ingresos\",() => {\r",
+							"    pm.expect(pm.response.json().fields).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.ingresos).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.ingresos.arrayValue).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.ingresos.arrayValue.values).to.be.an(\"array\");\r",
+							"});\r",
+							"\r",
+							"//var update =\"19/10/2022\";\r",
+							"//pm.test(\"El campo fecha de actualización es \" + update, function() {\r",
+							"//    pm.expect(pm.response.json().updateTime).to.equal(\"2022-10-19T23:50:04.519981Z\");\r",
+							"//});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://firestore.googleapis.com/v1/projects/checkyourlife2/databases/(default)/documents/users/4YCOBF6I5xXeVGZngSozZxYwFl73",
+					"protocol": "https",
+					"host": [
+						"firestore",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"v1",
+						"projects",
+						"checkyourlife2",
+						"databases",
+						"(default)",
+						"documents",
+						"users",
+						"4YCOBF6I5xXeVGZngSozZxYwFl73"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test if user contains tasks",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Correcto\", function() {\r",
+							"    pm.response.to.be.ok;\r",
+							"});\r",
+							"\r",
+							"//var create =\"1/11/2022\";\r",
+							"//pm.test(\"El campo fecha de creación es \" + create, function() {\r",
+							"//    pm.expect(pm.response.json().createTime).to.equal(\"2022-10-19T23:50:03.877664Z\");\r",
+							"//});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Body contains tasks\",() => {\r",
+							"    console.log(pm.response.json().fields.tasks);\r",
+							"    pm.expect(pm.response.json().fields).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.tasks).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.tasks.arrayValue).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.tasks.arrayValue.values).to.be.an(\"array\");\r",
+							"});\r",
+							"\r",
+							"//var update =\"19/10/2022\";\r",
+							"//pm.test(\"El campo fecha de actualización es \" + update, function() {\r",
+							"//    pm.expect(pm.response.json().updateTime).to.equal(\"2022-10-19T23:50:04.519981Z\");\r",
+							"//});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://firestore.googleapis.com/v1/projects/checkyourlife2/databases/(default)/documents/users/4YCOBF6I5xXeVGZngSozZxYwFl73",
+					"protocol": "https",
+					"host": [
+						"firestore",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"v1",
+						"projects",
+						"checkyourlife2",
+						"databases",
+						"(default)",
+						"documents",
+						"users",
+						"4YCOBF6I5xXeVGZngSozZxYwFl73"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test create user info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"the endpoint returns the expected status code\", () => {\r",
+							"  // change 200 to the response code you expect\r",
+							"  const expectedStatusCode = 200;\r",
+							"  pm.response.to.have.status(expectedStatusCode);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.ok;\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"response should be okay to process\", function () {\r",
+							"    pm.response.to.not.be.error;\r",
+							"    pm.response.to.be.withBody;\r",
+							"    pm.response.to.have.jsonBody(\"name\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://firestore.googleapis.com/v1/projects/checkyourlife2/databases/(default)/documents/users",
+					"protocol": "https",
+					"host": [
+						"firestore",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"v1",
+						"projects",
+						"checkyourlife2",
+						"databases",
+						"(default)",
+						"documents",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test add data tu user and if its correct",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"the endpoint returns the expected status code\", () => {\r",
+							"  // change 200 to the response code you expect\r",
+							"  const expectedStatusCode = 200;\r",
+							"  pm.response.to.have.status(expectedStatusCode);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.ok;\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"response should be okay to process\", function () {\r",
+							"    pm.response.to.not.be.error;\r",
+							"    pm.response.to.be.withBody;\r",
+							"    pm.response.to.have.jsonBody(\"name\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body contains tasks\",() => {\r",
+							"    console.log(pm.response.json().fields.tasks);\r",
+							"    pm.expect(pm.response.json().fields).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.tasks).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.tasks.arrayValue).to.be.an(\"Object\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"tasks contains field important\",() => {\r",
+							"    console.log(pm.response.json().fields.tasks);\r",
+							"    pm.expect(pm.response.json().fields).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.tasks).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.tasks.arrayValue).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.tasks.arrayValue.values).to.be.an(\"array\");\r",
+							"    pm.expect(pm.response.json().fields.tasks.arrayValue.values[0].mapValue.fields.important).to.be.an(\"Object\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"tasks contains field description\",() => {\r",
+							"    console.log(pm.response.json().fields.tasks);\r",
+							"    pm.expect(pm.response.json().fields).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.tasks).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.tasks.arrayValue).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.tasks.arrayValue.values).to.be.an(\"array\");\r",
+							"    pm.expect(pm.response.json().fields.tasks.arrayValue.values[0].mapValue.fields.description).to.be.an(\"Object\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"tasks contains field title\",() => {\r",
+							"    console.log(pm.response.json().fields.tasks);\r",
+							"    pm.expect(pm.response.json().fields).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.tasks).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.tasks.arrayValue).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.tasks.arrayValue.values).to.be.an(\"array\");\r",
+							"    pm.expect(pm.response.json().fields.tasks.arrayValue.values[0].mapValue.fields.title).to.be.an(\"Object\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"tasks contains field completed\",() => {\r",
+							"    console.log(pm.response.json().fields.tasks);\r",
+							"    pm.expect(pm.response.json().fields).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.tasks).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.tasks.arrayValue).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.tasks.arrayValue.values).to.be.an(\"array\");\r",
+							"    pm.expect(pm.response.json().fields.tasks.arrayValue.values[0].mapValue.fields.completed).to.be.an(\"Object\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"tasks contains field expiration\",() => {\r",
+							"    console.log(pm.response.json().fields.tasks);\r",
+							"    pm.expect(pm.response.json().fields).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.tasks).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.tasks.arrayValue).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.tasks.arrayValue.values).to.be.an(\"array\");\r",
+							"    pm.expect(pm.response.json().fields.tasks.arrayValue.values[0].mapValue.fields.expiration).to.be.an(\"Object\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"important contains the right value\",() => {\r",
+							"    console.log(pm.response.json().fields.tasks);\r",
+							"    pm.expect(pm.response.json().fields).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.tasks).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.tasks.arrayValue).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.tasks.arrayValue.values).to.be.an(\"array\");\r",
+							"    pm.expect(pm.response.json().fields.tasks.arrayValue.values[0].mapValue.fields.important).to.be.an(\"Object\");\r",
+							"    pm.expect(pm.response.json().fields.tasks.arrayValue.values[0].mapValue.fields.important.booleanValue).to.be.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"projects/checkyourlife2/databases/(default)/documents/users/qqlUmlzDPJqu3Pbi0WHj\",\r\n  \"fields\": {\r\n    \"tasks\": {\r\n            \"arrayValue\": {\r\n                \"values\": [\r\n                    {\r\n                        \"mapValue\": {\r\n                            \"fields\": {\r\n                                \"important\": {\r\n                                    \"booleanValue\": true\r\n                                },\r\n                                \"description\": {\r\n                                    \"stringValue\": \"Descripcion de Prueba de Integracion\"\r\n                                },\r\n                                \"title\": {\r\n                                    \"stringValue\": \"Prueba de Integracion\"\r\n                                },\r\n                                \"completed\": {\r\n                                    \"booleanValue\": false\r\n                                },\r\n                                \"expiration\": {\r\n                                    \"arrayValue\": {}\r\n                                }\r\n                            }\r\n                        }\r\n                    }\r\n                ]\r\n            }\r\n        }\r\n  },\r\n    \"createTime\": \"2022-09-26T17:20:19.386739Z\",\r\n    \"updateTime\": \"2022-10-27T00:00:22.821926Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://firestore.googleapis.com/v1/projects/checkyourlife2/databases/(default)/documents/users/qqlUmlzDPJqu3Pbi0WHj",
+					"protocol": "https",
+					"host": [
+						"firestore",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"v1",
+						"projects",
+						"checkyourlife2",
+						"databases",
+						"(default)",
+						"documents",
+						"users",
+						"qqlUmlzDPJqu3Pbi0WHj"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test delete user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"the endpoint returns the expected status code\", () => {\r",
+							"  // change 200 to the response code you expect\r",
+							"  const expectedStatusCode = 200;\r",
+							"  pm.response.to.have.status(expectedStatusCode);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.ok;\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://firestore.googleapis.com/v1/projects/checkyourlife2/databases/(default)/documents/users/QoP5nv8SBSx6T1sN6zLu",
+					"protocol": "https",
+					"host": [
+						"firestore",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"v1",
+						"projects",
+						"checkyourlife2",
+						"databases",
+						"(default)",
+						"documents",
+						"users",
+						"QoP5nv8SBSx6T1sN6zLu"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
