@@ -64,10 +64,6 @@ describe('Login tests', () => {
     cy.get('input').first().type('gal20079@uvg.edu.gt');
     cy.get('input').last().type('Cronograma#19');
     cy.get('form > a').click();
-    cy.contains('Chat');
-    cy.contains('Tareas');
-    cy.contains('Finanzas');
-    cy.contains('Cronometro');
-    cy.contains('Perfil');
+    cy.contains('Chat'); cy.contains('Tareas'); cy.contains('Finanzas'); cy.contains('Cronometro'); cy.contains('Perfil');
   });
 });
