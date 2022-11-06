@@ -49,9 +49,25 @@ describe('The Login Page', () => {
 }); */
 
 describe('Login tests', () => {
-  it('Login puede abrirse', () => {
+  beforeEach(() => {
     cy.visit('http://localhost:3000'); // URL Aplicacion
-    // cy.contains('.profile');
+  });
+
+  it('Pagina Inicial Carga', () => {
+    cy.contains('Username');
+    cy.contains('Password');
+    cy.contains('Login');
     // cy.get('form > a').click();
+  });
+
+  it('Login del usuario ', () => {
+    cy.get('input').first().type('gal20079@uvg.edu.gt');
+    cy.get('input').last().type('Cronograma#19');
+    cy.get('form > a').click();
+    cy.contains('Chat');
+    cy.contains('Tareas');
+    cy.contains('Finanzas');
+    cy.contains('Cronometro');
+    cy.contains('Perfil');
   });
 });
