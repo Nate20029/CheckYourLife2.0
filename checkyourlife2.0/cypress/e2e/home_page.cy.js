@@ -65,5 +65,7 @@ describe('Login tests', () => {
     cy.get('input').last().type('Cronograma#19');
     cy.get('form > a').click();
     cy.contains('Chat'); cy.contains('Tareas'); cy.contains('Finanzas'); cy.contains('Cronometro'); cy.contains('Perfil');
+    cy.get('Perfil');
+    cy.get('.out');
   });
 });
