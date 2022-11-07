@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable import/no-cycle */
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -9,11 +10,12 @@ import {
 import { auth } from '../Services/firebase.js';
 import '../Components/Login.css';
 import Check from '../Assets/Media/CheckL2.png';
-import { handleSignUp, handleLogin, handleForgot, signInWithGoogle, signInWithGithub, signInWithFacebook } from '../Services/Login';
+import { signInWithGoogle, signInWithGithub, signInWithFacebook } from '../Services/Login';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const navigate = useNavigate();
   /* istanbul ignore next */
   useEffect(() => {
@@ -26,6 +28,36 @@ function Login() {
       }
     });
   }, []);
+
+  /* istanbul ignore next */
+  const handleSignUp = () => {
+    console.log({ email });
+    console.log({ password });
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredentials) => {
+        const { user } = userCredentials;
+        console.log('Registered with:', user.email);
+      })
+      .catch((error) => alert(error.message));
+  };
+  /* istanbul ignore next */
+  const handleLogin = () => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredentials) => {
+        const { user } = userCredentials;
+        console.log('Logged in with:', user.email);
+      })
+      .catch((error) => alert(error.message));
+  };
+  /* istanbul ignore next */
+  const handleForgot = () => {
+    if (email === '') {
+      alert('Ingrese un correo');
+    } else {
+      alert(`Se ha enviado un correo a ${email} para reestablecer la contraseña`);
+      sendPasswordResetEmail(auth, email);
+    }
+  };
 
   return (
     <div className="main">
@@ -91,6 +123,7 @@ function Login() {
               </div>
             </div>
           </div>
+          console.log(email);
         </div>
 
       </div>
