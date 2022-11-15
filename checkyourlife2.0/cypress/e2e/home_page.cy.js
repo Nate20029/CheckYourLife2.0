@@ -53,30 +53,30 @@ describe('Login tests', () => {
     cy.visit('http://localhost:3000'); // URL Aplicacion
   });
 
-  it('Pagina Inicial Carga', () => {
+  it.only('Pagina Inicial Carga', () => {
     cy.contains('Username');
     cy.contains('Password');
     cy.contains('Login');
     // cy.get('form > a').click();
   });
 
-  it('Login del usuario externo ', () => {
+  it.only('Login del usuario externo ', () => {
     cy.get('[style="position: absolute; top: 78%; left: 45%; height: 40px; width: 40px; border-radius: 20px; background-color: rgb(20, 39, 155); align-items: center; justify-content: center;"] > button').click({ force: true });
     cy.get('[style="position: absolute; top: 78%; left: 49%; height: 40px; width: 40px; border-radius: 20px; background-color: rgb(244, 67, 54); align-items: center; justify-content: center;"] > button').click({ force: true });
     cy.get('[style="position: absolute; top: 78%; left: 53%; height: 40px; width: 40px; border-radius: 20px; background-color: rgb(21, 101, 192); align-items: center; justify-content: center;"] > button').click({ force: true });
   });
 
-  it('Forget Password ', () => {
+  it.only('Forget Password ', () => {
     cy.get('input').first().type('gal20079@uvg.edu.gt');
     cy.get('.link > :nth-child(1)').click({ force: true });
   });
 
-  it('Sign Up? ', () => {
+  it.only('Sign Up? ', () => {
     cy.get('input').first().type('gal20079@uvg.edu.gt');
     cy.get('.link > :nth-child(2)').click({ force: true });
   });
 
-  it('Login del usuario ', () => {
+  it.only('Login del usuario ', () => {
     cy.get('input').first().type('system@gmail.com');
     cy.get('input').last().type('123456#');
     cy.get('form > a').click();
@@ -87,4 +87,12 @@ describe('Login tests', () => {
     cy.get('.out').click();
     */
   });
+
+  it.only('Navigate', () => {
+    cy.get('#tabs-\\:r1\\:--tab-1').should('be.visible')
+    .click();
+ 
+  });
+
+
 });
