@@ -17,3 +17,6 @@ jobs:
       - name: Run Jest
         working-directory: checkyourlife2.0
         run: npm run test
+      - name: Run NewMan
+        working-directory: checkyourlife2.0
+        run: newman run '.\Pruebas de Integración.postman_collection.json'
