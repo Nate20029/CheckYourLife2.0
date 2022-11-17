@@ -11,8 +11,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: install npm
+      - name: Setup Node.js
         uses: actions/setup-node@v2
-        run: npm install
+        with:
+          node-version: "14"
       - name: Jest run
         run: npm test
