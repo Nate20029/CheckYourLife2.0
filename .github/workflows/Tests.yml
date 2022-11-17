@@ -43,6 +43,6 @@ jobs:
           npm start & npx wait-on http://localhost:3000
         env:
           CI: false
-      - name: run cypress
+      - name: test cypress
         working-directory: checkyourlife2.0
-        run: npm cypress run
+        run: npm run test:e2e
