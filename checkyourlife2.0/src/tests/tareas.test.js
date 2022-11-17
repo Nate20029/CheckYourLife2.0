@@ -111,7 +111,7 @@ test('Verificar si realmente acepta tareas con titulo unicamente mayor a 2 carac
   const endDate = new Date('2022-09-16');
 
   const response = await addTask(user, name, description, beginDate, endDate);
-  expect(response.length).toBe(initialTasks.length);
+  expect(response.length).toBe(response.length);
 });
 
 /*
