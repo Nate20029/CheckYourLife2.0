@@ -20,8 +20,12 @@ jobs:
       - name: Run NewMan
         working-directory: checkyourlife2.0
         run: newman run pruebas_integracion.json
-      - name: E2E Cypress
-        uses: cypress-io/github-action@v4
-        with:
-          working-directory: checkyourlife2.0
-          browser: chrome
+      - name: Run build
+        working-directory: checkyourlife2.0
+        run: npm run build
+      - name: Run start app
+        working-directory: checkyourlife2.0
+        run: npm start
+      - name: Run cypress
+        working-directory: checkyourlife2.0
+        run: npm run test:e2e
