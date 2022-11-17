@@ -40,6 +40,6 @@ jobs:
         run: |
           npm install
           npm run build --if-present
-          npm start & npm cypress run
+          npm start & npm test:e2e
         env:
           CI: false
