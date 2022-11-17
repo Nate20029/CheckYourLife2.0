@@ -40,6 +40,6 @@ jobs:
         run: |
           npm install
           npm run build --if-present
-          npm start & npm test:e2e
+          npm start & npm run test:e2e
         env:
           CI: false
