@@ -57,7 +57,7 @@ export const getData = async (u) => {
 export const addTask = async (user, name, description, beginDate, endDate) => {
   const docRef = doc(db, 'users', user.uid);
   if (name.length > 2) {
-    /* istanbul ignore next */
+    /* istanbul ignore next / */
     exp = (beginDate && endDate) ? [new Date(beginDate), new Date(endDate)] : [];
     /* istanbul ignore next */
     await updateDoc(docRef, {
