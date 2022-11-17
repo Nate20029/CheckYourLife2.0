@@ -13,8 +13,6 @@ import password from '../Pages/Login';
 import Login from '../Pages/Login';
 
 export const handleSignUp = () => {
-  console.log({ email });
-  console.log({ password });
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredentials) => {
       const { user } = userCredentials;

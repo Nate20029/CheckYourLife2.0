@@ -31,8 +31,6 @@ function Login() {
 
   /* istanbul ignore next */
   const handleSignUp = () => {
-    console.log({ email });
-    console.log({ password });
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredentials) => {
         const { user } = userCredentials;
@@ -123,7 +121,6 @@ function Login() {
               </div>
             </div>
           </div>
-          console.log(email);
         </div>
 
       </div>
