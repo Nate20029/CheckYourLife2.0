@@ -16,4 +16,5 @@ jobs:
         with:
           node-version: "14"
       - name: Jest run
+        working-directory: .\checkyourlife2.0
         run: npm test
