@@ -21,8 +21,8 @@ jobs:
         working-directory: checkyourlife2.0
         run: newman run pruebas_integracion.json
       - name: Cypress run
-        working-directory: checkyourlife2.0
         uses: cypress-io/github-action@v4.2.0
         with:
+          working-directory: checkyourlife2.0
           build: npm run build
           start: npm start
