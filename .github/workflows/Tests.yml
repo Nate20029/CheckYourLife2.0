@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: go to checkyourlife
-        run: cd .\checkyourlife2.0
+        run: cd checkyourlife2.0
       - name: Checkout
         uses: actions/checkout@v2
       - name: Jest run
