@@ -11,11 +11,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
+      - uses: actions/setup-node@v2
+        working-directory: checkyourlife2.0
         with:
-          build: npm run build
-          start: npm start
-        working-directory: ./checkyourlife2.0
+          node-version: "12.x"
       - name: Jest run
         run: npm test
