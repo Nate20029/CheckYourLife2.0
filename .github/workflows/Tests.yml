@@ -6,6 +6,17 @@ on:
       - develop
 
 jobs:
+  run-app:
+    timeout-minutes: 120
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run build
+        working-directory: checkyourlife2.0
+        run: CI="" npm run build
+      - name: Run start app
+        working-directory: checkyourlife2.0
+        run: CI="" npm run start
+
   run-tests:
     runs-on: ubuntu-latest
     steps:
@@ -20,12 +31,6 @@ jobs:
       - name: Run NewMan
         working-directory: checkyourlife2.0
         run: newman run pruebas_integracion.json
-      - name: Run build
-        working-directory: checkyourlife2.0
-        run: CI="" npm run build
-      - name: Run start app
-        working-directory: checkyourlife2.0
-        run: CI="" npm run start
       - name: Run cypress
         working-directory: checkyourlife2.0
         run: npm run test:e2e
