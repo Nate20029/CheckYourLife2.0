@@ -22,10 +22,10 @@ jobs:
         run: newman run pruebas_integracion.json
       - name: Run build
         working-directory: checkyourlife2.0
-        run: npm run build
+        run: CI="" npm run build
       - name: Run start app
         working-directory: checkyourlife2.0
-        run: npm start
+        run: CI="" npm run start
       - name: Run cypress
         working-directory: checkyourlife2.0
         run: npm run test:e2e
