@@ -40,12 +40,6 @@ jobs:
         run: |
           npm install
           npm run build --if-present
-          npm start & npx wait-on http://localhost:3000
+          npm start & npm cypress run
         env:
           CI: false
-      - name: run cypress
-        working-directory: checkyourlife2.0
-        run: npm run test:e2e & npx wait-on http://localhost:3000
-      - name: terminate app
-        working-directory: checkyourlife2.0
-        run: ^C
