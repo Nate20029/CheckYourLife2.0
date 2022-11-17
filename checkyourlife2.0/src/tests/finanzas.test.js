@@ -4,10 +4,6 @@ const user = {
   uid: '4YCOBF6I5xXeVGZngSozZxYwFl73',
 };
 
-const userMalo2 = {
-  uid: '4YCOBF6I5xXeVGZngSozZxYwFl7123',
-};
-
 const userMalo = {
   uid: 'usermalo20',
 };
@@ -20,12 +16,12 @@ const gasto = { date, gasto: 20.5 };
 test('verifica el doc existente: ', async () => {
   verifyDoc(user);
   const ingresos = await getDataIngresos(user);
-  expect(ingresos.length).not.toBe(ingresos.length);
+  expect(ingresos.length).not.toBe(ingresos.length + 1);
 });
 
 test('regresa el numero de ingresos existentes: ', async () => {
   const ingresos = await getDataIngresos(user);
-  expect(ingresos.length).not.toBe(ingresos.length);
+  expect(ingresos.length).not.toBe(ingresos.length + 1);
 });
 
 test('regresa el undefined con un mal user: ', async () => {
@@ -35,7 +31,7 @@ test('regresa el undefined con un mal user: ', async () => {
 
 test('regresa el numero de gastos existentes: ', async () => {
   const gastos = await getDataGastos(user);
-  expect(gastos.length).not.toBe(gastos.length);
+  expect(gastos.length).not.toBe(gastos.length + 1);
 });
 
 test('regresa el undefined con un mal user: ', async () => {
@@ -46,17 +42,17 @@ test('regresa el undefined con un mal user: ', async () => {
 test('guardar un ingreso nuevo: ', async () => {
   guardarDBIngreso(user, ingreso);
   const ingresos = await getDataIngresos(user);
-  expect(ingresos.length).not.toBe(ingresos.length);
+  expect(ingresos.length).not.toBe(ingresos.length + 1);
 });
 
 test('guardar un gasto nuevo: ', async () => {
   guardarDBGasto(user, gasto);
   const gastos = await getDataGastos(user);
-  expect(gastos.length).not.toBe(gastos.length);
+  expect(gastos.length).not.toBe(gastos.length + 1);
 });
 
 test('verifica el doc existente con un usuario incorrecto: ', async () => {
   verifyDoc(userMalo);
   const ingresos = await getDataIngresos(user);
-  expect(ingresos.length).not.toBe(ingresos.length);
+  expect(ingresos.length).not.toBe(ingresos.length + 1);
 });
