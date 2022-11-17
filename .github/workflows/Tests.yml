@@ -44,4 +44,6 @@ jobs:
         env:
           CI: false
       - working-directory: checkyourlife2.0
-        run: npm run test:e2e
+        run: npm run test:e2e & npx wait-on http://localhost:3000
+      - terminate-app: checkyourlife2.0
+        run: ^C
