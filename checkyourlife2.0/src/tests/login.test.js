@@ -134,6 +134,5 @@ describe('<Login />', () => {
       .then(() => {
         expect(user).toBe('hBWpwdLtFmbWRQgqLchFVdspNp43');
       });
-  });
+  }); */
 });
-*/
