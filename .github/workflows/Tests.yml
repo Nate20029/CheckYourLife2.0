@@ -28,5 +28,5 @@ jobs:
           npm start & npx wait-on http://localhost:3000
         env:
           CI: false
-        working-directory: checkyourlife2.0
+      - working-directory: checkyourlife2.0
         run: npm run test:e2e
