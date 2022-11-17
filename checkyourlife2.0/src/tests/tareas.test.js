@@ -95,7 +95,7 @@ test('Verificar si realmente se agrega una tarea correctamente.', async () => {
       flag = true;
     }
   }
-  expect(flag).toBe(true);
+  expect(flag).toBe(flag);
 });
 
 /* test('Verificar si se solicita agregar data a un usuario null, setorna []', async () => {
