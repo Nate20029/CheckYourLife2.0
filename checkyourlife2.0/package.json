@@ -39,7 +39,8 @@
     "lint": "eslint src/**",
     "test-jest": "jest",
     "test": "jest",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "test:e2e": "cypress run"
   },
   "eslintConfig": {
     "extends": "react-app"
