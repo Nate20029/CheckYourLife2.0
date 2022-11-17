@@ -90,9 +90,6 @@ describe('Login tests', () => {
 
   it.only('Navigate', () => {
     cy.get('#tabs-\\:r1\\:--tab-1').should('be.visible')
-    .click();
- 
+      .click();
   });
-
-
 });
