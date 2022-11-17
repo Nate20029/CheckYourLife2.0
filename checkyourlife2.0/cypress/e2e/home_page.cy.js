@@ -88,11 +88,11 @@ describe('Login tests', () => {
     */
   });
 
-  it.only('Navigate', () => {
-    cy.get('#tabs-\\:r1\\:--tab-1').should('be.visible')
-    .click();
- 
+  it.only('Log Out', () => {
+    cy.get('#tabs-\\:r1\\:--tab-4').should('be.visible').click();
+    cy.get('.out').click();
+    cy.contains('Username');
+    cy.contains('Password');
+    cy.contains('Login');
   });
-
-
 });
