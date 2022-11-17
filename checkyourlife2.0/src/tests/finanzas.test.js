@@ -19,10 +19,10 @@ test('verifica el doc existente: ', async () => {
   expect(ingresos.length).not.toBe(ingresos.length + 1);
 });
 
-test('regresa el numero de ingresos existentes: ', async () => {
+/* test('regresa el numero de ingresos existentes: ', async () => {
   const ingresos = await getDataIngresos(user);
   expect(ingresos.length).not.toBe(ingresos.length + 1);
-});
+}); */
 
 test('regresa el undefined con un mal user: ', async () => {
   const ingresos = await getDataIngresos(userMalo);
