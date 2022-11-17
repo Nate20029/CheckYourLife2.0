@@ -123,6 +123,7 @@ describe('<Login />', () => {
       .catch((error) => alert(error.message));
   }); */
 
+  /*
   test('Test createUserWithEmailAndPassword', () => {
     const user = null;
     const initialTasks = handleSignUp();
@@ -135,3 +136,4 @@ describe('<Login />', () => {
       });
   });
 });
+*/
