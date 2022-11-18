@@ -112,7 +112,7 @@ describe('<Login />', () => {
     sendPasswordResetEmail: () => mockSendPassword,
   }));
 
-  /* test('Test signInWithEmailAndPassword', () => {
+  /* *test('Test signInWithEmailAndPassword', () => {
     const user = null;
     const initialTasks = handleSignUp();
     signInWithEmailAndPassword(auth, 'esteban10052002@gmail.com', '123456#')
