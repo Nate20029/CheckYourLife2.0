@@ -48,6 +48,8 @@ describe('The Login Page', () => {
   });
 }); */
 
+
+/* Parte de prubas de Login */
 describe('Login tests', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000'); // URL Aplicacion
@@ -88,6 +90,13 @@ describe('Login tests', () => {
     */
   });
 
+  /* Parte de prubas de tareas */
+  it.only('Navegar a Tareas ', () => {
+    cy.get('#tabs-\\:r1\\:--tab-1').should('be.visible').click();
+    cy.contains('.dates_inner_carousel > :nth-child(1)');
+  });
+
+  /* Parte de prubas de finanzas */
   it.only('Prueba de Finanzas ', () => {
     cy.get('#tabs-\\:r1\\:--tab-2').should('be.visible').click();
     cy.get(':nth-child(2) > .chakra-input').type('45');
@@ -100,6 +109,14 @@ describe('Login tests', () => {
     */
   });
 
+  /* Parte de prubas de cronometro */
+  it.only('Navegar a Cronometro ', () => {
+    cy.get('#tabs-\\:r1\\:--tab-3').should('be.visible').click();
+    cy.contains('Cronometro');
+  });
+
+
+  /* Parte de prubas de perfil */
   it.only('Log Out', () => {
     cy.get('#tabs-\\:r1\\:--tab-4').should('be.visible').click();
     cy.get('.out').click();
