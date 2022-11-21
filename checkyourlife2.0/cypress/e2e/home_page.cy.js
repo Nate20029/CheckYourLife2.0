@@ -90,12 +90,14 @@ describe('Login tests', () => {
   });
 
   /* Parte de prubas de chat */
+  /*
   it.only('Mensaje en el chat ', () => {
     cy.get('#tabs-\\:r1\\:--tab-1').should('be.visible').click();
     cy.get(':nth-child(3) > :nth-child(1) > .css-k008qs > .chakra-text').click({ force: true });
-    cy.get('.textomensaje').type('Hola Esto es una Prueba');
+    cy.get('.textomensaje').type('Hola Esto es una Prueba', { force: true });
     cy.get('.botonenviar > button').click();
   });
+  */
 
   /* Parte de prubas de tareas */
   it.only('Navegar a Tareas ', () => {
