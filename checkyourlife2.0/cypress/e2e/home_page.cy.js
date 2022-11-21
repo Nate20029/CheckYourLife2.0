@@ -88,6 +88,18 @@ describe('Login tests', () => {
     */
   });
 
+  it.only('Prueba de Finanzas ', () => {
+    cy.get('#tabs-\\:r1\\:--tab-2').should('be.visible').click();
+    cy.get(':nth-child(2) > .chakra-input').type('45');
+    cy.get('.botonorange').click();
+    cy.get(':nth-child(4) > .chakra-input').type('67');
+    cy.get('.botonblue').click();
+    /*
+    cy.get('#tabs-:r1:--tab-4');
+    cy.get('.out').click();
+    */
+  });
+
   it.only('Log Out', () => {
     cy.get('#tabs-\\:r1\\:--tab-4').should('be.visible').click();
     cy.get('.out').click();
