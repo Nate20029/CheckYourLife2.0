@@ -48,7 +48,6 @@ describe('The Login Page', () => {
   });
 }); */
 
-
 /* Parte de prubas de Login */
 describe('Login tests', () => {
   beforeEach(() => {
@@ -93,7 +92,12 @@ describe('Login tests', () => {
   /* Parte de prubas de tareas */
   it.only('Navegar a Tareas ', () => {
     cy.get('#tabs-\\:r1\\:--tab-1').should('be.visible').click();
-    cy.contains('.dates_inner_carousel > :nth-child(1)');
+  });
+
+  it.only('Busqueda de Tarea ', () => {
+    cy.get('#tabs-\\:r1\\:--tab-1').should('be.visible').click();
+    cy.get('.search_task_panel > .search_inner_container > .chakra-input').type('ejemplo');
+    cy.get('.chakra-checkbox__control').click();
   });
 
   /* Parte de prubas de finanzas */
@@ -114,7 +118,6 @@ describe('Login tests', () => {
     cy.get('#tabs-\\:r1\\:--tab-3').should('be.visible').click();
     cy.contains('Cronometro');
   });
-
 
   /* Parte de prubas de perfil */
   it.only('Log Out', () => {
