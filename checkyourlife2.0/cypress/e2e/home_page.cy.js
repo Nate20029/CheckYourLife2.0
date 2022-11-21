@@ -119,6 +119,22 @@ describe('Login tests', () => {
     cy.contains('Cronometro');
   });
 
+  it.only('Prueba de Cronometro ', () => {
+    cy.get('#tabs-\\:r1\\:--tab-3').should('be.visible').click();
+    cy.get('form > button').click();
+    cy.get('.stopwatch-btn').click();
+    cy.get('.stopwatch-btn').click();
+    cy.get('.stopwatch-btn-yel').click();
+    cy.get('.active').click();
+    cy.get('.button-wrapper > :nth-child(2)').click();
+  });
+
+  it.only('Subir Foto de Perfil ', () => {
+    cy.get('#tabs-\\:r1\\:--tab-4').should('be.visible').click();
+    cy.get('.inputb').selectFile('cypress/fixtures/2.png');
+    cy.get('.but').click();
+  });
+
   /* Parte de prubas de perfil */
   it.only('Log Out', () => {
     cy.get('#tabs-\\:r1\\:--tab-4').should('be.visible').click();
